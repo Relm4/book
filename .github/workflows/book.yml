@@ -46,6 +46,7 @@ jobs:
         if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: Relm4/website
           publish_dir: ./book
           keep_files: false
           destination_dir: ./book
