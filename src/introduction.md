@@ -1,10 +1,12 @@
 <h1>
-  <img src="img/Relm_logo_with_text.png" width="190" alt="Relm4">
+  <a href="https://relm4.org">
+    <img src="img/Relm_logo_with_text.png" width="190" alt="Relm4">
+  </a>
 </h1>
 
 [![Matrix](https://img.shields.io/matrix/relm4:matrix.org?label=matrix%20chat)](https://matrix.to/#/#relm4:matrix.org)
 [![Relm4 on crates.io](https://img.shields.io/crates/v/relm4.svg)](https://crates.io/crates/relm4)
-[![Relm4 docs](https://img.shields.io/badge/rust-documentation-blue)](https://aaronerhardt.github.io/docs/relm4/relm4/)
+[![Relm4 docs](https://img.shields.io/badge/rust-documentation-blue)](https://relm4.org/docs/stable/relm4/)
 
 Relm4 is an idiomatic GUI library inspired by [Elm](https://elm-lang.org/) and based on [gtk4-rs](https://crates.io/crates/gtk4). 
 It is a new version of [relm](https://github.com/antoyo/relm) that's built from scratch and is compatible with [GTK4](https://www.gtk.org/) and [libadwaita](https://gitlab.gnome.org/GNOME/libadwaita).
@@ -61,7 +63,6 @@ To setup the examples run
 ```bash
 git clone https://github.com/AaronErhardt/relm4.git
 cd relm4
-cd relm4-examples
 ```
 
 And to run an example, simply type
