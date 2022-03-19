@@ -18,7 +18,7 @@ Components are mainly useful for separating parts of the UI into smaller, more m
 
 Let's write a small example app to see how components can be used in action. For this example, we write parts of an app that can edit images.
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/components.rs). Run `cargo run --example components` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/relm4/blob/main/examples/components.rs). Run `cargo run --example components` from the [example directory](https://github.com/Relm4/relm4/tree/main/examples) if you want to see the code in action.
 
 ## The header bar
 

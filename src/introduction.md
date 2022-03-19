@@ -54,7 +54,7 @@ All platforms supported by GTK4 are available for Relm4 as well:
 
 If you prefer learning directly from examples, we got you covered!
 
-Many code examples in this book and many other examples can also be found in the [relm4-examples crate](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples). Whenever an example is discussed in the book, the introduction will mention the name of the example and provide a link to it.
+Many code examples in this book and many other examples can also be found in the [relm4-examples crate](https://github.com/Relm4/relm4/tree/main/examples). Whenever an example is discussed in the book, the introduction will mention the name of the example and provide a link to it.
 
 To setup the examples run
 

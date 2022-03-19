@@ -11,7 +11,7 @@ Clicking on a counter will decrement it.
 
 Let's have a look at factories in Relm4. We want to write a simple application that can create and remove many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/factory.rs). Run `cargo run --example factory` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/relm4/blob/main/examples/factory.rs). Run `cargo run --example factory` from the [example directory](https://github.com/Relm4/relm4/tree/main/examples) if you want to see the code in action.
 
 ### The model
 

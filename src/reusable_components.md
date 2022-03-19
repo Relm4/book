@@ -10,7 +10,7 @@ This is how the dialog looks like in the alert example:
 
 ![App screenshot dark](img/screenshots/reusable-alert-dark-2.png)
 
-> If you want to see an alert component, very similar to the one we will write in this chapter, used inside a Relm4 application have a look at the [“alert” example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/alert.rs). Run `cargo run --example alert` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> If you want to see an alert component, very similar to the one we will write in this chapter, used inside a Relm4 application have a look at the [“alert” example](https://github.com/Relm4/relm4/blob/main/examples/alert.rs). Run `cargo run --example alert` from the [example directory](https://github.com/Relm4/relm4/tree/main/examples) if you want to see the code in action.
 
 Reusable components don’t know their parent component at the time they are implemented. So if they want to interact with their parent component, they must assume that their parent model implements a trait as an interface for the component.
 

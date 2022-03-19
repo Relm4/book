@@ -12,7 +12,7 @@ The `FactoryVec` we used in the previous chapter is sufficient for simple applic
 
 To show this, we'll create a similar counter app to the one of the previous chapter, but this time on **steroids**: we'll add functionality to add counters before and after a specific counter and to remove a certain counter. To get the required flexibility, we'll use the `FactoryVecDeque` type instead of a `FactoryVec`.
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/factory_advanced.rs). Run `cargo run --example factory_advanced` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/relm4/blob/main/examples/factory_advanced.rs). Run `cargo run --example factory_advanced` from the [example directory](https://github.com/Relm4/relm4/tree/main/examples) if you want to see the code in action.
 
 ## Indices
 

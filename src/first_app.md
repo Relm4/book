@@ -6,7 +6,7 @@ For our first app, let's create something original: a counter app.
 
 In this app, we will have a counter which can be incremented and decremented by pressing the corresponding buttons.
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/simple_manual.rs). Run `cargo run --example simple_manual` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/relm4/blob/main/examples/simple_manual.rs). Run `cargo run --example simple_manual` from the [example directory](https://github.com/Relm4/relm4/tree/main/examples) if you want to see the code in action.
 
 ## Application architecture
 

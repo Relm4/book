@@ -79,7 +79,7 @@ So in short, the `tracker::track` macro provides different getters and setters t
 
 Let's build a simple app that shows two random icons and allows the user to set each of them to a new random icon. As a bonus, we want to show a fancy background color if both icons are the same.
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/tracker.rs). Run `cargo run --example tracker` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/relm4/blob/main/examples/tracker.rs). Run `cargo run --example tracker` from the [example directory](https://github.com/Relm4/relm4/tree/main/examples) if you want to see the code in action.
 
 ## The icons
 

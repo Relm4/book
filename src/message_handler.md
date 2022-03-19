@@ -15,7 +15,7 @@ To keep it simple, we will create another counter app. Yet this time, every clic
 
 ![App screenshot dark](img/screenshots/simple-dark.png)
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/non_blocking_async.rs). Run `cargo run --example non_blocking_async` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/relm4/blob/main/examples/non_blocking_async.rs). Run `cargo run --example non_blocking_async` from the [example directory](https://github.com/Relm4/relm4/tree/main/examples) if you want to see the code in action.
 
 ### The timing
 

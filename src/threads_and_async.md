@@ -55,7 +55,7 @@ Instead of `RelmComponent::new` we used `RelmComponent::with_new_thread`. The sa
 
 ## Async
 
-Async update functions are exclusive for workers and message handlers currently (if you need async components please open an issue). If you enable the tokio-rt feature, you can use an `AsyncRelmWorker` type that uses an async update function from the `AsyncComponentUpdate` trait. Apart from that, they are just like normal workers that run in a new thread. The ["tokio" example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/tokio.rs) shows how this can be used with for async HTTP requests.
+Async update functions are exclusive for workers and message handlers currently (if you need async components please open an issue). If you enable the tokio-rt feature, you can use an `AsyncRelmWorker` type that uses an async update function from the `AsyncComponentUpdate` trait. Apart from that, they are just like normal workers that run in a new thread. The ["tokio" example](https://github.com/Relm4/relm4/blob/main/examples/tokio.rs) shows how this can be used with for async HTTP requests.
 
 ### Non blocking async
 
@@ -65,7 +65,7 @@ For example, if you have an app that fetches the avatar images of many users and
 
 There are three ways to improve this: 
 
-+ Create your own async runtime in message handler. This is shown in the [non_blocking_async example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/non_blocking_async.rs).
++ Create your own async runtime in message handler. This is shown in the [non_blocking_async example](https://github.com/Relm4/relm4/blob/main/examples/non_blocking_async.rs).
 + Send a vector with all avatar images you need to your worker, so it can send all asynchronous requests at once.
 + Spawn a new thread for each message that sends a HTTP request and sends a message back.
 
@@ -88,4 +88,4 @@ std::thread::spawn(move || {
 
 ### Async inside the main event loop
 
-GTK uses an event loop from glib to handle asynchronous events. In fact the senders we've been using all the time use channels on that event loop. This event loop also allows us to execute futures. Relm4 provides a `spawn_future` function to do exactly that. The only drawback of this is that most crates relying on a tokio runtime won't work and that the future is run on the main thread. The ["future" example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/future.rs) shows how this can be used.
+GTK uses an event loop from glib to handle asynchronous events. In fact the senders we've been using all the time use channels on that event loop. This event loop also allows us to execute futures. Relm4 provides a `spawn_future` function to do exactly that. The only drawback of this is that most crates relying on a tokio runtime won't work and that the future is run on the main thread. The ["future" example](https://github.com/Relm4/relm4/blob/main/examples/future.rs) shows how this can be used.
