@@ -30,7 +30,7 @@ The solution Relm4 chose was dynamic indices. These indices are updated automati
 {{#include ../examples/factory_advanced.rs:msg }}
 ```
 
-As you can see, we use a lot of `MsgIndex` aka `Weak<DynamicIndex>`. This allows us to always hold a reference to the dynamic index value.
+As you can see, we use a lot of `WeakDynamicIndex` aka `Weak<DynamicIndex>`. This allows us to always hold a reference to the dynamic index value.
 
 The reason we use weak pointers here is that we don’t want to hold references to invalid indices. We don’t know if our messages are handled immediately or queued up instead, so the data the index was pointing at could have been replaced by a new data in the meantime. Usually this happens so rarely that this can be ignored, but with the weak pointers we guarantee that the indices are not kept alive in the message queue and we will never use a stale index.
 
