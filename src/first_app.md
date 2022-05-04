@@ -53,7 +53,7 @@ Also, we return `true` to tell the computer to keep our application alive. If ou
 
 ### The widgets
 
-The computer is now able to process and remember information, but we still need an interface to for communication with the user.
+The computer is now able to process and remember information, but we still need an interface to communicate with the user.
 
 GTK4 offers the computer widgets that allow it to take input and to respond. Widgets are simply parts of an UI like buttons, input fields or text areas. To be able to update the widgets in our program, we can put them all into a `struct`.
 
