@@ -42,12 +42,12 @@ Most applications need to store settings at some point. GTK makes that pretty si
 
 Relm4 has factories for generating widgets from collections of data. GTK has a similar mechanism that should be used for large list. Because GTK knows which widgets of a list are actually shown it can optimize the rendering and memory usage a lot better.
 
-**Read more about lists in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/lists.html)**.
+**Read more about lists in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/list_widgets.html)**.
 
-## Interface builder
+## Composite Templates
 
-Relm4 leaves it up to you how to create you UI. You can do it manually like in our first app, you can do with the widget macro or you can use the interface builder from GTK.
+Relm4 leaves it up to you how to create you UI. You can do it manually like in our first app, you can do with the widget macro or you can use the composite templates from GTK.
 
-With the interface builder, you can use a XML file to specify your widgets and properties.
+With the composite templates, you can use a XML file to specify your widgets and properties.
 
-**Read more about the interface builder in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/interface_builder.html)**.
+**Read more about the composite templates in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/composite_templates.html)**.
