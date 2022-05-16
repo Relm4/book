@@ -33,15 +33,55 @@ In Relm4, a message can be any data type, but most often, an `enum` is used. In 
 {{#include ../examples/simple_manual.rs:msg }}
 ```
 
+<!-- TODO: Move this into a new chapter -->
+
 Computers are capable of both sending and receiving messages, and so, components in Relm4 can send and receive messages to and from themselves and other components.
 
 This is accomplished by having two types of messages:
 - **Input** messages are sent and received by components and handled in the `update` function.
-- **Output** messages are sent by components to other components. 
+- **Output** messages are sent by components to other components.
+
+Output is handled in two ways:
+
+#### Components
+
+**Components** need to store their child components inside the model using `Controller<ChildModel>` and handle output messages in the `init` function using the `forward` method inside the controller.
+
+```rust
+fn init(counter: Self::InitParams, root: &Self::Root, sender: &ComponentSender<Self>) -> ComponentParts<Self> {
+    let mut model = Model { 
+        child: CounterModel::builder().launch(()).forward(&sender.input, |message| match message {
+            CounterOutput::SendFront(index) => AppMsg::SendFront(index),
+            CounterOutput::MoveUp(index) => AppMsg::MoveUp(index),
+            CounterOutput::MoveDown(index) => AppMsg::MoveDown(index),
+        })  
+    };
+    let widgets = view_outout!();
+    ComponentParts { model, widgets }
+}
+```
+
+Once you initialize the child components, you can forward messages from them using the `forward` method to your parent component and handle them in the `update` function.
+
+#### Factories
+
+**Factories** can call `output_to_parent_msg` to send messages to their parent component.
 
 You can send output messages using the `output_to_parent_msg` function from the sender component and receive them in the `forward` function inside the receiver component.
 
+```rust
+fn output_to_parent_msg(output: Self::Output) -> Option<AppMsg> {
+    Some(match output {
+        CounterOutput::SendFront(index) => AppMsg::SendFront(index),
+        CounterOutput::MoveUp(index) => AppMsg::MoveUp(index),
+        CounterOutput::MoveDown(index) => AppMsg::MoveDown(index),
+    })
+}
+```
+
 We will explain this througly in another chapter.
+
+<!-- TODO: Move this into a new chapter -->
 
 ### The model
 
@@ -103,7 +143,7 @@ The first thing you need to do is to define some generic types necessary to make
 
 The types defined in the trait tell our component how it should communicate with other components and what widgets should be produced.
 
-The `Root` type is the outermost widget of the app. Components can choose this type freely, but the main application must use an `ApplicationWindow`.
+The `Root` type is the outermost widget of the app. Components can choose this type freely, but the main application must use a `Window`.
 
 Since the window widget is our root widget, we define that in the `init_root` function.
 
