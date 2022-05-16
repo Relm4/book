@@ -1,95 +1,80 @@
 // ANCHOR: all
-use gtk::prelude::{BoxExt, ButtonExt, DialogExt, GtkWindowExt, ToggleButtonExt, WidgetExt};
-use relm4::Sender;
+use gtk::prelude::{ButtonExt, DialogExt, GtkWindowExt, ToggleButtonExt, WidgetExt};
 use relm4::*;
 
+// ANCHOR: header_model
+struct HeaderModel;
+// ANCHOR_END: header_model
+
 // ANCHOR: header_msg
-enum HeaderMsg {
+enum HeaderOutput {
     View,
     Edit,
     Export,
 }
 // ANCHOR_END: header_msg
 
-// ANCHOR: header_model
-struct HeaderModel {}
-// ANCHOR_END: header_model
+// ANCHOR: header
 
-// ANCHOR: header_model_impl
-impl Model for HeaderModel {
-    type Msg = HeaderMsg;
+#[relm4::component]
+impl SimpleComponent for HeaderModel {
+    type Input = ();
+
+    type Output = HeaderOutput;
+
+    type InitParams = ();
+
     type Widgets = HeaderWidgets;
-    type Components = ();
-}
-// ANCHOR_END: header_model_impl
 
-// ANCHOR: header_update
-impl ComponentUpdate<AppModel> for HeaderModel {
-    fn init_model(_parent_model: &AppModel) -> Self {
-        HeaderModel {}
-    }
-
-    fn update(
-        &mut self,
-        msg: HeaderMsg,
-        _components: &(),
-        _sender: Sender<HeaderMsg>,
-        parent_sender: Sender<AppMsg>,
-    ) {
-        match msg {
-            HeaderMsg::View => {
-                send!(parent_sender, AppMsg::SetMode(AppMode::View));
-            }
-            HeaderMsg::Edit => {
-                send!(parent_sender, AppMsg::SetMode(AppMode::Edit));
-            }
-            HeaderMsg::Export => {
-                send!(parent_sender, AppMsg::SetMode(AppMode::Export));
-            }
-        }
-    }
-}
-// ANCHOR_END: header_update
-
-// ANCHOR: header_widgets
-#[relm4_macros::widget]
-impl Widgets<HeaderModel, AppModel> for HeaderWidgets {
     view! {
+        #[root]
         gtk::HeaderBar {
             set_title_widget = Some(&gtk::Box) {
                 add_css_class: "linked",
-                append: group = &gtk::ToggleButton {
+                #[name = "group"]
+                gtk::ToggleButton {
                     set_label: "View",
                     set_active: true,
-                    connect_toggled(sender) => move |btn| {
+                    connect_toggled[sender] => move |btn| {
                         if btn.is_active() {
-                            send!(sender, HeaderMsg::View);
+                            sender.output.send(HeaderOutput::View)
                         }
                     },
                 },
-                append = &gtk::ToggleButton {
+                gtk::ToggleButton {
                     set_label: "Edit",
                     set_group: Some(&group),
-                    connect_toggled(sender) => move |btn| {
+                    connect_toggled[sender] => move |btn| {
                         if btn.is_active() {
-                            send!(sender, HeaderMsg::Edit);
+                            sender.output.send(HeaderOutput::Edit)
                         }
                     },
                 },
-                append = &gtk::ToggleButton {
+                gtk::ToggleButton {
                     set_label: "Export",
                     set_group: Some(&group),
-                    connect_toggled(sender) => move |btn| {
+                    connect_toggled[sender] => move |btn| {
                         if btn.is_active() {
-                            send!(sender, HeaderMsg::Export);
+                            sender.output.send(HeaderOutput::Export)
                         }
                     },
                 },
             }
         }
     }
+
+    fn init(
+        _params: Self::InitParams,
+        root: &Self::Root,
+        sender: &ComponentSender<Self>,
+    ) -> ComponentParts<Self> {
+        let model = HeaderModel;
+        let widgets = view_output!();
+        ComponentParts { model, widgets }
+    }
 }
-// ANCHOR_END: header_widgets
+
+// ANCHOR_END: header
 
 // ANCHOR: dialog_model
 struct DialogModel {
@@ -98,91 +83,68 @@ struct DialogModel {
 // ANCHOR_END: dialog_model
 
 // ANCHOR: dialog_msg
-enum DialogMsg {
+enum DialogInput {
     Show,
     Accept,
     Cancel,
 }
+
+enum DialogOutput {
+    Close
+}
 // ANCHOR_END: dialog_msg
 
-// ANCHOR: dialog_model_impl
-impl Model for DialogModel {
-    type Msg = DialogMsg;
+#[relm4::component]
+impl SimpleComponent for DialogModel {
+    type Input = DialogInput;
+
+    type Output = DialogOutput;
+
+    type InitParams = bool;
+
     type Widgets = DialogWidgets;
-    type Components = ();
-}
-// ANCHOR_END: dialog_model_impl
 
-// ANCHOR: dialog_update
-impl ComponentUpdate<AppModel> for DialogModel {
-    fn init_model(_parent_model: &AppModel) -> Self {
-        DialogModel { hidden: true }
-    }
-
-    fn update(
-        &mut self,
-        msg: DialogMsg,
-        _components: &(),
-        _sender: Sender<DialogMsg>,
-        parent_sender: Sender<AppMsg>,
-    ) {
-        match msg {
-            DialogMsg::Show => self.hidden = false,
-            DialogMsg::Accept => {
-                self.hidden = true;
-                send!(parent_sender, AppMsg::Close);
-            }
-            DialogMsg::Cancel => self.hidden = true,
-        }
-    }
-}
-// ANCHOR_END: dialog_update
-
-// ANCHOR: dialog_widgets
-#[relm4_macros::widget]
-impl Widgets<DialogModel, AppModel> for DialogWidgets {
     view! {
         gtk::MessageDialog {
-            set_transient_for: Some(&parent_widgets.main_window),
             set_modal: true,
-            set_visible: watch!(!model.hidden),
+            #[watch]
+            set_visible: !model.hidden,
             set_text: Some("Do you want to close before saving?"),
             set_secondary_text: Some("All unsaved changes will be lost"),
-            add_button: args!("Close", gtk::ResponseType::Accept),
-            add_button: args!("Cancel", gtk::ResponseType::Cancel),
-            connect_response(sender) => move |_, resp| {
-                send!(sender, if resp == gtk::ResponseType::Accept {
-                    DialogMsg::Accept
+            add_button: ("Close", gtk::ResponseType::Accept),
+            add_button: ("Cancel", gtk::ResponseType::Cancel),
+            connect_response[sender] => move |_, resp| {
+                sender.input.send(if resp == gtk::ResponseType::Accept {
+                    DialogInput::Accept
                 } else {
-                    DialogMsg::Cancel
-                });
+                    DialogInput::Cancel
+                })
             }
         }
     }
-}
-// ANCHOR_END: dialog_widgets
 
-// ANCHOR: components
-struct AppComponents {
-    header: RelmComponent<HeaderModel, AppModel>,
-    dialog: RelmComponent<DialogModel, AppModel>,
-}
-// ANCHOR_END: components
+    fn init(
+        params: Self::InitParams,
+        root: &Self::Root,
+        sender: &ComponentSender<Self>,
+    ) -> ComponentParts<Self> {
+        let model = DialogModel { hidden: params };
+        let widgets = view_output!();
+        ComponentParts { model, widgets }
+    }
 
-// ANCHOR: components_impl
-impl Components<AppModel> for AppComponents {
-    fn init_components(
-        parent_model: &AppModel,
-        parent_widgets: &AppWidgets,
-        parent_sender: Sender<AppMsg>,
-    ) -> Self {
-        AppComponents {
-            header: RelmComponent::new(parent_model, parent_widgets, parent_sender.clone()),
-            dialog: RelmComponent::new(parent_model, parent_widgets, parent_sender),
+    fn update(&mut self, msg: Self::Input, sender: &ComponentSender<Self>) {
+        match msg {
+            DialogInput::Show => self.hidden = false,
+            DialogInput::Accept => {
+                self.hidden = true;
+                sender.output.send(DialogOutput::Close)
+            }
+            DialogInput::Cancel => self.hidden = true,
         }
     }
 }
-// ANCHOR_END: components_impl
+
 
 // ANCHOR: app_model
 #[derive(Debug)]
@@ -200,61 +162,81 @@ enum AppMsg {
 
 struct AppModel {
     mode: AppMode,
+    header: Controller<HeaderModel>,
+    dialog: Controller<DialogModel>,
 }
 // ANCHOR_END: app_model
 
-// ANCHOR: app_model_impl
-impl Model for AppModel {
-    type Msg = AppMsg;
-    type Widgets = AppWidgets;
-    type Components = AppComponents;
-}
-// ANCHOR_END: app_model_impl
+// ANCHOR: app
+#[relm4::component]
+impl SimpleComponent for AppModel {
+    type Input = AppMsg;
 
-// ANCHOR: app_widgets
-#[relm4_macros::widget]
-impl Widgets<AppModel, ()> for AppWidgets {
+    type Output = ();
+
+    type InitParams = AppMode;
+
+    type Widgets = AppWidgets;
+
     view! {
         main_window = gtk::ApplicationWindow {
             set_default_width: 500,
             set_default_height: 250,
-            set_titlebar: component!(Some(components.header.root_widget())),
+            set_titlebar: Some(model.header.widget()),
             set_child = Some(&gtk::Label) {
-                set_label: watch!(&format!("Placeholder for {:?}", model.mode)),
+                #[watch]
+                set_label: &format!("Placeholder for {:?}", model.mode),
             },
-            connect_close_request(sender) => move |_| {
-                send!(sender, AppMsg::CloseRequest);
+            connect_close_request[sender] => move |_| {
+                sender.input.send(AppMsg::CloseRequest);
                 gtk::Inhibit(true)
             }
         }
     }
-}
-// ANCHOR_END: app_widgets
 
-// ANCHOR: app_update
-impl AppUpdate for AppModel {
-    fn update(&mut self, msg: AppMsg, components: &AppComponents, _sender: Sender<AppMsg>) -> bool {
+    fn init(
+        params: Self::InitParams,
+        root: &Self::Root,
+        sender: &ComponentSender<Self>,
+    ) -> ComponentParts<Self> {
+        let model = AppModel {
+            mode: params,
+            header: HeaderModel::builder()
+                .launch(())
+                .forward(&sender.input, |msg| match msg {
+                    HeaderOutput::View => AppMsg::SetMode(AppMode::View),
+                    HeaderOutput::Edit => AppMsg::SetMode(AppMode::Edit),
+                    HeaderOutput::Export => AppMsg::SetMode(AppMode::Export),
+                }),
+            dialog: DialogModel::builder()
+                .launch(true)
+                .forward(&sender.input, |msg| match msg {
+                    DialogOutput::Close => AppMsg::Close,
+                }),
+        };
+        model.dialog.widget().set_transient_for(Some(root));
+        let widgets = view_output!();
+        ComponentParts { model, widgets }
+    }
+
+    fn update(&mut self, msg: Self::Input, _sender: &ComponentSender<Self>) {
         match msg {
             AppMsg::SetMode(mode) => {
                 self.mode = mode;
             }
             AppMsg::CloseRequest => {
-                components.dialog.send(DialogMsg::Show).unwrap();
+                self.dialog.sender().send(DialogInput::Show);
             }
             AppMsg::Close => {
-                return false;
+                // TODO: Figure out how to close app.
             }
         }
-        true
     }
 }
-// ANCHOR_END: app_update
+// ANCHOR_END: app
 
 fn main() {
-    let model = AppModel {
-        mode: AppMode::View,
-    };
-    let relm = RelmApp::new(model);
-    relm.run();
+    let relm: RelmApp<AppModel> = RelmApp::new("ewlm4.test.components");
+    relm.run(AppMode::Edit);
 }
 // ANCHOR_END: all
