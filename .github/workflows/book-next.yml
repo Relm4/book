@@ -1,10 +1,10 @@
-name: book
+name: book-next
 
 on:
   pull_request:
   push:
     branches:
-      - main
+      - next
 
 jobs:
   test:
@@ -14,6 +14,7 @@ jobs:
       image: ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
     steps:
       - uses: actions/checkout@v2
+          ref: next
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -30,6 +31,7 @@ jobs:
     name: build
     steps:
       - uses: actions/checkout@v2
+          ref: next
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -44,19 +46,20 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        # Only deploy when ref is main
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/main')
+        # Only deploy when ref is next
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/next')
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: Relm4/website
           publish_dir: ./book
           keep_files: false
-          destination_dir: ./book/stable
+          destination_dir: ./book/next
 
   codespell:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+          ref: next
       - uses: codespell-project/actions-codespell@master
         with:
           check_filenames: true
