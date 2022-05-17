@@ -14,7 +14,8 @@ jobs:
       image: ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
     steps:
       - uses: actions/checkout@v2
-          ref: next
+        with:
+          ref: "next"
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -31,7 +32,8 @@ jobs:
     name: build
     steps:
       - uses: actions/checkout@v2
-          ref: next
+        with:
+          ref: "next"
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -59,7 +61,8 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-          ref: next
+        with:
+          ref: "next"
       - uses: codespell-project/actions-codespell@master
         with:
           check_filenames: true
