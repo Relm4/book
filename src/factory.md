@@ -13,6 +13,24 @@ Let's have a look at factories in Relm4. We want to write a simple application t
 
 > The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/factory.rs). Run `cargo run --example factory` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
+## Message handling
+
+**Factories** can call `output_to_parent_msg` to send messages to their parent component.
+
+You can send output messages using the `output_to_parent_msg` function from the sender component and receive them in the `forward` function inside the receiver component.
+
+```rust,no_run,noplayground
+fn output_to_parent_msg(output: Self::Output) -> Option<AppMsg> {
+    Some(match output {
+        CounterOutput::SendFront(index) => AppMsg::SendFront(index),
+        CounterOutput::MoveUp(index) => AppMsg::MoveUp(index),
+        CounterOutput::MoveDown(index) => AppMsg::MoveDown(index),
+    })
+}
+```
+
+> In the case of factories, we already know who its parent will be, so, the output is handled by the child.
+
 ### The model
 
 The most common solution for storing collections of data is a `Vec`. Yet a `Vec` can't help us with efficient UI updates because it does not track changes to itself. If we used a `Vec` we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a `FactoryVec` to store our data. A `FactoryVec` is a simple data structure provided by Relm4 that allows us to push, pop and modify elements. Additionally, it automatically keeps track of all the changes made to itself.

@@ -25,91 +25,20 @@ Let's have a look at what we need to get this done!
 
 ### Messages
 
-To help the computer understand what we want to tell it, we first translate user interactions into messages.
-
-In Relm4, a message can be any data type, but most often, an `enum` is used. In our case, we just want to tell the computer to either increment or decrement a counter.
+For our app, we just want to tell the computer to either increment or decrement a counter.
 
 ```rust,no_run,noplayground
 {{#include ../examples/simple_manual.rs:msg }}
 ```
 
-<!-- TODO: Move this into a new chapter -->
-
-Computers are capable of both sending and receiving messages, and so, components in Relm4 can send and receive messages to and from themselves and other components.
-
-This is accomplished by having two types of messages:
-- **Input** messages are sent and received by components and handled in the `update` function.
-- **Output** messages are sent by components to other components.
-
-Output is handled in two ways:
-
-#### Components
-
-**Components** need to store their child components inside the model using `Controller<ChildModel>` and handle output messages in the `init` function using the `forward` method inside the controller.
-
-```rust
-fn init(counter: Self::InitParams, root: &Self::Root, sender: &ComponentSender<Self>) -> ComponentParts<Self> {
-    let mut model = Model { 
-        child: CounterModel::builder().launch(()).forward(&sender.input, |message| match message {
-            CounterOutput::SendFront(index) => AppMsg::SendFront(index),
-            CounterOutput::MoveUp(index) => AppMsg::MoveUp(index),
-            CounterOutput::MoveDown(index) => AppMsg::MoveDown(index),
-        })  
-    };
-    let widgets = view_outout!();
-    ComponentParts { model, widgets }
-}
-```
-
-Once you initialize the child components, you can forward messages from them using the `forward` method to your parent component and handle them in the `update` function.
-
-#### Factories
-
-**Factories** can call `output_to_parent_msg` to send messages to their parent component.
-
-You can send output messages using the `output_to_parent_msg` function from the sender component and receive them in the `forward` function inside the receiver component.
-
-```rust
-fn output_to_parent_msg(output: Self::Output) -> Option<AppMsg> {
-    Some(match output {
-        CounterOutput::SendFront(index) => AppMsg::SendFront(index),
-        CounterOutput::MoveUp(index) => AppMsg::MoveUp(index),
-        CounterOutput::MoveDown(index) => AppMsg::MoveDown(index),
-    })
-}
-```
-
-We will explain this througly in another chapter.
-
-<!-- TODO: Move this into a new chapter -->
-
 ### The model
-
-Like a person, a computer needs a brain to be functional. It needs to process our messages and remember the results.
-
-Relm4 uses the term `Model` as a data type that represents the application state, the memory of your application. For our counter app, the computer only needs to remember the counter value, so an `u8` is all we need.
+ For our counter app, the computer only needs to remember the counter value, so an `u8` is all we need.
 
 ```rust,no_run,noplayground
 {{#include ../examples/simple_manual.rs:model }}
 ```
 
-### The `SimpleComponent` trait
-
-Of course, the brain needs to do more than just remembering things, it also needs to process information.
-
-Here, both the model and message types come into play. The `update` function of the `SimpleComponent` trait tells the computer how to process messages and how to update its memory.
-
-```rust,no_run,noplayground
-{{#include ../examples/simple_manual.rs:update_function }}
-```
-
-> `wrapping_add(1)` and `wrapping_sub(1)` are like `+1`  and `-1`, but don't panic on overflows.
-
-We see that the `update` function receives a `message` and updates the model according to your instructions.
-
 ### The widgets
-
-The computer is now able to process and remember information, but we still need an interface to communicate with the user.
 
 GTK4 offers the computer widgets that allow it to take input and to respond. Widgets are simply parts of an UI like buttons, input fields or text areas. To be able to update the widgets in our program, we can put them all into a `struct`.
 
@@ -123,11 +52,27 @@ In our case, we will only update the label when we increment or decrement the co
 
 Although, if you want to, you can.
 
+### The `update` method
+
+Of course, the brain needs to do more than just remembering things, it also needs to process information. Here, both the model and message types come into play. 
+
+The `update` function of the `SimpleComponent` trait tells the computer how to process messages and how to update its memory.
+
+```rust,no_run,noplayground
+{{#include ../examples/simple_manual.rs:update_function }}
+```
+
+> `wrapping_add(1)` and `wrapping_sub(1)` are like `+1`  and `-1`, but don't panic on overflows.
+
+We see that the `update` function receives a `message` and updates the model according to your instructions.
+
+The computer is now able to process and remember information, but we still need an interface to communicate with the user.
+
 ### Implement a component with `SimpleComponent`.
 
 The last step we need it to tell the computer how to initialize widgets and how to update them.
 
-In Relm4, the UI represents the memory of the application. All that's left to do is to implement the `SimpleComponent` trait for your `Model` that tells the computer exactly how its memory should be visualized.
+All that's left to do is to implement the `SimpleComponent` trait for your `Model` that tells the computer exactly how its memory should be visualized.
 
 Let's do this step by step. First, we'll have a look at the beginning of the trait `impl`.
 

@@ -14,6 +14,32 @@ To showcase this, we will create a small application which opens a dialog when i
 
 Components are mainly useful for separating parts of the UI into smaller, more manageable parts. They are not necessary but for larger applications, they can be very helpful.
 
+## Message handling
+
+Simple components store their child components inside the `Model` as a `Controller<ChildModel>` and handle output messages in the `init` function by calling the `forward` method.
+
+```rust,no_run,noplayground
+enum Model {
+    child: Controller<ChildModel>,
+}
+
+fn init(counter: Self::InitParams, root: &Self::Root, sender: &ComponentSender<Self>) -> ComponentParts<Self> {
+    let mut model = Model { 
+        child: CounterModel::builder().launch(()).forward(&sender.input, |message| match message {
+            CounterOutput::SendFront(index) => AppMsg::SendFront(index),
+            CounterOutput::MoveUp(index) => AppMsg::MoveUp(index),
+            CounterOutput::MoveDown(index) => AppMsg::MoveDown(index),
+        })  
+    };
+    let widgets = view_outout!();
+    ComponentParts { model, widgets }
+}
+```
+
+The `forward` method will redirect the output messages from the child component and transform them into the parent's input messages and handled in the `update` function.
+
+> Components are independent from one another, a component might communicate with many other components, therefore, the child component doesn't know who that parent will be, so, the output from the `child` has to be handled by the `parent`. 
+
 # Example application
 
 Let's write a small example app to see how components can be used in action. For this example, we write parts of an app that can edit images.
