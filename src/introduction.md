@@ -34,15 +34,15 @@ I also recommend reading the [gtk4-rs book](https://gtk-rs.org/gtk4-rs/git/book/
 Add the packages you need to your `Cargo.toml`:
 
 ```toml
-gtk = { version = "0.3", package = "gtk4" }
-relm4 = "0.2"
-relm4-macros = "0.2"
-relm4-components = "0.2"
+gtk4 = "0.4.7"
+relm4 = "0.5.0"
+relm4-macros = "0.5.0"
+relm4-components = "0.5.0"
 ```
 
 ## Issues and feedback
 
-If you find a mistake or something unclear in Relm4 or this book, let me know! Simply open up an issue over at [GitHub](https://github.com/AaronErhardt/relm4/issues) or chat with us on [Matrix](https://matrix.to/#/#relm4:matrix.org).
+If you find a mistake or something unclear in Relm4 or this book, let us know! Simply open up an [issue](https://github.com/AaronErhardt/relm4/issues) or start a [discussion](https://github.com/Relm4/Relm4/discussions) over at [GitHub](https://github.com/Relm4/Relm4) or chat with us on [Matrix](https://matrix.to/#/#relm4:matrix.org).
 
 ## Platform support
 
@@ -50,25 +50,31 @@ All platforms supported by GTK4 are available for Relm4 as well:
 
 + Linux
 + Windows
-+ MacOS
++ macOS
 
 ## Examples
 
 If you prefer learning directly from examples, we got you covered!
 
-Many code examples in this book and many other examples can also be found in the [relm4-examples crate](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples). Whenever an example is discussed in the book, the introduction will mention the name of the example and provide a link to it.
+Many code examples in this book and many other examples can also be found in the [relm4-examples crate](https://github.com/Relm4/Relm4/tree/macro-0.5/examples). Whenever an example is discussed in the book, the introduction will mention the name of the example and provide a link to it.
 
 To setup the examples run
 
 ```bash
-git clone https://github.com/AaronErhardt/relm4.git
-cd relm4
+git clone https://github.com/Relm4/Relm4.git
+cd Relm4/examples
 ```
 
 And to run an example, simply type
 
 ```
 cargo run --example NAME
+```
+
+To get a list of all examples, run
+
+```
+cargo run --example
 ```
 
 ### Screenshots

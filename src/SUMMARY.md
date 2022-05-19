@@ -2,6 +2,13 @@
 
 [Introduction](./introduction.md)
 
+- [Basic concepts](./basic_concepts/basic_concepts.md)
+  - [Model](./basic_concepts/basics/model.md)
+  - [Messages](./basic_concepts/basics/messages.md)
+    - [Input](./basic_concepts/basics/messages/input.md)
+    - [Output](./basic_concepts/basics/messages/output.md)
+  - [Widgets](./basic_concepts/basics/widgets.md)
+  - [Components](./basic_concepts/basics/components.md)
 - [Your first app](./first_app.md)
 - [The widget macro](./widget_macro.md)
 - [Efficient UI updates](./efficient_ui.md)
