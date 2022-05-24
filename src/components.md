@@ -19,7 +19,7 @@ Components are mainly useful for separating parts of the UI into smaller, more m
 Simple components store their child components inside the `Model` as a `Controller<ChildModel>` and handle output messages in the `init` function by calling the `forward` method.
 
 ```rust,no_run,noplayground
-enum Model {
+struct Model {
     child: Controller<ChildModel>,
 }
 
