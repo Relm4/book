@@ -10,7 +10,7 @@
   - [Widgets](./basic_concepts/basics/widgets.md)
   - [Components](./basic_concepts/basics/components.md)
 - [Your first app](./first_app.md)
-- [The widget macro](./widget_macro.md)
+- [The component macro](./component_macro.md)
 - [Efficient UI updates](./efficient_ui.md)
   - [Tracker](./tracker.md)
   - [Factories](./factory.md)
