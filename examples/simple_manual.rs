@@ -1,7 +1,7 @@
 /* ANCHOR: all */
-use relm4::{gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, WidgetPlus};
-use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt};
 use gtk::glib::clone;
+use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt};
+use relm4::{gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, WidgetPlus};
 
 // ANCHOR: model
 struct AppModel {
@@ -26,7 +26,7 @@ struct AppWidgets {
 // ANCHOR: simple_component
 // ANCHOR: impl
 impl SimpleComponent for AppModel {
-// ANCHOR_END: impl
+    // ANCHOR_END: impl
 
     // ANCHOR: constants
     /// The type of the messages that this component can receive.
@@ -103,7 +103,7 @@ impl SimpleComponent for AppModel {
         }
     }
     // ANCHOR_END: update_function
-    
+
     // ANCHOR: view
     /// Update the view to represent the updated model.
     fn update_view(&self, widgets: &mut Self::Widgets, _sender: &ComponentSender<Self>) {

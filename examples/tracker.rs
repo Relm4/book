@@ -1,7 +1,7 @@
 // ANCHOR: all
 use gtk::prelude::{BoxExt, ButtonExt, OrientableExt};
 use rand::prelude::IteratorRandom;
-use relm4::{gtk, RelmApp, SimpleComponent, ComponentSender, ComponentParts, WidgetPlus};
+use relm4::{gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, WidgetPlus};
 
 // ANCHOR: icons
 const ICON_LIST: &[&str] = &[
@@ -41,7 +41,6 @@ enum AppInput {
     UpdateSecond,
 }
 // ANCHOR_END: msg
-
 
 #[relm4::component]
 impl SimpleComponent for AppModel {
@@ -105,15 +104,15 @@ impl SimpleComponent for AppModel {
         root: &Self::Root,
         sender: &ComponentSender<Self>,
     ) -> ComponentParts<Self> {
-        let model = AppModel { 
+        let model = AppModel {
             first_icon: random_icon_name(),
             second_icon: random_icon_name(),
             identical: false,
-            tracker: 0
-         };
+            tracker: 0,
+        };
 
-         // ANCHOR: post_init
-         relm4::set_global_css(b".identical { background: #00ad5c; }");
+        // ANCHOR: post_init
+        relm4::set_global_css(b".identical { background: #00ad5c; }");
         // ANCHOR_END: post_init
 
         // Insert the macro code generation here
