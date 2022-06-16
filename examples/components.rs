@@ -29,7 +29,8 @@ impl SimpleComponent for HeaderModel {
     view! {
         #[root]
         gtk::HeaderBar {
-            set_title_widget = Some(&gtk::Box) {
+            #[wrap(Some)]
+            set_title_widget = &gtk::Box {
                 add_css_class: "linked",
                 #[name = "group"]
                 gtk::ToggleButton {
@@ -90,7 +91,7 @@ enum DialogInput {
 }
 
 enum DialogOutput {
-    Close
+    Close,
 }
 // ANCHOR_END: dialog_msg
 
@@ -145,7 +146,6 @@ impl SimpleComponent for DialogModel {
     }
 }
 
-
 // ANCHOR: app_model
 #[derive(Debug)]
 enum AppMode {
@@ -183,7 +183,8 @@ impl SimpleComponent for AppModel {
             set_default_width: 500,
             set_default_height: 250,
             set_titlebar: Some(model.header.widget()),
-            set_child = Some(&gtk::Label) {
+
+            gtk::Label {
                 #[watch]
                 set_label: &format!("Placeholder for {:?}", model.mode),
             },
