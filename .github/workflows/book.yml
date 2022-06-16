@@ -2,6 +2,8 @@ name: book
 
 on:
   pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
@@ -14,6 +16,8 @@ jobs:
       image: ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: "main"
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -30,6 +34,8 @@ jobs:
     name: build
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: "main"
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -57,6 +63,8 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: "main"
       - uses: codespell-project/actions-codespell@master
         with:
           check_filenames: true
