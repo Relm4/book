@@ -51,6 +51,7 @@ impl SimpleComponent for AppModel {
     type Input = AppInput;
     type Output = ();
 
+    // ANCHOR: view
     view! {
         #[root]
         gtk::ApplicationWindow {
@@ -97,6 +98,7 @@ impl SimpleComponent for AppModel {
             }
         }
     }
+    // ANCHOR_END: view
 
     // Initialize the UI.
     fn init(
@@ -104,23 +106,26 @@ impl SimpleComponent for AppModel {
         root: &Self::Root,
         sender: &ComponentSender<Self>,
     ) -> ComponentParts<Self> {
+        // ANCHOR: model_init
         let model = AppModel {
             first_icon: random_icon_name(),
             second_icon: random_icon_name(),
             identical: false,
             tracker: 0,
         };
+        // ANCHOR_END: model_init
 
         // ANCHOR: post_init
         relm4::set_global_css(b".identical { background: #00ad5c; }");
-        // ANCHOR_END: post_init
 
         // Insert the macro code generation here
         let widgets = view_output!();
+        // ANCHOR_END: post_init
 
         ComponentParts { model, widgets }
     }
 
+    // ANCHOR: update
     fn update(&mut self, message: Self::Input, _sender: &ComponentSender<Self>) {
         // reset tracker value of the model
         self.reset();
@@ -135,12 +140,11 @@ impl SimpleComponent for AppModel {
         }
         self.set_identical(self.first_icon == self.second_icon);
     }
+    // ANCHOR_END: update
 }
 
-// ANCHOR: main
 fn main() {
     let app: RelmApp<AppModel> = RelmApp::new("relm4.test.simple");
     app.run(());
 }
-// ANCHOR_END: main
 // ANCHOR_END: all
