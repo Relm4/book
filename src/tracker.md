@@ -2,7 +2,7 @@
 
 A tracker in this context just means a data type that's able to track changes to itself. For example, if we increment the counter of the model we used for our first app, the model could tell us later that the counter changed during the last update function.
 
-Relm4 does not promote any implementation of a tracker. You're free to use any implementation you like, you can even implement a tracker yourself. In this example however, we'll use the tracker crate that provides a simple macro that implements a tracker for us automatically.
+Relm4 does not promote any implementation of a tracker. You're free to use any implementation you like, you can even implement a tracker yourself. In this example however, we'll use the [`tracker` crate](https://docs.rs/tracker/latest/tracker/) that provides a simple macro that implements a tracker for us automatically.
 
 Using this technique, we will implement a small program which displays two randomly picked icons that are controlled by two buttons:
 
@@ -15,7 +15,7 @@ When pressing a button, the icon above it will change. The background of the app
 
 ## The tracker crate
 
-The `tracker::track` macro implements the following methods for your struct fields:
+The [`tracker::track`](https://docs.rs/tracker/latest/tracker/attr.track.html) macro implements the following methods for your struct fields:
 
 + `get_#field_name()`  
   Get an immutable reference to your field.
@@ -71,8 +71,6 @@ fn main() {
 }
 ```
 
-> More information about the tracker crate can be found [here](https://github.com/AaronErhardt/Tracker).
-
 So in short, the `tracker::track` macro provides different getters and setters that will mark struct fields as changed. You also get a method that checks for changes and a method to reset the changes.
 
 # Using trackers in Relm4 apps
@@ -103,38 +101,38 @@ The message type is also pretty simple: we just want to update one of the icons.
 {{#include ../examples/tracker.rs:msg }}
 ```
 
-There are a few notable things for the `AppUpdate` implementation.
-First, we call `self.reset()` at the top of the update function body. This ensures that the tracker will be reset so we don't track old changes.
+There are a few notable things for the `Component`'s `update` implementation.
+First, we call `self.reset()` at the top of the function body. This ensures that the tracker will be reset so we don't track old changes.
 
 Also, we use setters instead of assignments because we want to track these changes. Yet, you could still use the assignment operator if you want to apply changes without notifying the tracker.
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:app_update }}
+{{#include ../examples/tracker.rs:update }}
 ```
 
-## The widgets
+## The view
 
-Now we reached the interesting part of the code where we can actually make use of the tracker. Let's have a look at the complete widget macro:
+Now we reached the interesting part of the code where we can actually make use of the tracker. Let's have a look at the complete `view!` macro invocation:
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:widgets }}
+{{#include ../examples/tracker.rs:view }}
 ```
 
 The overall UI is pretty simple: A window that contains a box. This box has two boxes itself for showing the two icons and the two buttons to update those icons.
 
-There's also something new. With the `pre_init()` and `post_init()` functions you can add custom code that will be run either before or after the code the widget macro generates for initialization. In our case, we want to add [custom CSS](https://docs.gtk.org/gtk4/css-properties.html) that sets the background color for elements with class name "identical".
+We also added some additional code in `init` that runs before the view is constructed. In our case, we want to add [custom CSS](https://docs.gtk.org/gtk4/css-properties.html) that sets the background color for elements with class name "identical".
 
 ```rust,no_run,noplayground
 {{#include ../examples/tracker.rs:post_init }}
 ```
 
 
-### The track! macro
+### The `#[track]` attribute
 
-The `track!` macro is a simple macro that can be used inside the widget macro and allows us to pass a condition for updates and then the arguments. So the syntax looks like this:
+The `#[track]` attribute is applied to method invocations in our view code. It allows us to add a condition to the update: if the condition is true, the method will be called, otherwise, it will be skipped. The attribute syntax looks like this:
 
 ```rust,no_run,noplayground
-track!(bool_expression, argument, [further arguments])
+#[track = "<boolean expression>"]
 ```
 
 Let's have a look at its first appearance:
@@ -145,9 +143,9 @@ Let's have a look at its first appearance:
 
 The [`set_class_active`](https://aaronerhardt.github.io/docs/relm4/relm4/util/widget_plus/trait.WidgetPlus.html#tymethod.set_class_active) method is used to either activate or disable a CSS class. It takes two parameters, the first is the class itself and the second is a boolean which specifies if the class should be added (`true`) or removed (`false`).
 
-The first parameter of the `track!` macro will be used as a condition to check whether something has changed. If this condition is `true`, the `set_class_active` method will be called with all the parameters of the `track!` macro that follow the condition.
+The value of the `#[track]` attribute is parsed as a boolean expression. This expression will be used  as a condition to check whether something has changed. If this condition is `true`, the `set_class_active` method will be called with the parameters it guards.
 
-The macro expansion for the `track!` macro in the generated view function looks roughly like this:
+The macro expansion for method calls annotated with the `#[track]` attribute look roughly like this:
 
 ```rust,no_run,noplayground
 if model.changed(AppModel::identical()) {
@@ -157,22 +155,22 @@ if model.changed(AppModel::identical()) {
 
 That's all. It's pretty simple, actually. We just use a condition that allows us to update our widgets only when needed.
 
-The second `track!` macro looks very similar but only passes one argument:
+The second `#[track]` attribute works similarly:
 
 ```rust,no_run,noplayground
 {{#include ../examples/tracker.rs:track2 }}
 ```
 
-> Since the `track!` macro parses expressions, you can use the following syntax to debug your trackers:
+> Since the `#[track]` attribute parses expressions, you can use the following syntax to debug your trackers:
 >
-> `track!(bool_expression, { println!("Update widget"); argument })`
+> `#[track = "{ println!("Update widget"); argument }"]`
 
-## The main function
+## Initializing the model
 
 There's one last thing to point out. When initializing our model, we need to initialize the `tracker` field as well. The initial value doesn't really matter because we call `reset()` in the update function anyway, but usually `0` is used.
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:main }}
+{{#include ../examples/tracker.rs:model_init}}
 ```
 
 ## The complete code
