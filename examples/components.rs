@@ -26,6 +26,7 @@ impl SimpleComponent for HeaderModel {
 
     type Widgets = HeaderWidgets;
 
+    // ANCHOR: header_widgets
     view! {
         #[root]
         gtk::HeaderBar {
@@ -63,6 +64,7 @@ impl SimpleComponent for HeaderModel {
             }
         }
     }
+    // ANCHOR_END: header_widgets
 
     fn init(
         _params: Self::InitParams,
@@ -105,6 +107,7 @@ impl SimpleComponent for DialogModel {
 
     type Widgets = DialogWidgets;
 
+    // ANCHOR: dialog_widgets
     view! {
         gtk::MessageDialog {
             set_modal: true,
@@ -123,6 +126,7 @@ impl SimpleComponent for DialogModel {
             }
         }
     }
+    // ANCHOR_END: dialog_widgets
 
     fn init(
         params: Self::InitParams,
@@ -134,6 +138,7 @@ impl SimpleComponent for DialogModel {
         ComponentParts { model, widgets }
     }
 
+    // ANCHOR: dialog_update
     fn update(&mut self, msg: Self::Input, sender: &ComponentSender<Self>) {
         match msg {
             DialogInput::Show => self.hidden = false,
@@ -144,6 +149,7 @@ impl SimpleComponent for DialogModel {
             DialogInput::Cancel => self.hidden = true,
         }
     }
+    // ANCHOR_END: dialog_update
 }
 
 // ANCHOR: app_model
@@ -178,8 +184,9 @@ impl SimpleComponent for AppModel {
 
     type Widgets = AppWidgets;
 
+    // ANCHOR: app_widgets
     view! {
-        main_window = gtk::ApplicationWindow {
+        main_window = gtk::Window {
             set_default_width: 500,
             set_default_height: 250,
             set_titlebar: Some(model.header.widget()),
@@ -194,7 +201,9 @@ impl SimpleComponent for AppModel {
             }
         }
     }
+    // ANCHOR_END: app_widgets
 
+    // ANCHOR: app_init
     fn init(
         params: Self::InitParams,
         root: &Self::Root,
@@ -219,7 +228,9 @@ impl SimpleComponent for AppModel {
         let widgets = view_output!();
         ComponentParts { model, widgets }
     }
+    // ANCHOR_END: app_init
 
+    // ANCHOR:app_update
     fn update(&mut self, msg: Self::Input, _sender: &ComponentSender<Self>) {
         match msg {
             AppMsg::SetMode(mode) => {
@@ -233,6 +244,7 @@ impl SimpleComponent for AppModel {
             }
         }
     }
+    // ANCHOR_END:app_update
 }
 // ANCHOR_END: app
 
