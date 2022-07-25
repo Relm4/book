@@ -30,3 +30,4 @@
   - [Worker template](./worker_template.md)
 - [Migration guides](migration.md)
   - [0.2 to 0.4](./0_2_to_0_4.md)
+  - [0.4 to 0.5](./0_4_to_0_5.md)
