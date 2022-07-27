@@ -6,7 +6,7 @@
 
 [![Matrix](https://img.shields.io/matrix/relm4:matrix.org?label=matrix%20chat)](https://matrix.to/#/#relm4:matrix.org)
 [![Relm4 on crates.io](https://img.shields.io/crates/v/relm4.svg)](https://crates.io/crates/relm4)
-[![Relm4 docs](https://img.shields.io/badge/rust-documentation-blue)](https://relm4.org/docs/stable/relm4/)
+[![Relm4 docs](https://img.shields.io/badge/rust-documentation-blue)](https://relm4.org/docs/next/relm4/)
 
 Relm4 is an idiomatic GUI library inspired by [Elm](https://elm-lang.org/) and based on [gtk4-rs](https://crates.io/crates/gtk4). 
 It is a new version of [relm](https://github.com/antoyo/relm) that's built from scratch and is compatible with [GTK4](https://www.gtk.org/) and [libadwaita](https://gitlab.gnome.org/GNOME/libadwaita).
@@ -58,7 +58,7 @@ All platforms supported by GTK4 are available for Relm4 as well:
 
 If you prefer learning directly from examples, we got you covered!
 
-Many code examples in this book and many other examples can also be found in the [relm4-examples crate](https://github.com/Relm4/Relm4/tree/macro-0.5/examples). Whenever an example is discussed in the book, the introduction will mention the name of the example and provide a link to it.
+Many code examples in this book and many other examples can also be found in the [git-repository](https://github.com/Relm4/Relm4/tree/v0.5.0-beta.1/examples). Whenever an example is discussed in the book, the introduction will mention the name of the example and provide a link to it.
 
 To setup the examples run
 
