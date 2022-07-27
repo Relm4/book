@@ -127,7 +127,7 @@ impl FactoryComponent<gtk::Grid, AppMsg> for Counter {
         &mut self,
         msg: Self::Input,
         _input: &Sender<Self::Input>,
-        _ouput: &Sender<Self::Output>,
+        _output: &Sender<Self::Output>,
     ) -> Option<Self::Command> {
         match msg {
             CounterMsg::Increment => {
