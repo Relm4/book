@@ -52,22 +52,6 @@ In our case, we will only update the label when we increment or decrement the co
 
 Although, if you want to, you can.
 
-### The `update` method
-
-Of course, the brain needs to do more than just remembering things, it also needs to process information. Here, both the model and message types come into play. 
-
-The `update` function of the `SimpleComponent` trait tells the computer how to process messages and how to update its memory.
-
-```rust,no_run,noplayground
-{{#include ../examples/simple_manual.rs:update_function }}
-```
-
-> `wrapping_add(1)` and `wrapping_sub(1)` are like `+1`  and `-1`, but don't panic on overflows.
-
-We see that the `update` function receives a `message` and updates the model according to your instructions.
-
-The computer is now able to process and remember information, but we still need an interface to communicate with the user.
-
 ### Implement a component with `SimpleComponent`.
 
 The last step we need it to tell the computer how to initialize widgets and how to update them.
@@ -111,6 +95,18 @@ First, we initialize each of our widgets, mostly by using builder patterns.
 Then we connect the widgets so that GTK4 knows how they are related to each other. The buttons and the label are added as children of the box, and the box is added as the child of the window.
 
 Next, we connect the "clicked" event for both buttons and send a message from the closures to the computer. To do this, we only need to move a cloned sender into the closures and send the message. Now every time we click our buttons, a message will be sent to update our counter!
+
+Of course, the computer needs to do more than just remembering things, it also needs to process information. Here, both the model and message types come into play.
+
+The `update` function of the `SimpleComponent` trait tells the computer how to process messages and how to update its memory.
+
+```rust,no_run,noplayground
+{{#include ../examples/simple_manual.rs:update_function }}
+```
+
+> `wrapping_add(1)` and `wrapping_sub(1)` are like `+1`  and `-1`, but don't panic on overflows.
+
+We see that the `update` function receives a `message` and updates the model according to your instructions.
 
 Still our UI will not update when the counter is changed. To do this, we need to implement the `update_view` function that modifies the UI according to the changes in the model.
 
