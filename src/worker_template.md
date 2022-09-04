@@ -1,40 +1,31 @@
 # Worker template
 
 ```rust,no_run,noplayground
-use gtk::prelude::{WidgetExt};
-use relm4::*;
+# extern crate relm4;
+use gtk::prelude::*;
+use relm4::{gtk, ComponentSender, Worker};
 
 struct WorkerModel {
 
 }
 
+#[derive(Debug)]
 enum WorkerMsg {
 
 }
 
-impl Model for WorkerModel {
-    type Msg = WorkerMsg;
-    type Widgets = ();
-    type Components = ();
-}
+impl Worker for WorkerModel {
+    type Init = ();
+    type Input = WorkerMsg;
+    type Output = ();
 
-impl ComponentUpdate<AppModel> for WorkerModel {
-    fn init_model(_parent_model: &AppModel) -> Self {
-        WorkerModel {
-
-        }
+    fn init(init: Self::Init, sender: ComponentSender<Self>) -> Self {
+        todo!();
     }
 
-    fn update(
-        &mut self,
-        msg: WorkerMsg,
-        _components: &(),
-        sender: Sender<WorkerMsg>,
-        parent_sender: Sender<AppMsg>,
-    ) {
+    fn update(&mut self, msg: Self::Input, sender: ComponentSender<Self>) {
         match msg {
 
         }
     }
 }
-```
