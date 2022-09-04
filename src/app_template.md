@@ -1,63 +1,56 @@
 # App template
 
 ```rust,no_run,noplayground
-use gtk::prelude::{WidgetExt};
-use relm4::*;
+# extern crate relm4;
+use gtk::prelude::*;
+use relm4::{gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent};
 
-struct AppComponents {
-    component: RelmComponent<ComponentModel, AppModel>,
-}
-
-impl Components<AppModel> for AppComponents {
-    fn init_components(
-        parent_model: &AppModel,
-        parent_widgets: &AppWidgets,
-        parent_sender: Sender<AppMsg>,
-    ) -> Self {
-        AppComponents {
-            component: RelmComponent::new(parent_model, parent_widgets, parent_sender.clone()),
-        }
-    }
-}
-
+#[derive(Debug)]
 enum AppMsg {
-	
-}
-
-struct AppModel {
 
 }
 
-impl Model for AppModel {
-    type Msg = AppMsg;
+struct App {
+
+}
+
+#[relm4::component]
+impl SimpleComponent for App {
+    type Init = ();
+    type Input = AppMsg;
+    type Output = ();
     type Widgets = AppWidgets;
-    type Components = AppComponents;
-}
 
-impl AppUpdate for AppModel {
-    fn update(&mut self, msg: AppMsg, components: &AppComponents, sender: Sender<AppMsg>) -> bool {
-        match msg {
+    view! {
+        gtk::ApplicationWindow {
 
         }
-        true
     }
-}
 
-#[relm4_macros::widget]
-impl Widgets<AppModel, ()> for AppWidgets {
-    view! {
-        main_window = gtk::ApplicationWindow {
-            
+    fn init(
+        init: Self::Init,
+        root: &Self::Root,
+        sender: ComponentSender<Self>,
+    ) -> ComponentParts<Self> {
+        let model = App {
+
+        };
+
+        let widgets = view_output!();
+
+        ComponentParts { model, widgets }
+    }
+
+    fn update(&mut self, input: Self::Input, sender: ComponentSender<Self>) {
+        match input {
+
         }
     }
 }
 
 fn main() {
-    let model = AppModel {
-        
-    };
-    let relm = RelmApp::new(model);
-    relm.run();
+    let app = RelmApp::new("relm4.templates.app");
+    app.run::<App>(());
 }
 
 ```
