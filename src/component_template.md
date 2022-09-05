@@ -1,47 +1,50 @@
 # Component template
 
 ```rust,no_run,noplayground
-use gtk::prelude::{WidgetExt};
-use relm4::*;
+# extern crate relm4;
+use gtk::prelude::*;
+use relm4::{gtk, SimpleComponent, ComponentSender, ComponentParts};
 
 struct ComponentModel {
 
 }
 
+#[derive(Debug)]
 enum ComponentMsg {
 
 }
 
-impl Model for ComponentModel {
-    type Msg = ComponentMsg;
+#[relm4::component]
+impl SimpleComponent for ComponentModel {
+    type Init = ();
+    type Input = ComponentMsg;
+    type Output = ();
     type Widgets = ComponentWidgets;
-    type Components = ();
-}
 
-impl ComponentUpdate<AppModel> for ComponentModel {
-    fn init_model(_parent_model: &AppModel) -> Self {
-        ComponentModel {
-
-        }
-    }
-
-    fn update(
-        &mut self,
-        msg: ComponentMsg,
-        _components: &(),
-        sender: Sender<ComponentMsg>,
-        parent_sender: Sender<AppMsg>,
-    ) {
-        match msg {
-
-        }
-    }
-}
-
-#[relm4_macros::widget]
-impl Widgets<ComponentModel, AppModel> for ComponentWidgets {
     view! {
-        
+        gtk::Box {
+
+        }
+    }
+
+    fn init(
+        init: Self::Init,
+        root: &Self::Root,
+        sender: ComponentSender<Self>,
+    ) -> ComponentParts<Self> {
+        let model = ComponentModel {
+
+        };
+
+        let widgets = view_output!();
+
+        ComponentParts { model, widgets }
+    }
+
+    fn update(&mut self, input: Self::Input, sender: ComponentSender<Self>) {
+        match input {
+
+        }
     }
 }
 ```
