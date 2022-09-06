@@ -22,7 +22,7 @@
 - [Threads and async](./threads_and_async.md)
 - [Reusable components](./reusable_components.md)
 - [gtk-rs overview](./gtk_rs.md)
-- [Widget macro reference](./widget_macro_reference.md)
+- [Component macro reference](./component_macro_reference.md)
   - [Macro expansion](./widget_macro_expansion.md)
 - [Templates](./templates.md)
   - [App template](./app_template.md)
