@@ -23,7 +23,7 @@
 - [Reusable components](./reusable_components.md)
 - [gtk-rs overview](./gtk_rs.md)
 - [Component macro reference](./component_macro_reference.md)
-  - [Macro expansion](./widget_macro_expansion.md)
+  - [Macro expansion](./component_macro_expansion.md)
 - [Templates](./templates.md)
   - [App template](./app_template.md)
   - [Component template](./component_template.md)
