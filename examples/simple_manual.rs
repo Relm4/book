@@ -34,7 +34,7 @@ impl SimpleComponent for AppModel {
     /// The type of the messages that this component can send.
     type Output = ();
     /// The type of data that this component will be initialized with.
-    type InitParams = u8;
+    type Init = u8;
     /// The root GTK widget that this component will create.
     type Root = gtk::Window;
     /// A data structure that contains the widgets that you will need to update.
@@ -54,9 +54,9 @@ impl SimpleComponent for AppModel {
     // ANCHOR: init
     /// Initialize the UI and model.
     fn init(
-        counter: Self::InitParams,
+        counter: Self::Init,
         window: &Self::Root,
-        sender: &relm4::ComponentSender<Self>,
+        sender: ComponentSender<Self>,
     ) -> relm4::ComponentParts<Self> {
         let model = AppModel { counter };
 
@@ -92,7 +92,7 @@ impl SimpleComponent for AppModel {
     // ANCHOR_END: init
 
     // ANCHOR: update_function
-    fn update(&mut self, message: Self::Input, _sender: &relm4::ComponentSender<Self>) {
+    fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>) {
         match message {
             AppInput::Increment => {
                 self.counter = self.counter.wrapping_add(1);
@@ -106,7 +106,7 @@ impl SimpleComponent for AppModel {
 
     // ANCHOR: view
     /// Update the view to represent the updated model.
-    fn update_view(&self, widgets: &mut Self::Widgets, _sender: &ComponentSender<Self>) {
+    fn update_view(&self, widgets: &mut Self::Widgets, _sender: ComponentSender<Self>) {
         widgets
             .label
             .set_label(&format!("Counter: {}", self.counter));
@@ -117,8 +117,8 @@ impl SimpleComponent for AppModel {
 
 // ANCHOR: main
 fn main() {
-    let app: RelmApp<AppModel> = RelmApp::new("relm4.test.simple_manual");
-    app.run(0);
+    let app = RelmApp::new("relm4.test.simple_manual");
+    app.run::<AppModel>(0);
 }
 // ANCHOR_END: main
 /* ANCHOR_END: all */

@@ -36,6 +36,7 @@ struct AppModel {
 // ANCHOR_END: model
 
 // ANCHOR: msg
+#[derive(Debug)]
 enum AppInput {
     UpdateFirst,
     UpdateSecond,
@@ -46,7 +47,7 @@ enum AppInput {
 impl SimpleComponent for AppModel {
     type Widgets = AppWidgets;
 
-    type InitParams = ();
+    type Init = ();
 
     type Input = AppInput;
     type Output = ();
@@ -76,7 +77,7 @@ impl SimpleComponent for AppModel {
                     gtk::Button {
                         set_label: "New random image",
                         connect_clicked[sender] => move |_| {
-                            sender.input.send(AppInput::UpdateFirst)
+                            sender.input(AppInput::UpdateFirst)
                         }
                     }
                 },
@@ -91,7 +92,7 @@ impl SimpleComponent for AppModel {
                     gtk::Button {
                         set_label: "New random image",
                         connect_clicked[sender] => move |_| {
-                            sender.input.send(AppInput::UpdateSecond)
+                            sender.input(AppInput::UpdateSecond)
                         }
                     }
                 },
@@ -102,9 +103,9 @@ impl SimpleComponent for AppModel {
 
     // Initialize the UI.
     fn init(
-        _params: Self::InitParams,
+        _params: Self::Init,
         root: &Self::Root,
-        sender: &ComponentSender<Self>,
+        sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         // ANCHOR: model_init
         let model = AppModel {
@@ -126,7 +127,7 @@ impl SimpleComponent for AppModel {
     }
 
     // ANCHOR: update
-    fn update(&mut self, message: Self::Input, _sender: &ComponentSender<Self>) {
+    fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>) {
         // reset tracker value of the model
         self.reset();
 
@@ -144,7 +145,7 @@ impl SimpleComponent for AppModel {
 }
 
 fn main() {
-    let app: RelmApp<AppModel> = RelmApp::new("relm4.test.simple");
-    app.run(());
+    let app: RelmApp = RelmApp::new("relm4.test.simple");
+    app.run::<AppModel>(());
 }
 // ANCHOR_END: all

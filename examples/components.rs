@@ -7,6 +7,7 @@ struct HeaderModel;
 // ANCHOR_END: header_model
 
 // ANCHOR: header_msg
+#[derive(Debug)]
 enum HeaderOutput {
     View,
     Edit,
@@ -22,7 +23,7 @@ impl SimpleComponent for HeaderModel {
 
     type Output = HeaderOutput;
 
-    type InitParams = ();
+    type Init = ();
 
     type Widgets = HeaderWidgets;
 
@@ -39,7 +40,7 @@ impl SimpleComponent for HeaderModel {
                     set_active: true,
                     connect_toggled[sender] => move |btn| {
                         if btn.is_active() {
-                            sender.output.send(HeaderOutput::View)
+                            sender.output(HeaderOutput::View)
                         }
                     },
                 },
@@ -48,7 +49,7 @@ impl SimpleComponent for HeaderModel {
                     set_group: Some(&group),
                     connect_toggled[sender] => move |btn| {
                         if btn.is_active() {
-                            sender.output.send(HeaderOutput::Edit)
+                            sender.output(HeaderOutput::Edit)
                         }
                     },
                 },
@@ -57,7 +58,7 @@ impl SimpleComponent for HeaderModel {
                     set_group: Some(&group),
                     connect_toggled[sender] => move |btn| {
                         if btn.is_active() {
-                            sender.output.send(HeaderOutput::Export)
+                            sender.output(HeaderOutput::Export)
                         }
                     },
                 },
@@ -67,9 +68,9 @@ impl SimpleComponent for HeaderModel {
     // ANCHOR_END: header_widgets
 
     fn init(
-        _params: Self::InitParams,
+        _params: Self::Init,
         root: &Self::Root,
-        sender: &ComponentSender<Self>,
+        sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         let model = HeaderModel;
         let widgets = view_output!();
@@ -86,12 +87,14 @@ struct DialogModel {
 // ANCHOR_END: dialog_model
 
 // ANCHOR: dialog_msg
+#[derive(Debug)]
 enum DialogInput {
     Show,
     Accept,
     Cancel,
 }
 
+#[derive(Debug)]
 enum DialogOutput {
     Close,
 }
@@ -103,7 +106,7 @@ impl SimpleComponent for DialogModel {
 
     type Output = DialogOutput;
 
-    type InitParams = bool;
+    type Init = bool;
 
     type Widgets = DialogWidgets;
 
@@ -118,7 +121,7 @@ impl SimpleComponent for DialogModel {
             add_button: ("Close", gtk::ResponseType::Accept),
             add_button: ("Cancel", gtk::ResponseType::Cancel),
             connect_response[sender] => move |_, resp| {
-                sender.input.send(if resp == gtk::ResponseType::Accept {
+                sender.input(if resp == gtk::ResponseType::Accept {
                     DialogInput::Accept
                 } else {
                     DialogInput::Cancel
@@ -129,9 +132,9 @@ impl SimpleComponent for DialogModel {
     // ANCHOR_END: dialog_widgets
 
     fn init(
-        params: Self::InitParams,
+        params: Self::Init,
         root: &Self::Root,
-        sender: &ComponentSender<Self>,
+        sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         let model = DialogModel { hidden: params };
         let widgets = view_output!();
@@ -139,12 +142,12 @@ impl SimpleComponent for DialogModel {
     }
 
     // ANCHOR: dialog_update
-    fn update(&mut self, msg: Self::Input, sender: &ComponentSender<Self>) {
+    fn update(&mut self, msg: Self::Input, sender: ComponentSender<Self>) {
         match msg {
             DialogInput::Show => self.hidden = false,
             DialogInput::Accept => {
                 self.hidden = true;
-                sender.output.send(DialogOutput::Close)
+                sender.output(DialogOutput::Close)
             }
             DialogInput::Cancel => self.hidden = true,
         }
@@ -160,6 +163,7 @@ enum AppMode {
     Export,
 }
 
+#[derive(Debug)]
 enum AppMsg {
     SetMode(AppMode),
     CloseRequest,
@@ -180,7 +184,7 @@ impl SimpleComponent for AppModel {
 
     type Output = ();
 
-    type InitParams = AppMode;
+    type Init = AppMode;
 
     type Widgets = AppWidgets;
 
@@ -196,7 +200,7 @@ impl SimpleComponent for AppModel {
                 set_label: &format!("Placeholder for {:?}", model.mode),
             },
             connect_close_request[sender] => move |_| {
-                sender.input.send(AppMsg::CloseRequest);
+                sender.input(AppMsg::CloseRequest);
                 gtk::Inhibit(true)
             }
         }
@@ -205,22 +209,23 @@ impl SimpleComponent for AppModel {
 
     // ANCHOR: app_init
     fn init(
-        params: Self::InitParams,
+        params: Self::Init,
         root: &Self::Root,
-        sender: &ComponentSender<Self>,
+        sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         let model = AppModel {
             mode: params,
-            header: HeaderModel::builder()
-                .launch(())
-                .forward(&sender.input, |msg| match msg {
+            header: HeaderModel::builder().launch(()).forward(
+                sender.input_sender(),
+                |msg| match msg {
                     HeaderOutput::View => AppMsg::SetMode(AppMode::View),
                     HeaderOutput::Edit => AppMsg::SetMode(AppMode::Edit),
                     HeaderOutput::Export => AppMsg::SetMode(AppMode::Export),
-                }),
+                },
+            ),
             dialog: DialogModel::builder()
                 .launch(true)
-                .forward(&sender.input, |msg| match msg {
+                .forward(sender.input_sender(), |msg| match msg {
                     DialogOutput::Close => AppMsg::Close,
                 }),
         };
@@ -231,7 +236,7 @@ impl SimpleComponent for AppModel {
     // ANCHOR_END: app_init
 
     // ANCHOR:app_update
-    fn update(&mut self, msg: Self::Input, _sender: &ComponentSender<Self>) {
+    fn update(&mut self, msg: Self::Input, _sender: ComponentSender<Self>) {
         match msg {
             AppMsg::SetMode(mode) => {
                 self.mode = mode;
@@ -249,7 +254,7 @@ impl SimpleComponent for AppModel {
 // ANCHOR_END: app
 
 fn main() {
-    let relm: RelmApp<AppModel> = RelmApp::new("ewlm4.test.components");
-    relm.run(AppMode::Edit);
+    let relm = RelmApp::new("ewlm4.test.components");
+    relm.run::<AppModel>(AppMode::Edit);
 }
 // ANCHOR_END: all

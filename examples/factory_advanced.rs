@@ -1,7 +1,10 @@
 use gtk::prelude::{BoxExt, ButtonExt, GridExt, GtkWindowExt, OrientableExt};
 use relm4::{
-    factory::{positions::GridPosition, DynamicIndex, FactoryComponent, FactoryVecDeque, Position},
-    gtk, ComponentParts, ComponentSender, RelmApp, Sender, SimpleComponent, WidgetPlus,
+    factory::{
+        positions::GridPosition, DynamicIndex, FactoryComponent, FactoryComponentSender,
+        FactoryVecDeque, Position,
+    },
+    gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, WidgetPlus,
 };
 
 #[derive(Debug)]
@@ -15,6 +18,7 @@ enum CounterMsg {
     Decrement,
 }
 
+#[derive(Debug)]
 enum CounterOutput {
     SendFront(DynamicIndex),
     MoveUp(DynamicIndex),
@@ -35,15 +39,16 @@ impl Position<GridPosition> for Counter {
 }
 
 #[relm4::factory]
-impl FactoryComponent<gtk::Grid, AppMsg> for Counter {
+impl FactoryComponent for Counter {
+    type ParentWidget = gtk::Grid;
+    type ParentInput = AppMsg;
     type Widgets = CounterWidgets;
 
-    type InitParams = u8;
+    type Init = u8;
 
     type Input = CounterMsg;
     type Output = CounterOutput;
 
-    type Command = ();
     type CommandOutput = ();
 
     view! {
@@ -58,42 +63,42 @@ impl FactoryComponent<gtk::Grid, AppMsg> for Counter {
             #[name = "add_button"]
             gtk::Button {
                 set_label: "+",
-                connect_clicked[input] => move |_| {
-                    input.send(CounterMsg::Increment)
+                connect_clicked[sender] => move |_| {
+                    sender.input(CounterMsg::Increment)
                 }
             },
             #[name = "remove_button"]
             gtk::Button {
                 set_label: "-",
-                connect_clicked[input] => move |_| {
-                    input.send(CounterMsg::Decrement)
+                connect_clicked[sender] => move |_| {
+                    sender.input(CounterMsg::Decrement)
                 }
             },
             #[name = "move_up_button"]
             gtk::Button {
                 set_label: "Up",
-                connect_clicked[output, index] => move |_| {
-                    output.send(CounterOutput::MoveUp(index.clone()))
+                connect_clicked[sender, index] => move |_| {
+                    sender.output(CounterOutput::MoveUp(index.clone()))
                 }
             },
             #[name = "move_down_button"]
             gtk::Button {
                 set_label: "Down",
-                connect_clicked[output, index] => move |_| {
-                    output.send(CounterOutput::MoveDown(index.clone()))
+                connect_clicked[sender, index] => move |_| {
+                    sender.output(CounterOutput::MoveDown(index.clone()))
                 }
             },
             #[name = "to_front_button"]
             gtk::Button {
                 set_label: "To start",
-                connect_clicked[output, index] => move |_| {
-                    output.send(CounterOutput::SendFront(index.clone()))
+                connect_clicked[sender, index] => move |_| {
+                    sender.output(CounterOutput::SendFront(index.clone()))
                 }
             }
         }
     }
 
-    fn output_to_parent_msg(output: Self::Output) -> Option<AppMsg> {
+    fn output_to_parent_input(output: Self::Output) -> Option<AppMsg> {
         Some(match output {
             CounterOutput::SendFront(index) => AppMsg::SendFront(index),
             CounterOutput::MoveUp(index) => AppMsg::MoveUp(index),
@@ -102,33 +107,14 @@ impl FactoryComponent<gtk::Grid, AppMsg> for Counter {
     }
 
     fn init_model(
-        value: Self::InitParams,
+        value: Self::Init,
         _index: &DynamicIndex,
-        _input: &Sender<Self::Input>,
-        _output: &Sender<Self::Output>,
+        _sender: FactoryComponentSender<Self>,
     ) -> Self {
         Self { value }
     }
 
-    fn init_widgets(
-        &mut self,
-        index: &DynamicIndex,
-        root: &Self::Root,
-        _returned_widget: &gtk::Widget,
-        input: &Sender<Self::Input>,
-        output: &Sender<Self::Output>,
-    ) -> Self::Widgets {
-        let widgets = view_output!();
-
-        widgets
-    }
-
-    fn update(
-        &mut self,
-        msg: Self::Input,
-        _input: &Sender<Self::Input>,
-        _output: &Sender<Self::Output>,
-    ) -> Option<Self::Command> {
+    fn update(&mut self, msg: Self::Input, _sender: FactoryComponentSender<Self>) {
         match msg {
             CounterMsg::Increment => {
                 self.value = self.value.wrapping_add(1);
@@ -137,13 +123,12 @@ impl FactoryComponent<gtk::Grid, AppMsg> for Counter {
                 self.value = self.value.wrapping_sub(1);
             }
         }
-        None
     }
 }
 
 struct AppModel {
     created_widgets: u8,
-    counters: FactoryVecDeque<gtk::Grid, Counter, AppMsg>,
+    counters: FactoryVecDeque<Counter>,
 }
 
 #[derive(Debug)]
@@ -160,7 +145,7 @@ impl SimpleComponent for AppModel {
     // AppWidgets is generated by the macro
     type Widgets = AppWidgets;
 
-    type InitParams = u8;
+    type Init = u8;
 
     type Input = AppMsg;
     type Output = ();
@@ -201,54 +186,53 @@ impl SimpleComponent for AppModel {
 
     // Initialize the UI.
     fn init(
-        counter: Self::InitParams,
+        counter: Self::Init,
         root: &Self::Root,
-        sender: &ComponentSender<Self>,
+        sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         // Insert the macro codegen here
         let widgets = view_output!();
 
         let model = AppModel {
             created_widgets: counter,
-            counters: FactoryVecDeque::new(widgets.counter_box.clone(), &sender.input),
+            counters: FactoryVecDeque::new(widgets.counter_box.clone(), sender.input_sender()),
         };
 
         ComponentParts { model, widgets }
     }
 
-    fn update(&mut self, msg: Self::Input, _sender: &ComponentSender<Self>) {
+    fn update(&mut self, msg: Self::Input, _sender: ComponentSender<Self>) {
         match msg {
             AppMsg::AddCounter => {
-                self.counters.push_back(self.created_widgets);
+                self.counters.guard().push_back(self.created_widgets);
                 self.created_widgets = self.created_widgets.wrapping_add(1);
             }
             AppMsg::RemoveCounter => {
-                self.counters.pop_back();
+                self.counters.guard().pop_back();
             }
             AppMsg::SendFront(index) => {
-                self.counters.move_front(index.current_index());
+                self.counters.guard().move_front(index.current_index());
             }
             AppMsg::MoveDown(index) => {
                 let index = index.current_index();
                 let new_index = index + 1;
                 // Already at the end?
                 if new_index < self.counters.len() {
-                    self.counters.move_to(index, new_index);
+                    self.counters.guard().move_to(index, new_index);
                 }
             }
             AppMsg::MoveUp(index) => {
                 let index = index.current_index();
                 // Already at the start?
                 if index != 0 {
-                    self.counters.move_to(index, index - 1);
+                    self.counters.guard().move_to(index, index - 1);
                 }
             }
         }
-        self.counters.render_changes();
     }
 }
 
 fn main() {
-    let app: RelmApp<AppModel> = RelmApp::new("relm4.test.gridFactory");
-    app.run(0);
+    let app = RelmApp::new("relm4.test.gridFactory");
+    app.run::<AppModel>(0);
 }
