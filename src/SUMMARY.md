@@ -20,7 +20,7 @@
 - [Workers](./worker.md)
 - [Message handlers](./message_handler.md)
 - [Threads and async](./threads_and_async.md)
-- [Reusable components](./reusable_components.md)
+- [Child components](./child_components.md)
 - [gtk-rs overview](./gtk_rs.md)
 - [Component macro reference](./component_macro_reference.md)
   - [Macro expansion](./component_macro_expansion.md)
