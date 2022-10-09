@@ -6,7 +6,7 @@ To simplify the implementation of the `Widgets` trait, let's use the relm4-macro
 
 The app will look and behave identical to our first app from the previous chapter. Only the implementation is different.
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/simple.rs). Run `cargo run --example simple` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/relm4-examples/examples/simple.rs). Run `cargo run --example simple` from the [example directory](https://github.com/Relm4/Relm4/tree/main/relm4-examples) if you want to see the code in action.
 
 ## What's different
 
@@ -74,7 +74,7 @@ The last special syntax of the `widgets` macro we'll cover here is the `watch!` 
 {{#include ../examples/simple.rs:watch }}
 ```
 
-> The full reference for the syntax of the widget macro can be found [here](https://aaronerhardt.github.io/relm4-book/book/widget_macro_reference.html).
+> The full reference for the syntax of the widget macro can be found [here](https://relm4.org/book/stable/widget_macro_reference.html).
 
 ## The complete code
 

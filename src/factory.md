@@ -11,13 +11,13 @@ Clicking on a counter will decrement it.
 
 Let's have a look at factories in Relm4. We want to write a simple application that can create and remove many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/factory.rs). Run `cargo run --example factory` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/relm4-examples/examples/factory.rs). Run `cargo run --example factory` from the [example directory](https://github.com/Relm4/Relm4/tree/main/relm4-examples) if you want to see the code in action.
 
 ### The model
 
 The most common solution for storing collections of data is a `Vec`. Yet a `Vec` can't help us with efficient UI updates because it does not track changes to itself. If we used a `Vec` we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a `FactoryVec` to store our data. A `FactoryVec` is a simple data structure provided by Relm4 that allows us to push, pop and modify elements. Additionally, it automatically keeps track of all the changes made to itself.
 
-> An overview over all available factory data structures can be found in the documentation [here](https://aaronerhardt.github.io/docs/relm4/relm4/factory/collections/index.html).
+> An overview over all available factory data structures can be found in the documentation [here](https://relm4.org/docs/stable/relm4/factory/collections/index.html).
 
 ```rust,no_run,noplayground
 {{#include ../examples/factory.rs:model }}

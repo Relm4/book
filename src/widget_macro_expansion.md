@@ -2,7 +2,7 @@
 
 To better understand the widget macro, we will have a look at how the different parts of the widget macro are translated into real Rust code (aka the macro expansion). Therefore, we will write a small app that uses as many widget macro features as possible.
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/macro_test.rs). Run `cargo run --example macro_test` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/relm4-examples/examples/macro_test.rs). Run `cargo run --example macro_test` from the [example directory](https://github.com/Relm4/Relm4/tree/main/relm4-examples) if you want to see the code in action.
 
 ## The boilerplate
 
@@ -94,9 +94,9 @@ It's exactly the the code of the `pre_init()` function.
 
 #### Widget initialization
 
-The macro now initializes all widgets. Widgets that were defined by their type are initialized with the [`relm4::util::default_widgets::DefaultWidget`](https://aaronerhardt.github.io/docs/relm4/relm4/util/default_widgets/trait.DefaultWidget.html) trait that basically calls `Widget::builder().build()` to initialize a widget with default configuration. Obviously, that only works for widgets that support this builder pattern.
+The macro now initializes all widgets. Widgets that were defined by their type are initialized with the [`relm4::util::default_widgets::DefaultWidget`](https://relm4.org/docs/stable/relm4/util/default_widgets/trait.DefaultWidget.html) trait that basically calls `Widget::builder().build()` to initialize a widget with default configuration. Obviously, that only works for widgets that support this builder pattern.
 
-We also see `gtk::Button::new()` and `new_label()` used to initialize widgets. These widgets were explicitly initialized with a [function](https://aaronerhardt.github.io/relm4-book/book/widget_macro_reference.html#functions).
+We also see `gtk::Button::new()` and `new_label()` used to initialize widgets. These widgets were explicitly initialized with a [function](https://relm4.org/book/stable/widget_macro_reference.html#functions).
 
 ```rust,no_run,noplayground
 {{#include ../examples/macro_expansion.rs:widget_init }}

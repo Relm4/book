@@ -79,7 +79,7 @@ So in short, the `tracker::track` macro provides different getters and setters t
 
 Let's build a simple app that shows two random icons and allows the user to set each of them to a new random icon. As a bonus, we want to show a fancy background color if both icons are the same.
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/tracker.rs). Run `cargo run --example tracker` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/relm4-examples/examples/tracker.rs). Run `cargo run --example tracker` from the [example directory](https://github.com/Relm4/Relm4/tree/main/relm4-examples) if you want to see the code in action.
 
 ## The icons
 
@@ -143,7 +143,7 @@ Let's have a look at its first appearance:
 {{#include ../examples/tracker.rs:track1 }}
 ```
 
-The [`set_class_active`](https://aaronerhardt.github.io/docs/relm4/relm4/util/widget_plus/trait.WidgetPlus.html#tymethod.set_class_active) method is used to either activate or disable a CSS class. It takes two parameters, the first is the class itself and the second is a boolean which specifies if the class should be added (`true`) or removed (`false`).
+The [`set_class_active`](https://relm4.org/docs/stable/relm4/util/widget_plus/trait.WidgetPlus.html#tymethod.set_class_active) method is used to either activate or disable a CSS class. It takes two parameters, the first is the class itself and the second is a boolean which specifies if the class should be added (`true`) or removed (`false`).
 
 The first parameter of the `track!` macro will be used as a condition to check whether something has changed. If this condition is `true`, the `set_class_active` method will be called with all the parameters of the `track!` macro that follow the condition.
 
