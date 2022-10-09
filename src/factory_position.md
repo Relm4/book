@@ -4,7 +4,7 @@ Most widgets such as `gtk::Box` don't use the position function because they are
 
 The task of the position function is mainly to map the index to a specific position/area (x, y, width and height) of a factory widget inside the parent widget (view).
 
-> The code we will use in this chapter is based on the grid_factory example [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/grid_factory.rs). Run `cargo run --example grid_factory` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The code we will use in this chapter is based on the grid_factory example [here](https://github.com/Relm4/Relm4/blob/main/relm4-examples/examples/grid_factory.rs). Run `cargo run --example grid_factory` from the [example directory](https://github.com/Relm4/Relm4/tree/main/relm4-examples) if you want to see the code in action.
 
 ## How it works
 

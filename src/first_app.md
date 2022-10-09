@@ -150,7 +150,7 @@ The app does all those things in a loop. It waits for messages and once a messag
 
 I hope this chapter made everything clear for you :)
 
-If you found a mistake or there was something unclear, please open an issue [here](https://github.com/AaronErhardt/relm4/issues).
+If you found a mistake or there was something unclear, please open an issue [here](https://github.com/Relm4/Relm4/issues).
 
 As you have seen, initializing the UI was by far the largest part of our app, with roughly one half of the total code. In the next chapter, we will have a look at the `relm4-macros` crate that offers a macro that helps us to reduce the amount of code we need to implement the Widgets trait.
 

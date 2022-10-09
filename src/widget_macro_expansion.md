@@ -2,7 +2,7 @@
 
 To better understand the widget macro, we will have a look at how the different parts of the widget macro are translated into real Rust code (aka the macro expansion). Therefore, we will write a small app that uses as many widget macro features as possible.
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/macro_test.rs). Run `cargo run --example macro_test` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/relm4-examples/examples/macro_test.rs). Run `cargo run --example macro_test` from the [example directory](https://github.com/Relm4/Relm4/tree/main/relm4-examples) if you want to see the code in action.
 
 ## The boilerplate
 
