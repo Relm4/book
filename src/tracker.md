@@ -143,7 +143,7 @@ Let's have a look at its first appearance:
 {{#include ../examples/tracker.rs:track1 }}
 ```
 
-The [`set_class_active`](https://aaronerhardt.github.io/docs/relm4/relm4/util/widget_plus/trait.WidgetPlus.html#tymethod.set_class_active) method is used to either activate or disable a CSS class. It takes two parameters, the first is the class itself and the second is a boolean which specifies if the class should be added (`true`) or removed (`false`).
+The [`set_class_active`](https://relm4.org/docs/stable/relm4/util/widget_plus/trait.WidgetPlus.html#tymethod.set_class_active) method is used to either activate or disable a CSS class. It takes two parameters, the first is the class itself and the second is a boolean which specifies if the class should be added (`true`) or removed (`false`).
 
 The first parameter of the `track!` macro will be used as a condition to check whether something has changed. If this condition is `true`, the `set_class_active` method will be called with all the parameters of the `track!` macro that follow the condition.
 

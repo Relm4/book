@@ -74,7 +74,7 @@ The last special syntax of the `widgets` macro we'll cover here is the `watch!` 
 {{#include ../examples/simple.rs:watch }}
 ```
 
-> The full reference for the syntax of the widget macro can be found [here](https://aaronerhardt.github.io/relm4-book/book/widget_macro_reference.html).
+> The full reference for the syntax of the widget macro can be found [here](https://relm4.org/book/stable/widget_macro_reference.html).
 
 ## The complete code
 

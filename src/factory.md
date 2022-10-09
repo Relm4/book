@@ -17,7 +17,7 @@ Let's have a look at factories in Relm4. We want to write a simple application t
 
 The most common solution for storing collections of data is a `Vec`. Yet a `Vec` can't help us with efficient UI updates because it does not track changes to itself. If we used a `Vec` we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a `FactoryVec` to store our data. A `FactoryVec` is a simple data structure provided by Relm4 that allows us to push, pop and modify elements. Additionally, it automatically keeps track of all the changes made to itself.
 
-> An overview over all available factory data structures can be found in the documentation [here](https://aaronerhardt.github.io/docs/relm4/relm4/factory/collections/index.html).
+> An overview over all available factory data structures can be found in the documentation [here](https://relm4.org/docs/stable/relm4/factory/collections/index.html).
 
 ```rust,no_run,noplayground
 {{#include ../examples/factory.rs:model }}

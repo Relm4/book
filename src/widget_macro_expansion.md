@@ -94,9 +94,9 @@ It's exactly the the code of the `pre_init()` function.
 
 #### Widget initialization
 
-The macro now initializes all widgets. Widgets that were defined by their type are initialized with the [`relm4::util::default_widgets::DefaultWidget`](https://aaronerhardt.github.io/docs/relm4/relm4/util/default_widgets/trait.DefaultWidget.html) trait that basically calls `Widget::builder().build()` to initialize a widget with default configuration. Obviously, that only works for widgets that support this builder pattern.
+The macro now initializes all widgets. Widgets that were defined by their type are initialized with the [`relm4::util::default_widgets::DefaultWidget`](https://relm4.org/docs/stable/relm4/util/default_widgets/trait.DefaultWidget.html) trait that basically calls `Widget::builder().build()` to initialize a widget with default configuration. Obviously, that only works for widgets that support this builder pattern.
 
-We also see `gtk::Button::new()` and `new_label()` used to initialize widgets. These widgets were explicitly initialized with a [function](https://aaronerhardt.github.io/relm4-book/book/widget_macro_reference.html#functions).
+We also see `gtk::Button::new()` and `new_label()` used to initialize widgets. These widgets were explicitly initialized with a [function](https://relm4.org/book/stable/widget_macro_reference.html#functions).
 
 ```rust,no_run,noplayground
 {{#include ../examples/macro_expansion.rs:widget_init }}
