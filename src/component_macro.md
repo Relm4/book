@@ -51,7 +51,7 @@ Sometimes we want to use a constructor function to initialize our widgets. For t
 To connect events, we use this syntax.
 
 ```rust,no_run,noplayground
-method_name(cloned_var1, cloned_var2, ...) => move |args, ...| { code... }
+method_name[cloned_var1, cloned_var2, ...] => move |args, ...| { code... }
 ```
 
 Again, there's no magic. The macro will simply assign a closure to a method. Because closures often need to capture local variables that don't implement the `Copy` trait, we need to clone these variables. Therefore, we can list the variables we want to clone in the square brackets after the method name.
@@ -59,6 +59,19 @@ Again, there's no magic. The macro will simply assign a closure to a method. Bec
 ```rust,no_run,noplayground
 {{#include ../examples/simple.rs:connect }}
 ```
+
+> There's a shorter syntax for just sending one input message that works with most event handlers.
+> So instead of this:
+> 
+> ```rust,no_run,noplayground
+> method_name[sender] => move |_| { sender.input(Msg); },
+> ```
+> 
+> You can simply write this:
+> 
+> ```rust,no_run,noplayground
+> method_name => Msg,
+> ```
 
 ### UI updates
 

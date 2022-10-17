@@ -1,155 +1,182 @@
 # Factory
 
-Factories define how to generate widgets from collections of data. They are used inside GTK as well, but Relm4 uses them a bit differently.
+Factories define how to generate widgets from collections of data. 
+GTK also has factories, yet Relm4 uses its own factory implementation that's much easier to use from regular Rust code.
 
 ![App screenshot dark](img/screenshots/factory-dark.png)
 
-This app will have a dynamic number of counters which can be changed by pressing the add or remove buttons.
-Clicking on a counter will decrement it.
+This app will have a dynamic number of counters.
+Also, the counters can be moved up and down by the user.
 
 ## Factories in Relm4
 
-Let's have a look at factories in Relm4. We want to write a simple application that can create and remove many counters. Each counter needs to store its value and display widgets to allow modifying the counter. In this example we will only decrement the counter.
+Factories allow you to visualize data in a natural way.
+If you wanted to store a set of counter values in regular Rust code, you'd probably use `Vec<u8>`.
+However, you can't simply generate widgets from a `Vec`.
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/factory.rs). Run `cargo run --example factory` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
+This is where factories are really useful.
+Custom collection types like `FactoryVecDeque` allow you to work with collections of data almost as comfortable as if they were stored in a `Vec`.
+At the same time, factories allow you to automatically visualize the data with widgets.
+Additionally, factories are very efficient by reducing the amount of UI updates to a minimum.
 
-## Message handling
-
-**Factories** can call `output_to_parent_msg` to send messages to their parent component.
-
-You can send output messages using the `output_to_parent_msg` function from the sender component and receive them in the `forward` function inside the receiver component.
-
-```rust,no_run,noplayground
-fn output_to_parent_msg(output: Self::Output) -> Option<AppMsg> {
-    Some(match output {
-        CounterOutput::SendFront(index) => AppMsg::SendFront(index),
-        CounterOutput::MoveUp(index) => AppMsg::MoveUp(index),
-        CounterOutput::MoveDown(index) => AppMsg::MoveDown(index),
-    })
-}
-```
-
-> In the case of factories, we already know who its parent will be, so, the output is handled by the child.
+> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/examples/factory.rs).
+> Run `cargo run --example factory` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/examples) if you want to see the code in action.
 
 ### The model
 
-The most common solution for storing collections of data is a `Vec`. Yet a `Vec` can't help us with efficient UI updates because it does not track changes to itself. If we used a `Vec` we'd have to assume everything could have changed and create all widgets over and over again. So instead we use a `FactoryVec` to store our data. A `FactoryVec` is a simple data structure provided by Relm4 that allows us to push, pop and modify elements. Additionally, it automatically keeps track of all the changes made to itself.
+First, we define the struct `Counter` that just stores the value of a single counter.
+Later, we will use a `FactoryVecDeque` to store our counters.
 
-> An overview over all available factory data structures can be found in the documentation [here](https://aaronerhardt.github.io/docs/relm4/relm4/factory/collections/index.html).
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:model }}
+{{#include ../examples/factory.rs:factory_model }}
 ```
 
-As you can see, we first define the struct `Counter` that just stores the value of a single counter. Then we use a `FactoryVec` to store our counters in the model. For now, all of this is just data. Similar to the model type, we need to define the data structures we need for our UI first. Then we will define how to create widgets from this data. Yet unlike the model type, we can have many counters in a `FactoryVec` and each of them will be represented by its own widgets.
+### The input message type
 
-To give our counters an unique value at initialization, we also add a separate counter to the model to count the amount of counters we did already create. 
+Each counter should be able to increment and decrement.
 
-## The message type
+```rust,no_run,noplayground
+{{#include ../examples/factory.rs:factory_input }}
+```
 
-The actions we want to perform are
+### The output message type
 
-+ Add new counters
-+ Remove counters
-+ Decrement a counter
+A neat feature of factories is that each element can easily forward their output messages to the input of their parent component.
+For example, this is necessary for modifications that require access to the whole `FactoryVecDeque`, like moving an element to a new position.
+Therefore, these actions are covered by the output type.
+
+The actions we want to perform "from outside" are
+
++ Move a counter up
++ Move a counter down
++ Move a counter to the first position
 
 Accordingly, our message type looks like this:
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:msg }}
+{{#include ../examples/factory.rs:factory_output }}
 ```
 
-You'll notice that an index is passed with `AppMsg::Clicked`. This allows us to select the counter that emitted the clicked signal.
+You might wonder why `DynamicIndex` is used here.
+First, the parent component needs to know which element should be moved, which is defined by the index.
+Further, elements can move in the `FactoryVecDeque`.
+If we used `usize` as index instead, it could happen that the index points to another element by the time it is processed.
 
-## The update function
+### The factory implementation
 
-The update function takes care of adding, removing and decrementing counters. Each new counter will be initialized with the amount of counters created before it.
+Factories use the `FactoryComponent` trait which is very similar to regular components with some minor adjustments.
+For example, `FactoryComponent` needs the `#[relm4::factory]` attribute macro and a few more associated types in the trait implementation.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:app_update }}
+{{#include ../examples/factory.rs:factory_impl_start }}
 ```
 
-> The `get` and `get_mut` methods inside `FactoryVec` return `Some` if the element exists and `None` if the index is invalid. It's recommended to not unwrap this `Option` because messages (and also the indices sent with them) are queued up if your update and view functions are slow and can be stale by the time they are handled.
+Let's look at the associated types one by one:
 
-## The factory implementation
++ **Init** => The data required to initialize `Counter`, in this case the initial counter value.
++ **Input** => The input message type.
++ **Output** => The output message type.
++ **CommandOutput** => The command output message type, we don't need it here.
++ **Widgets** => The name of the struct that stores out widgets, it will be created by the macro.
++ **ParentInput** => The input message type of the parent component.
++ **ParentWidget** => The container widget used to store the widgets of the factory, for example `gtk::Box`.
 
-So far the code looked pretty normal. Now to the interesting part of the code.
+### Creating the widget
 
-The first thing we need to implement for a factory is a widgets type. That sounds familiar, right? The widgets used for the factory are actually very similar to the widgets used for your application. They define which widgets represent an element inside a factory data structure like `FactoryVec`.
-
-In our case, we just need a simple button that will decrement the counter when clicked and will also display the counter value.
+The widget creation works as usual with our trusty `view` macro.
+The only difference is that we use `self` to refer to the model due to differences in the `FactoryComponent` trait.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:factory_widgets }}
+{{#include ../examples/factory.rs:factory_view }}
 ```
 
-The `FactoryPrototype` trait we need next is very similar to the `Widgets` trait, too: it defines how widgets are created and updated. Let's have a look at the implementation:
+### Initializing the model
+
+`FactoryComponent` has separate function for initializing the model and the widgets. 
+This means, that we are a bit less flexible, but don't need `view_output!()` here.
+Also, we just need to implement the `init_model` function because `init_widgets` it already implemented by the macro.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:factory_prototype_start }}
+{{#include ../examples/factory.rs:factory_init_model }}
 ```
 
-Alright, there are quite a few types! Let's look at them one by one:
+### Forwarding messages
 
-+ **Factory:** the data structure we use to store our elements. In our case, a `FactoryVec`.
-+ **Widgets:** the struct that stores out widgets. That's the `FactoryWidgets` type we just created.
-+ **Root:** similar to the root in the `Widgets` trait, it represents the outermost widget. This is usually a container like `gtk::Box` but in our case we just have a `gtk::Button`.
-+ **View:** the container we want our widgets to be placed inside. The simplest solution for this is a `gtk::Box`.
-+ **Msg:** the messages we want to send to the model containing this factory.
-
-### The generate function
-
-The generate function is similar to `init_view` in the `Widgets` trait: it generates the widgets from data. You'll notice that there's an index as well that we can use to send messages that index the data these widgets represent. The index type might vary between different factory data structures. For the factory type `FactoryVec` an index of the type `usize` is being used.
+Factories can implement the `output_to_parent_msg` method to send messages to their parent component.
+If `Some` is returned, a message is forwarded.
+If `None` is returned, nothing happens.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:generate }}
+{{#include ../examples/factory.rs:output_to_parent }}
 ```
 
-As you can see, we send a message with the index back to the update function to decrement this specific counter when the button is pressed.
+## The main component
 
-### The position function
+Now, we have implemented the `FactoryComponent` type for the elements in our factory.
+The only thing left to do is to write our main component to complete our app.
 
-In our case, the function is pretty short:
+### The component types
+
+For the main component we implement the familiar `SimpleComponent` trait.
+First we define the model and the input message type and start the trait implementation.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:position }}
+{{#include ../examples/factory.rs:main_types }}
 ```
 
-The `gtk::Box` we use here is one-dimensional. This means that a `FactoryVec` can perfectly resemble the layout with its own internal structure because it's one-dimenational as well. In other words, the first element of the `FactoryVec` is also the first in the `gtk::Box`. Yet, some container widgets such as `gtk::Grid` place widgets at fixed two-dimensional positions and rely in the position function to know where a new widget should be added.
+### Initializing the factory
 
-Because we don't use it here, the position function is explained in the next chapter.
+We'll shortly skip the `view` macro to look at the `init` method.
+You see that we initialize the `FactoryVecDeque` with a container widget.
+This widget will store all the widgets created by the factory.
 
-### The update function
+We also pass an input sender so the `output_to_parent_msg` method we defined earlier can send input messages to our main component.
 
-The update function is similar to `view` in the `Widgets` trait: it updates the widgets according to the updated data.
+The last trick we have up our sleeves is to define a local variable `counter_box` that is a reference to the container widget of our factory.
+We'll use it in the `view` macro in the next section.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:update }}
+{{#include ../examples/factory.rs:main_init }}
 ```
 
-We just update the label of the button to represent the updated counter value.
+### Initializing the widgets
 
-### The get_root function
-
-The last function we need is the `get_root` function. It's similar to the `root_widget` in the `Widgets` trait: it returns the root widget, the outermost of our widgets.
+The familiar `view` macro comes into play again.
+Most things should look familiar, but this time we use a `#[local_ref]` attribute for the last widget to use the local variable we defined in the previous section.
+This trick allows us to initialize the model with its `FactoryVecDeque` before the widgets, which is more convenient most of the time.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:get_root }}
+{{#include ../examples/factory.rs:main_view }}
 ```
 
-## The widgets
+### The main update function
 
-The last piece to make our code complete it the definition of the widgets for the application. There's mostly one notable thing: the `factory!` macro.
+This time the main update function has actually quite a bit to do.
+The code should be quite readable if you worked with `Vec` or `VecDeque` before.
+
+One thing stands out though: We see a lot of calls to `guard()`.
+In fact, all mutating methods of `FactoryVecDeque` need an RAII-guard.
+This is similar to a `MutexGuard` you get from locking a mutex.
+
+The reason for this is simple.
+As long as the guard is alive, we can perform multiple operations.
+Once we're done, we just drop the guard (or rather leave the current scope) and this will cause the factory to update its widgets automatically.
+The neat thing: You can never forget to render changes and the update algorithm can optimize the widget updates for efficiency.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:widgets }}
+{{#include ../examples/factory.rs:main_update }}
 ```
 
-The `factory!` macro that's almost at the end of the widgets definition now updates our widgets according to the changes we make to the data in our model. It sits inside of the `gtk::Box` we want to use as a container for our counter.
+### The main function
 
-> The `factory!` macro simply expands to `model.data.generate(&self.gen_box, sender)` where `gen_box` is the `gtk::Box` we used as a container. The `generate` function is provided by the `Factory` trait that's implemented for `FactoryVec` and similar data structures.
+Awesome, we almost made it!
 
-Now to test this, we could add a print statement to the update function. It will show that decrementing one counter will only update the widgets of one counter. Great, that's exactly what we wanted!
+We only need to define the main function to run our application.
+
+```rust,no_run,noplayground
+{{#include ../examples/factory.rs:main }}
+```
 
 ## The complete code
 

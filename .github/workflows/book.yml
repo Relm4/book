@@ -70,4 +70,3 @@ jobs:
           check_filenames: true
           path: src
           ignore_words_list: "crate"
-

@@ -6,7 +6,7 @@
 use gtk::prelude::{
     BoxExt, ButtonExt, GridExt, GtkWindowExt, OrientableExt, ToggleButtonExt, WidgetExt,
 };
-use relm4::{gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, WidgetPlus};
+use relm4::{gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, RelmWidgetExt};
 
 // ANCHOR: model
 #[tracker::track]
@@ -182,7 +182,7 @@ impl SimpleComponent for AppModel {
         let test_field = 0;
 
         // Set icon name randomly to Some("go-up-symbolic") or None
-        let icon_name = rand::random::<bool>().then(|| "go-up-symbolic");
+        let icon_name = rand::random::<bool>().then_some("go-up-symbolic");
 
         let local_label = gtk::Label::new(Some("local_label"));
         let local_ref_label_value = gtk::Label::new(Some("local_ref_label"));

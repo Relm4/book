@@ -4,7 +4,7 @@ use relm4::{
         positions::GridPosition, DynamicIndex, FactoryComponent, FactoryComponentSender,
         FactoryVecDeque, Position,
     },
-    gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, WidgetPlus,
+    gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, RelmWidgetExt,
 };
 
 #[derive(Debug)]
