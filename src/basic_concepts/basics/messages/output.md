@@ -10,7 +10,7 @@ enum Outbox {
 }
 ```
 
-We can extend our previous example and send one of the emails to somebody else.
+We can modify our previous example and send one of the emails to somebody else.
 
 ```rust,no_run,noplayground
 match message {
