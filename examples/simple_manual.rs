@@ -1,7 +1,7 @@
 /* ANCHOR: all */
 use gtk::glib::clone;
 use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt};
-use relm4::{gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, RelmWidgetExt};
+use relm4::{gtk, ComponentParts, ComponentSender, RelmApp, RelmWidgetExt, SimpleComponent};
 
 // ANCHOR: model
 struct AppModel {
@@ -33,7 +33,7 @@ impl SimpleComponent for AppModel {
     type Input = AppInput;
     /// The type of the messages that this component can send.
     type Output = ();
-    /// The type of data that this component will be initialized with.
+    /// The type of data with which this component is initialized.
     type Init = u8;
     /// The root GTK widget that this component will create.
     type Root = gtk::Window;
