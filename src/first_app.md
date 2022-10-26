@@ -42,7 +42,7 @@ For our app, we just want to tell the computer to either increment or decrement 
 
 GTK4 offers the computer widgets that allow it to take input and to respond. Widgets are simply parts of an UI like buttons, input fields or text areas. To be able to update the widgets in our program, we can put them all into a `struct`.
 
-For our app, we use a window with two buttons to increment and decrement the counter and a label to display the counter value. Besides that, we need a box as a container to place our buttons and the label inside because a window can only have one child. 
+For our application, we use a window with two buttons to increase and decrease the counter and a label to display the counter value. We also need a box as a container to house our buttons and label, since a window can only have one child.
 
 In our case, we will only update the label when we increment or decrement the counter, so we don't really need to store everything inside the struct.
 
@@ -54,9 +54,9 @@ Although, if you want to, you can.
 
 ### Implement a component with `SimpleComponent`.
 
-The last step we need it to tell the computer how to initialize widgets and how to update them.
+The last step we need is to tell the computer how to initialize and update the widgets.
 
-All that's left to do is to implement the `SimpleComponent` trait for your `Model` that tells the computer exactly how its memory should be visualized.
+All that is left to do is to implement the `SimpleComponent` trait for your `Model`, which tells the computer exactly how to visualize its memory.
 
 Let's do this step by step. First, we'll have a look at the beginning of the trait `impl`.
 
@@ -70,11 +70,11 @@ The first thing you need to do is to define some generic types necessary to make
 {{#include ../examples/simple_manual.rs:constants }}
 ```
 
-The types defined in the trait tell our component how it should communicate with other components and what widgets should be produced.
+The types defined in the trait tell our component how it should communicate with other components and what type of widgets should be produced.
 
 The `Root` type is the outermost widget of the app. Components can choose this type freely, but the main application must use a `Window`.
 
-Since the window widget is our root widget, we define that in the `init_root` function.
+Since the window widget is our root widget, we are going to create it in the `init_root` function.
 
 ```rust,no_run,noplayground
 {{#include ../examples/simple_manual.rs:init_root }}
@@ -84,7 +84,7 @@ Next up, we want to initialize our UI and the model.
 
 > Don't worry about the amount of manual code you need for handling widgets. In the next chapter, we'll see how this can be done easier.
 
-All of these widgets will be created in the `init` function. We will receive the `Root` and the `InitParams` variables, which we will use to create our widgets.
+All of these widgets will be created in the `init` function. We get our `Root` window and the `InitParams` variables to create our widgets with.
 
 ```rust,no_run,noplayground
 {{#include ../examples/simple_manual.rs:init }}
