@@ -13,7 +13,7 @@ GTK Light | GTK Dark
 
 In this app, we will have a counter which can be incremented and decremented by pressing the corresponding buttons.
 
-> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/macro-0.5/examples/simple_manual.rs). Run `cargo run --example simple_manual` from the [example directory](https://github.com/Relm4/Relm4/tree/macro-0.5/examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/examples/simple_manual.rs). Run `cargo run --example simple_manual` from the [example directory](https://github.com/Relm4/Relm4/tree/macro-0.5/examples) if you want to see the code in action.
 
 ## Application architecture
 
