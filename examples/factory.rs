@@ -38,9 +38,9 @@ impl FactoryComponent for Counter {
     type Widgets = CounterWidgets;
     type ParentInput = AppMsg;
     type ParentWidget = gtk::Box;
-// ANCHOR_END: factory_impl_start
+    // ANCHOR_END: factory_impl_start
 
-// ANCHOR: factory_view
+    // ANCHOR: factory_view
     view! {
         root = gtk::Box {
             set_orientation: gtk::Orientation::Horizontal,
@@ -90,7 +90,7 @@ impl FactoryComponent for Counter {
             }
         }
     }
-// ANCHOR_END: factory_view
+    // ANCHOR_END: factory_view
 
     // ANCHOR: output_to_parent
     fn output_to_parent_input(output: Self::Output) -> Option<AppMsg> {
@@ -102,7 +102,7 @@ impl FactoryComponent for Counter {
     }
     // ANCHOR_END: output_to_parent
 
-// ANCHOR: factory_init_model
+    // ANCHOR: factory_init_model
     fn init_model(
         value: Self::Init,
         _index: &DynamicIndex,
@@ -110,9 +110,9 @@ impl FactoryComponent for Counter {
     ) -> Self {
         Self { value }
     }
-// ANCHOR_END: factory_init_model
+    // ANCHOR_END: factory_init_model
 
-// ANCHOR: factory_update
+    // ANCHOR: factory_update
     fn update(&mut self, msg: Self::Input, _sender: FactoryComponentSender<Self>) {
         match msg {
             CounterMsg::Increment => {
@@ -123,7 +123,7 @@ impl FactoryComponent for Counter {
             }
         }
     }
-// ANCHOR_END: factory_update
+    // ANCHOR_END: factory_update
 }
 // ANCHOR_END: factory
 
@@ -148,9 +148,9 @@ impl SimpleComponent for App {
     type Input = AppMsg;
     type Output = ();
     type Widgets = AppWidgets;
-// ANCHOR_END: main_types
+    // ANCHOR_END: main_types
 
-// ANCHOR: main_view
+    // ANCHOR: main_view
     view! {
         gtk::Window {
             set_title: Some("Factory example"),
@@ -179,9 +179,9 @@ impl SimpleComponent for App {
             }
         }
     }
-// ANCHOR_END: main_view
+    // ANCHOR_END: main_view
 
-// ANCHOR: main_init
+    // ANCHOR: main_init
     // Initialize the UI.
     fn init(
         counter: Self::Init,
@@ -199,9 +199,9 @@ impl SimpleComponent for App {
 
         ComponentParts { model, widgets }
     }
-// ANCHOR_END: main_init
+    // ANCHOR_END: main_init
 
-// ANCHOR: main_update
+    // ANCHOR: main_update
     fn update(&mut self, msg: Self::Input, _sender: ComponentSender<Self>) {
         match msg {
             AppMsg::AddCounter => {
@@ -231,7 +231,7 @@ impl SimpleComponent for App {
             }
         }
     }
-// ANCHOR_END: main_update
+    // ANCHOR_END: main_update
 }
 
 // ANCHOR: main

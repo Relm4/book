@@ -1,7 +1,7 @@
 // ANCHOR: all
 use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
 use relm4::{
-    gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, WidgetPlus, WidgetTemplate,
+    gtk, ComponentParts, ComponentSender, RelmApp, RelmWidgetExt, SimpleComponent, WidgetTemplate,
 };
 
 // ANCHOR: box_template
@@ -112,7 +112,7 @@ impl SimpleComponent for AppModel {
             },
         }
     }
-// ANCHOR_END: component_start
+    // ANCHOR_END: component_start
 
     fn init(
         counter: Self::Init,

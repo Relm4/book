@@ -1,7 +1,7 @@
 // ANCHOR: all
 use gtk::prelude::{BoxExt, ButtonExt, OrientableExt};
 use rand::prelude::IteratorRandom;
-use relm4::{gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, RelmWidgetExt};
+use relm4::{gtk, ComponentParts, ComponentSender, RelmApp, RelmWidgetExt, SimpleComponent};
 
 // ANCHOR: icons
 const ICON_LIST: &[&str] = &[
