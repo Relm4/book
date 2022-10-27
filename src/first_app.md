@@ -151,7 +151,7 @@ I hope this chapter made everything clear for you :)
 
 If you found a mistake or there was something unclear, please open an issue [here](https://github.com/AaronErhardt/relm4/issues).
 
-As you have seen, initializing the UI was by far the largest part of our app, with roughly one half of the total code. In the next chapter, we will have a look at the `relm4-macros` crate that offers a macro that helps us to reduce the amount of code we need to implement the Widgets trait.
+As you have seen, initializing the UI was by far the largest part of our app, with roughly one half of the total code. In the next chapter, we will have a look at the `relm4-macros` crate, which provides a macro that helps us reduce the amount of code we need to implement the Widgets trait.
 
 > As you might have noticed, storing `inc_button`, `dec_button` and `vbox` in our widgets `struct` is not necessary because GTK will keep them alive automatically. Therefore, we can remove them from `AppWidgets` to avoid compiler warnings.
 
