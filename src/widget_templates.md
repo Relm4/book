@@ -26,6 +26,8 @@ Similarly, we can create a template for a `gtk::Spinner` that already spins when
 {{#include ../examples/widget_template.rs:spinner_template }}
 ```
 
+> To create public templates, you can use `#[relm4::widget_template(pub)]`, similar to the `#[relm4::component(pub)]` macro.
+
 ### Template children
 
 Templates are more than just pre-initialized widgets.
