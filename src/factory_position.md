@@ -2,7 +2,7 @@
 
 Most widgets such as `gtk::Box` don't use the position function because they are one-dimensional and place widgets relative to each other. However, a few widgets such as `gtk::Grid` use fixed positions and need the position function to work inside a factory.
 
-The task of the position function is mainly to map the index to a specific position/area (x, y, width and height) of a factory widget inside the parent widget (view).
+The task of the position function is mainly to map the index to a certain position/area (x, y, width and height) of a factory widget within the parent widget (view).
 
 > The code we will use in this chapter is based on the grid_factory example [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/grid_factory.rs). Run `cargo run --example grid_factory` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
@@ -14,7 +14,7 @@ However, we want to use a factory for generating our widgets, which means we onl
 
 ![Grid layout example](img/grid_layout.svg)
 
-To place 3 elements per row from left to right in a `gtk::Grid` we could use the following position function.
+To place three elements per row from left to right in a `gtk::Grid` we could use the following position function.
 
 ```rust,no_run,noplayground
     fn position(&self, index: &usize) -> GridPosition {
@@ -40,7 +40,7 @@ And indeed, it works as expected.
 
 Let's have a look at a more complex layout. It's unlikely that this would be used in a real application, but it's still interesting to have a look at it.
 
-To create a chess grid layout, we need to place our widgets only on fields of one color and leave the other fields empty. Or in other words, we only place widgets on the fields a bishop can reach.
+To create a chess grid layout, we need to place our widgets only on fields of one color and leave the other fields empty.
 
 ![Grid layout example](img/chess_layout.svg)
 
