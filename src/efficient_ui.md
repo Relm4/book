@@ -7,6 +7,6 @@ Let's have a look at the following example: Imagine you have an app with 1000 co
 There are two concepts in Relm4 to avoid unnecessary UI updates:
 
 + **Trackers** identify modifications of fields in `struct`s to only trigger the update the relevant UI elements.
-+ **Factories** track changes in [`std::collections`](https://doc.rust-lang.org/std/collections/index.html) like data structures to perform also minimal UI updates.
++ **Factories** track changes in [`std::collections`](https://doc.rust-lang.org/std/collections/index.html) like data structures to perform also minimal UI updates. They are used to generate multiple similar widgets, e.g. a row of buttons, from a data collection.
 
 Both concepts are explained in the following chapters.
