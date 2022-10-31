@@ -10,7 +10,7 @@
 
 + **components:**
   + Abstract parts of your UI
-  + The update function should be run on a different thread
+  + The update function should be executed in another thread
 
 + **workers:**
   + Handle IO-bound or CPU-intensive tasks **one** at the time on a different thread
@@ -49,9 +49,11 @@ impl Components<AppModel> for AppComponents {
 }
 ```
 
-Instead of `RelmComponent::new` we used `RelmComponent::with_new_thread`. The same is true for workers. `RelmWorker::new` runs the worker on the same thread and `RelmWorker::with_new_thread` spawns a new thread for the worker.
+Instead of `RelmComponent::new` we used `RelmComponent::with_new_thread`. The same is true for workers. `RelmWorker::new` runs the worker on the same thread and `RelmWorker::with_new_thread` spawns it in a new thread.
 
-> Components have widgets that, in the case of GTK4, neither implement `Send` nor `Sync`. That means we can't run the view function from a different thread, but only the update function that just operates on the model. Internally, Relm4 sends the model from a new thread that handles the update function to the main thread that then handles the view function and back to the new thread again. This is not optimal regarding performance and therefore only recommended if you don't send a lot of messages to the component. Alternatively, you can always do the heavy work in a worker or a message handler because they don't have this problem.
+> Components have widgets which, in the case of GTK4, neither implement `Send` nor `Sync`. This means that we can't run the view function from a different thread, but only the update function, which operates only on the model. Internally, Relm4 sends the model from a new thread that processes the update function in the main thread. The main thread then handles the view function and sends it again back to the new thread.
+>
+> This is not optimal in terms of performance and therefore only recommended if you don't send a lot of messages to the component. Alternatively, you can always do the heavy lifting in a worker or a message handler, since they don't have this problem.
 
 ## Async
 
@@ -88,4 +90,4 @@ std::thread::spawn(move || {
 
 ### Async inside the main event loop
 
-GTK uses an event loop from glib to handle asynchronous events. In fact the senders we've been using all the time use channels on that event loop. This event loop also allows us to execute futures. Relm4 provides a `spawn_future` function to do exactly that. The only drawback of this is that most crates relying on a tokio runtime won't work and that the future is run on the main thread. The ["future" example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/future.rs) shows how this can be used.
+GTK uses an event loop from glib to handle asynchronous events. In fact the senders we've been using all the time use channels on this event loop. This event loop also allows us to execute futures. Relm4 provides a `spawn_future` function to do exactly that. The only drawback of this is that most crates that rely on a tokio runtime won't work, and that the future is run on the main thread. The ["future" example](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/future.rs) shows how this can be used.
