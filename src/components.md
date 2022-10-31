@@ -4,7 +4,7 @@ I've already mentioned components several times in the previous chapters. Now we
 
 In short, components are independent parts of your application that can communicate with each other. They are used in a parent-child model: The main app can have components and each component can have child components that again can have child components. This means that each component has a parent, whereas the main app is at the top of this tree structure and therefore does not have a parent.
 
-To showcase this, we will create a small application which opens a dialog when it gets closed. The headerbar and the dialog will be implemented as standalone components. The communication to the main application will be done via outputs.
+To showcase this, we will create a small application which opens a dialog when it gets closed. The header bar and the dialog will be implemented as standalone components. The communication to the main application will be done via outputs.
 
 ![App screenshot dark](img/screenshots/components-dark-1.png)
 
@@ -36,7 +36,7 @@ fn init(counter: Self::InitParams, root: &Self::Root, sender: &ComponentSender<S
 }
 ```
 
-The `forward` method will redirect the output messages from the child component and transform them into the parent's input messages and handled in the `update` function.
+The `forward` method will redirect the output messages from the child component and transform them into the parent's input messages. This is handled in the `update` function.
 
 > Components are independent from one another, a component might communicate with many other components, therefore, the child component doesn't know who that parent will be, so, the output from the `child` has to be handled by the `parent`. 
 
@@ -48,19 +48,19 @@ Let's write a small example app to see how components can be used in action. For
 
 ## The header bar
 
-Our first component will be a header bar. There are not a lot of advantages for writing this component except for reducing the complexity in other parts of our UI.
+Our first component will be a header bar. There are not a lot of advantages for writing this as component except for reducing the complexity in other parts of our UI.
 
 The header bar will have three buttons for three modes that our application can have:
 
-+ **View:** View the image.
-+ **Edit:** Edit the image.
-+ **Export:** Export the image in different formats.
++ **View**: View the image.
++ **Edit**: Edit the image.
++ **Export**: Export the image in different formats.
 
-We will not implement the actual functionality, but use placeholders instead to keep things simple.
+We will not implement the actual functionality, but instead use placeholders to keep things simple.
 
 ### The model
 
-Usually you want to store everything that only affects your component in the state of the component. In this case however, there is no state that can be stored in the component, but only state that affects the root component (app). Therefore, we leave the model empty and only send messages to the root component.
+Usually you want to store everything that affects only your component in the state of the component. However, in this case, there is no state that can be stored in the component, but only state that affects the root component (app). Therefore, we leave the model empty and only send messages to the root component.
 
 ```rust,no_run,noplayground
 {{#include ../examples/components.rs:header_model }}
@@ -84,7 +84,7 @@ There's nothing special about widgets of a child component. The only difference 
 
 ## The close alert
 
-Like a normal application that's used to edit files, we want to notify the user before accidentally closing the application and discarding all progress. For this &mdash; you might have guessed it already &mdash; we will use another component.
+As with a normal application used to edit files, we want to notify the user before they accidentally close the application and discard all progress. For this &mdash; you might have guessed it already &mdash; we will use another component.
 
 ### The model
 
@@ -96,9 +96,9 @@ The state of the dialog only needs to store whether or not it's hidden.
 
 The message contains three options:
 
-+ Show is used by the parent to display the dialog.
-+ Accept is used internally to indicate that the user agreed to close the application.
-+ Cancel is used internally to indicate that the user changes his mind and doesn't want to close the application.
++ **Show** is used by the parent to display the dialog.
++ **Accept** is used internally to indicate that the user agreed to close the application.
++ **Cancel** is used internally to indicate that the user changes his mind and doesn't want to close the application.
 
 ```rust,no_run,noplayground
 {{#include ../examples/components.rs:dialog_msg }}
