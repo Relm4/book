@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: build listings
     container:
       image: ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
@@ -30,7 +30,7 @@ jobs:
         working-directory: ./
 
   build-deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: build
     steps:
       - uses: actions/checkout@v2
@@ -60,7 +60,7 @@ jobs:
           destination_dir: ./book/stable
 
   codespell:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:

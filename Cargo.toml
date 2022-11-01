@@ -14,7 +14,7 @@ categories = ["gui"]
 
 [dev-dependencies]
 rand = "0.8.5"
-relm4 = { git = "https://github.com/Relm4/Relm4", features = ["all"] }
-relm4-components = { git = "https://github.com/Relm4/Relm4" }
+relm4 = "0.5.0-beta.4"
+relm4-components = "0.5.0-beta.4"
 tokio = { version = "1.9", features = ["rt", "macros", "time", "rt-multi-thread", "sync"] }
 tracker = "0.1.1"
