@@ -1,6 +1,6 @@
 # The `component` macro reference
 
-There are quite a lot of examples where the `component` macro is used in this book. Yet, we haven't covered everything in the previous chapters and having all the information in one place is nice, too. This chapter will serve as an exhaustive reference for the component macro syntax.
+There are quite a few of examples where the `component` macro is used in this book. Still, we haven't covered everything in the previous chapters, and it's also nice to have all the information in one place. This chapter serves as an exhaustive reference for the component macro syntax.
 
 The `component` attribute macro expects a trait implementation of `SimpleComponent`, `Component`, or `FactoryComponent` on a user-provided `struct` that holds the component's state.
 
@@ -61,7 +61,7 @@ view! {
 }
 ```
 
-If another method is needed to assign a child, you can call that method instead:
+If another method is needed to assign a child, you can call it instead like this:
 
 ```rust,ignore
 gtk::Box {
@@ -80,7 +80,7 @@ If the widget needs to be wrapped in another type (commonly `Option`), use the `
 set_property_name = gtk::Box { ... }
 ```
 
-Sometimes you need to pass additional arguments along with the widget, such as when calling [`gtk::Grid::attach`](https://aaronerhardt.github.io/docs/relm4/gtk4/prelude/trait.GridExt.html#tymethod.attach). You can do this by providing the additional arguments in square brackets after the method:
+Sometimes you need to pass additional arguments along with the widget, for example when calling [`gtk::Grid::attach`](https://aaronerhardt.github.io/docs/relm4/gtk4/prelude/trait.GridExt.html#tymethod.attach). You can do this by providing the additional arguments in square brackets after the method:
 
 ```rust,ignore
 set_property_name[value1, value2, ...] = gtk::Box { ... }
@@ -110,7 +110,7 @@ set_child: important_label = gtk::Label { ... }
 
 ### Properties
 
-Properties are initialized and mutated by calling methods within the widget types. See the documentation for each widget type to see what methods are available. Generally properties are set via setter methods, but any methods on the widget can be called, too. Many of these methods are part of an extension trait associated with the widget type. Those traits must be in scope to call their methods. For example, if you want to use the [`set_default_width`](https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GtkWindowExt.html#tymethod.set_default_width) method from the `GtkWindowExt` trait, you must import the trait directly or glob import it from the prelude (`use gtk::prelude::*;`).
+Properties are initialized and mutated by calling methods within the widget types. Check the documentation for each widget type to see what methods are available. Generally properties are set via setter methods, but any methods on the widget can also be called. Many of these methods are part of an extension trait associated with the widget type. These traits must be in scope to call their methods. For example, if you want to use the [`set_default_width`](https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GtkWindowExt.html#tymethod.set_default_width) method from the `GtkWindowExt` trait, you must import the trait directly or glob import it from the prelude (`use gtk::prelude::*;`).
 
 To initialize a property with a value:
 
@@ -153,13 +153,13 @@ set_property_name: iterator,
 
 #### Trait disambiguation
 
-It is possible for several traits to implement the same method for a type. If both traits are in scope, when using the duplicated method name we need to tell Rust which trait implementation it should use. Otherwise, the Rust compiler will raise an error due to the ambiguity. To specify the intended trait, use the `TraitName::method` syntax, similar to [Rust's fully qualified syntax for trait disambiguation](https://doc.rust-lang.org/book/ch19-03-advanced-traits.html#fully-qualified-syntax-for-disambiguation-calling-methods-with-the-same-name).
+It is possible that several traits implement the same method for a type. If both traits are in scope, when using the duplicated method name we need to tell Rust which trait implementation it should use. Otherwise, the Rust compiler will raise an error due to the ambiguity. To specify the intended trait, use the `TraitName::method` syntax, similar to [Rust's fully qualified syntax for trait disambiguation](https://doc.rust-lang.org/book/ch19-03-advanced-traits.html#fully-qualified-syntax-for-disambiguation-calling-methods-with-the-same-name).
 
 You can also use the full path of the trait if desired.
 
 ## Signals
 
-When connecting signals emitted by widgets you can clone fields you need in the closure (such as the component sender) by listing the relevant fields in square brackets.
+When connecting signals emitted by widgets you can clone fields that you need in the closure (for example, the component sender) by listing the corresponding fields in square brackets.
 
 ```rust,ignore
 connect_name[cloned_var1, cloned_var2, ...] => move |arg1, arg2, ...| { ... }
@@ -214,6 +214,6 @@ let widgets = view_output!();
 
 ### Manual view
 
-You can also implement your own view logic that's added to the view code the view update code generated by the macro macro generates. Code inside `pre_view()` will run before the view update, while `post_view()` will run after.
+You can also implement your own view logic, which will be added to the view code that the view update code generates. Code inside `pre_view()` will run before the view update, while `post_view()` will run after.
 
 > Code inside these "functions" isn't like a normal function! The macro disallows returning early in `pre_view` to ensure that the view update will always execute.
