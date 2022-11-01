@@ -1,7 +1,7 @@
 # Factory
 
-Factories define how to generate widgets from collections of data. 
-GTK also has factories, yet Relm4 uses its own factory implementation that's much easier to use from regular Rust code.
+Factories define how to generate widgets from data collections. 
+GTK also has factories, yet Relm4 uses its own factory implementation which is much easier to use from regular Rust code.
 
 ![App screenshot dark](img/screenshots/factory-dark.png)
 
@@ -74,13 +74,13 @@ For example, `FactoryComponent` needs the `#[relm4::factory]` attribute macro an
 
 Let's look at the associated types one by one:
 
-+ **Init** => The data required to initialize `Counter`, in this case the initial counter value.
-+ **Input** => The input message type.
-+ **Output** => The output message type.
-+ **CommandOutput** => The command output message type, we don't need it here.
-+ **Widgets** => The name of the struct that stores out widgets, it will be created by the macro.
-+ **ParentInput** => The input message type of the parent component.
-+ **ParentWidget** => The container widget used to store the widgets of the factory, for example `gtk::Box`.
++ **Init**: The data required to initialize `Counter`, in this case the initial counter value.
++ **Input**: The input message type.
++ **Output**: The output message type.
++ **CommandOutput**: The command output message type, we don't need it here.
++ **Widgets**: The name of the struct that stores out widgets, it will be created by the macro.
++ **ParentInput**: The input message type of the parent component.
++ **ParentWidget**: The container widget used to store the widgets of the factory, for example `gtk::Box`.
 
 ### Creating the widget
 
@@ -93,9 +93,9 @@ The only difference is that we use `self` to refer to the model due to differenc
 
 ### Initializing the model
 
-`FactoryComponent` has separate function for initializing the model and the widgets. 
+`FactoryComponent` has separate functions for initializing the model and the widgets. 
 This means, that we are a bit less flexible, but don't need `view_output!()` here.
-Also, we just need to implement the `init_model` function because `init_widgets` it already implemented by the macro.
+Also, we just need to implement the `init_model` function because `init_widgets` is already implemented by the macro.
 
 ```rust,no_run,noplayground
 {{#include ../examples/factory.rs:factory_init_model }}
@@ -119,7 +119,7 @@ The only thing left to do is to write our main component to complete our app.
 ### The component types
 
 For the main component we implement the familiar `SimpleComponent` trait.
-First we define the model and the input message type and start the trait implementation.
+First we define the model and the input message type and then start the trait implementation.
 
 ```rust,no_run,noplayground
 {{#include ../examples/factory.rs:main_types }}
@@ -127,8 +127,8 @@ First we define the model and the input message type and start the trait impleme
 
 ### Initializing the factory
 
-We'll shortly skip the `view` macro to look at the `init` method.
-You see that we initialize the `FactoryVecDeque` with a container widget.
+We skip the `view` macro for a moment and look at the `init` method.
+You see that we are initializing the `FactoryVecDeque` with a container widget.
 This widget will store all the widgets created by the factory.
 
 We also pass an input sender so the `output_to_parent_msg` method we defined earlier can send input messages to our main component.
@@ -144,7 +144,7 @@ We'll use it in the `view` macro in the next section.
 
 The familiar `view` macro comes into play again.
 Most things should look familiar, but this time we use a `#[local_ref]` attribute for the last widget to use the local variable we defined in the previous section.
-This trick allows us to initialize the model with its `FactoryVecDeque` before the widgets, which is more convenient most of the time.
+This trick allows us to initialize the model with its `FactoryVecDeque` before the widgets, which is more convenient in most cases.
 
 ```rust,no_run,noplayground
 {{#include ../examples/factory.rs:main_view }}
@@ -162,7 +162,7 @@ This is similar to a `MutexGuard` you get from locking a mutex.
 The reason for this is simple.
 As long as the guard is alive, we can perform multiple operations.
 Once we're done, we just drop the guard (or rather leave the current scope) and this will cause the factory to update its widgets automatically.
-The neat thing: You can never forget to render changes and the update algorithm can optimize the widget updates for efficiency.
+The neat thing: You can never forget to render changes, and the update algorithm can optimize widget updates for efficiency.
 
 ```rust,no_run,noplayground
 {{#include ../examples/factory.rs:main_update }}

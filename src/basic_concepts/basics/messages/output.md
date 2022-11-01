@@ -2,7 +2,7 @@
 
 **Output** messages are sent by components to other components and handled differently depending on the type of components that receives them. We can think of them as our outbox 🚚.
 
-Let take our previous `MailboxComponent` example and add the following.
+Let's take our previous `MailboxComponent` example and add the following.
 
 ```rust,no_run,noplayground
 enum Outbox {
