@@ -25,7 +25,7 @@ increment and decrement the counter.
 
 ## The macro
 
-Before we break it down into smaller parts, let's take a look at the macro as a whole. If you're unfamiliar with macro syntax, check out the previous chapter. There's a lot here, but that's because the macro supports a lot of functions!
+Before we break it down into smaller parts, let's take a look at the macro as a whole. If you're unfamiliar with the macro syntax, check out the previous chapter. There's a lot here, but that's because the macro supports a lot of functions!
 
 ```rust,ignore
 {{#include ../examples/macro_reference.rs:component }}
