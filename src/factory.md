@@ -16,7 +16,8 @@ However, you can't simply generate widgets from a `Vec`.
 
 This is where factories are really useful.
 Custom collection types like `FactoryVecDeque` allow you to work with collections of data almost as comfortable as if they were stored in a `Vec`.
-At the same time, factories allow automatically visualization of data with widgets.
+At the same time, factories allow you to automatically visualize the data with widgets.
+Additionally, factories are very efficient by reducing the amount of UI updates to a minimum.
 Moreover, factories are very efficient as they reduce the amount of UI updates to a minimum.
 
 > The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/examples/factory.rs).

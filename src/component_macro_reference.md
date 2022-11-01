@@ -214,6 +214,6 @@ let widgets = view_output!();
 
 ### Manual view
 
-You can also implement your own view logic, which will be added to the view code that the view update code generates. Code inside `pre_view()` will run before the view update, while `post_view()` will run after.
+You can also implement your own view logic, which will be added to the view code that the view macro generates. Code inside `pre_view()` will run before the view update, while `post_view()` will run after.
 
 > Code inside these "functions" isn't like a normal function! The macro disallows returning early in `pre_view` to ensure that the view update will always execute.
