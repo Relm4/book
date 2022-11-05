@@ -13,7 +13,7 @@ Imagine, this would be the update function of one of our components:
 ```
 
 The `generate_rsa_key()` function takes some time to compute because generating the key is a difficult calculation.
-We can tread it as if it was implemented like this:
+We can treat it as if it was implemented like this:
 
 ```rust,no_run,noplayground
 {{#include ../examples/threads_and_async.rs:rsa_key }}
@@ -27,12 +27,11 @@ Blocking our only thread with a heavy computation stops our application from pro
 
 ## Commands
 
-Of course, Relm4 has plenty of solutions to avoid this problem.
-Commands are a simple yet extremely powerful mechanism that cover most use cases.
+There are multiple possibilities to address this common problem. In this chapter we'll have a look at Commands which is a simple yet extremely powerful mechanism which covers most use cases.
 
 Let's say you have an application that fetches data from a website.
 This leaves us in a similar situation as before: If we a synchronous HTTP library in the update function, we will block our main thread and freeze the application until the server responds.
-So instead, we're going to use commands in this example.
+So instead, we're going to use Commands in this example.
 
 Commands are background tasks that can be spawned using a `ComponentSender` or `FactoryComponentSender`.
 They run until they return their result as a `CommandOutput` message that will be processes by the component again.
@@ -71,7 +70,7 @@ That's it!
 It's really as simple as starting a task and processing a message on completion.
 You can even use commands for synchronous operations too.
 
-> With the [`command()`](https://relm4.org/docs/next/relm4/prelude/struct.ComponentSender.html#method.command) method you would be more flexible and could even send multiple messages.
+> With the [`command()`](https://relm4.org/docs/next/relm4/prelude/struct.ComponentSender.html#method.command) method we are even more flexible as we can send multiple messages.
 
 ### Configuration
 
@@ -95,7 +94,7 @@ All you need to do to create a worker is to implement the [`Worker`](https://rel
 This will setup the worker to run on a new thread.
 
 You might wonder why workers even exist if we already have commands.
-Actually, workers have some unique properties: They can only run only one task at the time and store state like a regular component.
+Actually, workers have some unique properties: They can only run one task at the time and store state like a regular component.
 
 ## Local futures
 
@@ -105,7 +104,7 @@ This can be problematic sometimes, for example when widgets are involved.
 Fortunately, the [`spawn_local`](https://relm4.org/docs/next/relm4/fn.spawn_local.html) function allows us to spawn local futures, which don't require `Send` because they run on the main thread.
 This works because GTK uses an event loop from GLib to handle asynchronous events, which also allows you to execute futures.
 
-The only downside of this solution is that not all async libraries are fully compatible with the GLib executor because they rely on tokio.
+The only downside of this solution is that not all async libraries are fully compatible with the GLib executor because they have to use Tokio.
 
 # Overview
 
