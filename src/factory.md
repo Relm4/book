@@ -1,7 +1,7 @@
 # Factory
 
 Factories define how to generate widgets from data collections. 
-GTK also has factories, yet Relm4 uses its own factory implementation which is much easier to use from regular Rust code.
+GTK also has factories, yet Relm4 uses its own factory implementation which is much easier to use in regular Rust code.
 
 ![App screenshot dark](img/screenshots/factory-dark.png)
 
