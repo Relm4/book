@@ -8,4 +8,4 @@ The `Component` trait is the base of every component inside Relm4, it defines ho
 ## The `SimpleComponent` trait
 The `SimpleComponent` trait is a convenience trait that implements the `Component` trait, but removes some advanced features that are not relevant for most use-cases. 
 
-There's an implementation for `Component` for every type that implements `SimpleComponent` so in the end you only implement one of them.
+ For every implementation of SimpleComponent Relm4 will also implement Component automatically. You just need to implement one of them and your type will implement Component either way. This is called [blanket implementation](https://doc.rust-lang.org/book/ch10-02-traits.html#using-trait-bounds-to-conditionally-implement-methods) and is used for traits like `From` in the standard library as well.
