@@ -8,7 +8,7 @@ The app will look and behave identically to our first app from the previous chap
 
 > The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/relm4-examples/examples/simple.rs). Run `cargo run --example simple` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/relm4-examples) if you want to see the code in action.
 
-## What's different
+## The difference
 
 The `component` macro will simplify creating the `Widgets` `struct`. The update code remains untouched, so we can reuse most of the code from the previous chapter.
 
@@ -67,7 +67,7 @@ Again, there's no magic. The macro will simply assign a closure to a method. Bec
 > method_name[sender] => move |_| { sender.input(Msg); },
 > ```
 > 
-> You can simply write this:
+> you can simply write this:
 > 
 > ```rust,no_run,noplayground
 > method_name => Msg,
