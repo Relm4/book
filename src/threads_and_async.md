@@ -33,7 +33,7 @@ Let's say you have an application that fetches data from a website.
 This leaves us in a similar situation as before: If we use a synchronous HTTP library in the update function, we will block our main thread and freeze the application until the server responds.
 So instead, we're going to use Commands in this example.
 
-Commands are background tasks that can be spawned using a `ComponentSender` or a `FactoryComponentSender`.
+Commands are background tasks that can be spawned using a `ComponentSender` or a `FactorySender`.
 They run until they return their result as a `CommandOutput` which in turn is processed again by the component.
 
 First we define our message type, then we can use it as associated `CommandOutput` type in our component.
@@ -101,7 +101,7 @@ This can sometimes be problematic, for example when it comes to widgets.
 Fortunately, the [`spawn_local`](https://relm4.org/docs/next/relm4/fn.spawn_local.html) function allows us to spawn local futures, which don't require `Send` because they run on the main thread.
 This works because GTK uses an event loop from GLib to handle asynchronous events, which also allows you to execute futures.
 
-The only drawback of this solution is that not all async libraries are fully compatible with the GLib executor, since they must use Tokyo.
+A drawback of this solution is that you only can use libraries which support Tokio, as the GLib executor depends on it.
 
 # Summary
 
