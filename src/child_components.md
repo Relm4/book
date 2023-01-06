@@ -14,9 +14,9 @@ This is how the dialog looks like in the alert example:
 
 ## The alert component
 
-The alert component is defined similar to the other components we've implemented in this book.
+The alert component is defined similarly to the other components we've implemented in this book.
 
-Our model stores whether the component is visible and the configuration.
+Our model stores whether the component is visible and its configuration.
 
 ```rust,ignore
 {{#include ../examples/alert.rs:model}}
@@ -35,7 +35,7 @@ This maximizes the reusability of the component by letting it adapt to different
 {{#include ../examples/alert.rs:settings}}
 ```
 
-In the `Input` type, this component uses `#[doc(hidden)]` on the `Response` variant. This is a useful pattern for component-internal messages that are not intended to be sent by outside callers. This allows us to update the component when the underlying dialog reports a response, but not display the `Response` variant in the component's documentation.
+In the `Input` type, this component uses `#[doc(hidden)]` on the `Response` variant. This is a useful pattern for component-internal messages that are not intended to be sent by external callers. This allows us to update the component when the underlying dialog reports a response, but not display the `Response` variant in the component's documentation.
 
 ```rust,ignore
 {{#include ../examples/alert.rs:input}}
@@ -96,8 +96,7 @@ See the [`set_transient_for` documentation](https://docs.gtk.org/gtk4/method.Win
 {{#include ../examples/alert.rs:close}}
 ```
 
-That's it! You can find more examples of reusable components in the
-relm4-components crate [here](https://relm4.org/docs/stable/relm4_components/).
+That's it! You can find more examples of reusable components in the relm4-components crate [here](https://relm4.org/docs/stable/relm4_components/).
 You can also contribute your own reusable components to relm4-components :)
 
 ## The complete code
