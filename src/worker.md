@@ -22,7 +22,6 @@ The last difference is that worker don't need the parent widgets in the `RelmWor
 impl Components<AppModel> for AppComponents {
     fn init_components(
         parent_model: &AppModel,
-        _parent_widgets: &AppWidgets,
         parent_sender: Sender<AppMsg>,
     ) -> Self {
         AppComponents {

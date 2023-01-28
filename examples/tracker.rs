@@ -70,7 +70,7 @@ impl AppUpdate for AppModel {
 // ANCHOR_END: app_update
 
 // ANCHOR: widgets
-#[relm4_macros::widget]
+#[relm4::widget]
 impl Widgets<AppModel, ()> for AppWidgets {
     view! {
         main_window = gtk::ApplicationWindow {

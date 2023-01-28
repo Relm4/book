@@ -1,13 +1,11 @@
 // ANCHOR: all
 use gtk::glib::Sender;
 use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt};
-use relm4::factory::{DynamicIndex, Factory, FactoryPrototype, FactoryVecDeque};
+use relm4::factory::{DynamicIndex, Factory, FactoryPrototype, FactoryVecDeque, WeakDynamicIndex};
 use relm4::*;
 
-use std::rc::{Rc, Weak};
-
 // ANCHOR: msg
-type MsgIndex = Weak<DynamicIndex>;
+type MsgIndex = WeakDynamicIndex;
 
 #[derive(Debug)]
 enum AppMsg {
@@ -104,14 +102,14 @@ impl FactoryPrototype for Counter {
     type Msg = AppMsg;
 
     // ANCHOR: generate_start
-    fn generate(&self, index: &Rc<DynamicIndex>, sender: Sender<AppMsg>) -> FactoryWidgets {
+    fn init_view(&self, index: &DynamicIndex, sender: Sender<AppMsg>) -> FactoryWidgets {
         let hbox = gtk::Box::builder()
             .orientation(gtk::Orientation::Horizontal)
             .spacing(5)
             .build();
 
         let counter_button = gtk::Button::with_label(&self.value.to_string());
-        let index: Rc<DynamicIndex> = index.clone();
+        let index: DynamicIndex = index.clone();
 
         let remove_button = gtk::Button::with_label("Remove");
         let ins_above_button = gtk::Button::with_label("Add above");
@@ -130,7 +128,7 @@ impl FactoryPrototype for Counter {
             let sender = sender.clone();
             let index = index.clone();
             counter_button.connect_clicked(move |_| {
-                send!(sender, AppMsg::CountAt(Rc::downgrade(&index)));
+                send!(sender, AppMsg::CountAt(index.downgrade()));
             });
         }
 
@@ -138,7 +136,7 @@ impl FactoryPrototype for Counter {
             let sender = sender.clone();
             let index = index.clone();
             remove_button.connect_clicked(move |_| {
-                send!(sender, AppMsg::RemoveAt(Rc::downgrade(&index)));
+                send!(sender, AppMsg::RemoveAt(index.downgrade()));
             });
         }
 
@@ -146,12 +144,12 @@ impl FactoryPrototype for Counter {
             let sender = sender.clone();
             let index = index.clone();
             ins_above_button.connect_clicked(move |_| {
-                send!(sender, AppMsg::InsertBefore(Rc::downgrade(&index)));
+                send!(sender, AppMsg::InsertBefore(index.downgrade()));
             });
         }
 
         ins_below_button.connect_clicked(move |_| {
-            send!(sender, AppMsg::InsertAfter(Rc::downgrade(&index)));
+            send!(sender, AppMsg::InsertAfter(index.downgrade()));
         });
 
         FactoryWidgets {
@@ -161,13 +159,13 @@ impl FactoryPrototype for Counter {
         // ANCHOR_END: connect
     }
 
-    fn position(&self, _index: &Rc<DynamicIndex>) {}
+    fn position(&self, _index: &DynamicIndex) {}
 
-    fn update(&self, _index: &Rc<DynamicIndex>, widgets: &FactoryWidgets) {
+    fn view(&self, _index: &DynamicIndex, widgets: &FactoryWidgets) {
         widgets.counter_button.set_label(&self.value.to_string());
     }
 
-    fn get_root(widget: &FactoryWidgets) -> &gtk::Box {
+    fn root_widget(widget: &FactoryWidgets) -> &gtk::Box {
         &widget.hbox
     }
 }
@@ -181,7 +179,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
     type Root = gtk::ApplicationWindow;
 
     fn init_view(_model: &AppModel, _components: &(), sender: Sender<AppMsg>) -> Self {
-        let main = gtk::ApplicationWindowBuilder::new()
+        let main = gtk::builders::ApplicationWindowBuilder::new()
             .default_width(300)
             .default_height(200)
             .build();

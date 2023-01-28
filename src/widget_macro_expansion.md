@@ -198,7 +198,7 @@ The macro also implements the `root_widget` function that returns the outermost 
 
 #### Manual UI updates
 
-The last step of the macro is to generate the update logic with the `view` function. At the start of this function, we can find the code from the `manual_view()` function of the macro.
+The last step of the macro is to generate the update logic with the `view` function. At the start of this function, we can find the code from the `post_view()` function of the macro.
 
 ```rust,no_run,noplayground
 {{#include ../examples/macro_expansion.rs:manual_view }}

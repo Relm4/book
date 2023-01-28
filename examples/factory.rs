@@ -72,7 +72,7 @@ impl FactoryPrototype for Counter {
     // ANCHOR_END: factory_prototype_start
 
     // ANCHOR: generate
-    fn generate(&self, index: &usize, sender: Sender<AppMsg>) -> FactoryWidgets {
+    fn init_view(&self, index: &usize, sender: Sender<AppMsg>) -> FactoryWidgets {
         let button = gtk::Button::with_label(&self.value.to_string());
         let index = *index;
         button.connect_clicked(move |_| {
@@ -88,13 +88,13 @@ impl FactoryPrototype for Counter {
     // ANCHOR_END: position
 
     // ANCHOR: update
-    fn update(&self, _index: &usize, widgets: &FactoryWidgets) {
+    fn view(&self, _index: &usize, widgets: &FactoryWidgets) {
         widgets.button.set_label(&self.value.to_string());
     }
     // ANCHOR_END: update
 
     // ANCHOR: get_root
-    fn get_root(widgets: &FactoryWidgets) -> &gtk::Button {
+    fn root_widget(widgets: &FactoryWidgets) -> &gtk::Button {
         &widgets.button
     }
     // ANCHOR_END: get_root
@@ -102,7 +102,7 @@ impl FactoryPrototype for Counter {
 // ANCHOR_END: factory_prototype
 
 // ANCHOR: widgets
-#[relm4_macros::widget]
+#[relm4::widget]
 impl Widgets<AppModel, ()> for AppWidgets {
     view! {
         gtk::ApplicationWindow {

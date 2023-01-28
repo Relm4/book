@@ -38,14 +38,15 @@ In order to run the dialog component on a new thread, we just need to change one
 impl Components<AppModel> for AppComponents {
     fn init_components(
         parent_model: &AppModel,
-        parent_widgets: &AppWidgets,
         parent_sender: Sender<AppMsg>,
     ) -> Self {
         AppComponents {
-            header: RelmComponent::new(parent_model, parent_widgets, parent_sender.clone()),
-            dialog: RelmComponent::with_new_thread(parent_model, parent_widgets, parent_sender),
+            header: RelmComponent::new(parent_model, parent_sender.clone()),
+            dialog: RelmComponent::with_new_thread(parent_model, parent_sender),
         }
     }
+
+    // [...]
 }
 ```
 
@@ -59,11 +60,11 @@ Async update functions are exclusive for workers and message handlers currently 
 
 ### Non blocking async
 
-Technically, even async workers will block the execution between messages. They can run non-blocking code from their update function but they can not handle more than one message at the time. This can be too slow in some cases. 
+Technically, even async workers will block the execution between messages. They can run non-blocking code from their update function but they can not handle more than one message at the time. This can be too slow in some cases.
 
 For example, if you have an app that fetches the avatar images of many users and you send one message to your worker for every avatar image, the worker will fetch the images one after the other. This wouldn't be much better than blocking requests and may take some time.
 
-There are three ways to improve this: 
+There are three ways to improve this:
 
 + Create your own async runtime in message handler. This is shown in the [non_blocking_async example](https://github.com/Relm4/Relm4/blob/main/relm4-examples/examples/non_blocking_async.rs).
 + Send a vector with all avatar images you need to your worker, so it can send all asynchronous requests at once.

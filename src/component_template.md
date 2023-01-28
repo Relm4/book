@@ -38,10 +38,10 @@ impl ComponentUpdate<AppModel> for ComponentModel {
     }
 }
 
-#[relm4_macros::widget]
+#[relm4::widget]
 impl Widgets<ComponentModel, AppModel> for ComponentWidgets {
     view! {
-        
+
     }
 }
 ```

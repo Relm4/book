@@ -52,7 +52,7 @@ impl ComponentUpdate<AppModel> for HeaderModel {
 // ANCHOR_END: header_update
 
 // ANCHOR: header_widgets
-#[relm4_macros::widget]
+#[relm4::widget]
 impl Widgets<HeaderModel, AppModel> for HeaderWidgets {
     view! {
         gtk::HeaderBar {
@@ -139,11 +139,11 @@ impl ComponentUpdate<AppModel> for DialogModel {
 // ANCHOR_END: dialog_update
 
 // ANCHOR: dialog_widgets
-#[relm4_macros::widget]
+#[relm4::widget]
 impl Widgets<DialogModel, AppModel> for DialogWidgets {
     view! {
         gtk::MessageDialog {
-            set_transient_for: Some(&parent_widgets.main_window),
+            set_transient_for: parent!(Some(&parent_widgets.main_window)),
             set_modal: true,
             set_visible: watch!(!model.hidden),
             set_text: Some("Do you want to close before saving?"),
@@ -171,16 +171,14 @@ struct AppComponents {
 
 // ANCHOR: components_impl
 impl Components<AppModel> for AppComponents {
-    fn init_components(
-        parent_model: &AppModel,
-        parent_widgets: &AppWidgets,
-        parent_sender: Sender<AppMsg>,
-    ) -> Self {
+    fn init_components(parent_model: &AppModel, parent_sender: Sender<AppMsg>) -> Self {
         AppComponents {
-            header: RelmComponent::new(parent_model, parent_widgets, parent_sender.clone()),
-            dialog: RelmComponent::new(parent_model, parent_widgets, parent_sender),
+            header: RelmComponent::new(parent_model, parent_sender.clone()),
+            dialog: RelmComponent::new(parent_model, parent_sender),
         }
     }
+
+    fn connect_parent(&mut self, _parent_widgets: &AppWidgets) {}
 }
 // ANCHOR_END: components_impl
 
@@ -212,13 +210,13 @@ impl Model for AppModel {
 // ANCHOR_END: app_model_impl
 
 // ANCHOR: app_widgets
-#[relm4_macros::widget]
+#[relm4::widget]
 impl Widgets<AppModel, ()> for AppWidgets {
     view! {
         main_window = gtk::ApplicationWindow {
             set_default_width: 500,
             set_default_height: 250,
-            set_titlebar: component!(Some(components.header.root_widget())),
+            set_titlebar: Some(components.header.root_widget()),
             set_child = Some(&gtk::Label) {
                 set_label: watch!(&format!("Placeholder for {:?}", model.mode)),
             },
