@@ -128,10 +128,12 @@ impl Widgets<AppModel, ()> for AppWidgets {
 
 // ANCHOR: main
 fn main() {
+    let first_icon = random_icon_name();
+    let second_icon = random_icon_name();
     let model = AppModel {
-        first_icon: random_icon_name(),
-        second_icon: random_icon_name(),
-        identical: false,
+        first_icon,
+        second_icon,
+        identical: first_icon == second_icon,
         tracker: 0,
     };
     let relm = RelmApp::new(model);
