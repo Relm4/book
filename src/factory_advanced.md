@@ -6,8 +6,6 @@ In this chapter we will build an even more advanced UI for modifying the availab
 
 Additionally, certain counters can now be removed or inserted above or below an existing counter.
 
-> If you're not familiar with the `Rc` type of the standard library, have a look at [this](https://doc.rust-lang.org/std/rc/index.html).
-
 The `FactoryVec` we used in the previous chapter is sufficient for simple applications where elements only need to be added and removed from the back. Yet a common use case would be to add elements before another one or to remove a specific element. That introduces additional complexity that needs to be taken care of but fortunately this is mostly handled by Relm4.
 
 To show this, we'll create a similar counter app to the one of the previous chapter, but this time on **steroids**: we'll add functionality to add counters before and after a specific counter and to remove a certain counter. To get the required flexibility, we'll use the `FactoryVecDeque` type instead of a `FactoryVec`.
@@ -30,9 +28,9 @@ The solution Relm4 chose was dynamic indices. These indices are updated automati
 {{#include ../examples/factory_advanced.rs:msg }}
 ```
 
-As you can see, we use a lot of `MsgIndex` aka `Weak<DynamicIndex>`. This allows us to always hold a reference to the dynamic index value.
+As you can see, we use a lot of `MsgIndex` aka `WeakDynamicIndex`. This allows us to always hold a reference to the dynamic index value.
 
-The reason we use weak pointers here is that we don’t want to hold references to invalid indices. We don’t know if our messages are handled immediately or queued up instead, so the data the index was pointing at could have been replaced by a new data in the meantime. Usually this happens so rarely that this can be ignored, but with the weak pointers we guarantee that the indices are not kept alive in the message queue and we will never use a stale index.
+The reason we use the weak index here is that we don’t want to hold references to invalid indices. We don’t know if our messages are handled immediately or queued up instead, so the data the index was pointing at could have been replaced by a new data in the meantime. Usually this happens so rarely that this can be ignored, but with the weak index we guarantee that the indices are not kept alive in the message queue and we will never use a stale index.
 
 ### The model
 
@@ -65,15 +63,15 @@ The factory implementation is mostly the same, so we'll just have a look at what
 ### The widgets type
 
 Because we have four actions per counter now, we also need an additional box to store these buttons.
-To be able to provide the root widget via the `get_root` function we need to store the box in the widgets type.
+To be able to provide the root widget via the `root_widget` function we need to store the box in the widgets type.
 
 ```rust,no_run,noplayground
 {{#include ../examples/factory_advanced.rs:factory_widgets }}
 ```
 
-### The generate function
+### The init_view function
 
-For the generate function, we need to first generate the new buttons and the box.
+For the `init_view` function, we need to first generate the new buttons and the box.
 
 ```rust,no_run,noplayground
 {{#include ../examples/factory_advanced.rs:generate_start }}

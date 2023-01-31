@@ -11,17 +11,16 @@ struct AppComponents {
 impl Components<AppModel> for AppComponents {
     fn init_components(
         parent_model: &AppModel,
-        parent_widgets: &AppWidgets,
         parent_sender: Sender<AppMsg>,
     ) -> Self {
         AppComponents {
-            component: RelmComponent::new(parent_model, parent_widgets, parent_sender.clone()),
+            component: RelmComponent::new(parent_model, parent_sender.clone()),
         }
     }
 }
 
 enum AppMsg {
-	
+
 }
 
 struct AppModel {
@@ -43,18 +42,18 @@ impl AppUpdate for AppModel {
     }
 }
 
-#[relm4_macros::widget]
+#[relm4::widget]
 impl Widgets<AppModel, ()> for AppWidgets {
     view! {
         main_window = gtk::ApplicationWindow {
-            
+
         }
     }
 }
 
 fn main() {
     let model = AppModel {
-        
+
     };
     let relm = RelmApp::new(model);
     relm.run();

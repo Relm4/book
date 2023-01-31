@@ -79,9 +79,9 @@ Alright, there are quite a few types! Let's look at them one by one:
 + **View:** the container we want our widgets to be placed inside. The simplest solution for this is a `gtk::Box`.
 + **Msg:** the messages we want to send to the model containing this factory.
 
-### The generate function
+### The `init_view` function
 
-The generate function is similar to `init_view` in the `Widgets` trait: it generates the widgets from data. You'll notice that there's an index as well that we can use to send messages that index the data these widgets represent. The index type might vary between different factory data structures. For the factory type `FactoryVec` an index of the type `usize` is being used.
+The `init_view` function is similar to `init_view` in the `Widgets` trait: it generates the widgets from data. You'll notice that there's an index as well that we can use to send messages that index the data these widgets represent. The index type might vary between different factory data structures. For the factory type `FactoryVec` an index of the type `usize` is being used.
 
 ```rust,no_run,noplayground
 {{#include ../examples/factory.rs:generate }}
@@ -101,9 +101,9 @@ The `gtk::Box` we use here is one-dimensional. This means that a `FactoryVec` ca
 
 Because we don't use it here, the position function is explained in the next chapter.
 
-### The update function
+### The view function
 
-The update function is similar to `view` in the `Widgets` trait: it updates the widgets according to the updated data.
+The `view` function is similar to `view` in the `Widgets` trait: it updates the widgets according to the updated data.
 
 ```rust,no_run,noplayground
 {{#include ../examples/factory.rs:update }}
@@ -111,9 +111,9 @@ The update function is similar to `view` in the `Widgets` trait: it updates the 
 
 We just update the label of the button to represent the updated counter value.
 
-### The get_root function
+### The root_widget function
 
-The last function we need is the `get_root` function. It's similar to the `root_widget` in the `Widgets` trait: it returns the root widget, the outermost of our widgets.
+The last function we need is the `root_widget` function. It's similar to the `root_widget` in the `Widgets` trait: it returns the root widget, the outermost of our widgets.
 
 ```rust,no_run,noplayground
 {{#include ../examples/factory.rs:get_root }}

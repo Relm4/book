@@ -33,7 +33,7 @@ impl AppUpdate for AppModel {
 }
 
 // ANCHOR: macro
-#[relm4_macros::widget]
+#[relm4::widget]
 impl Widgets<AppModel, ()> for AppWidgets {
     view! {
         gtk::ApplicationWindow {

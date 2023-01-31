@@ -76,15 +76,14 @@ impl Widgets<ButtonModel, AppModel> for ButtonWidgets {
     type Root = gtk::Button;
     /// Initialize the UI.
     fn init_view(
-        model: &ButtonModel,
-        parent_widgets: &<AppModel as ::relm4::Model>::Widgets,
-        sender: ::gtk::glib::Sender<<ButtonModel as ::relm4::Model>::Msg>,
+        _model: &ButtonModel,
+        _parent_widgets: &(),
+        _sender: ::gtk::glib::Sender<<ButtonModel as ::relm4::Model>::Msg>,
     ) -> Self {
         let _gtk_button_0 = gtk::Button::default();
         _gtk_button_0.set_label("ButtonComponent!");
         Self { _gtk_button_0 }
     }
-    fn connect_components(&self, model: &ButtonModel, components: &<ButtonModel as ::relm4::Model>::Components) {}
     /// Return the root widget.
     fn root_widget(&self) -> Self::Root {
         self._gtk_button_0.clone()
@@ -92,8 +91,8 @@ impl Widgets<ButtonModel, AppModel> for ButtonWidgets {
     /// Update the view to represent the updated model.
     fn view(
         &mut self,
-        model: &ButtonModel,
-        sender: ::gtk::glib::Sender<<ButtonModel as ::relm4::Model>::Msg>,
+        _model: &ButtonModel,
+        _sender: ::gtk::glib::Sender<<ButtonModel as ::relm4::Model>::Msg>,
     ) {
     }
 }
@@ -104,16 +103,13 @@ pub struct AppComponents {
 }
 
 impl Components<AppModel> for AppComponents {
-    fn init_components(
-        model: &AppModel,
-        parent_widgets: &AppWidgets,
-        sender: Sender<AppMsg>,
-    ) -> Self {
+    fn init_components(model: &AppModel, sender: Sender<AppMsg>) -> Self {
         AppComponents {
-            button1: RelmComponent::new(model, parent_widgets, sender.clone()),
-            button2: RelmComponent::new(model, parent_widgets, sender),
+            button1: RelmComponent::new(model, sender.clone()),
+            button2: RelmComponent::new(model, sender),
         }
     }
+    fn connect_parent(&mut self, _parent_widgets: &AppWidgets) {}
 }
 
 fn new_label() -> gtk::Label {
@@ -144,7 +140,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
     /// Initialize the UI.
     fn init_view(
         model: &AppModel,
-        parent_widgets: &(),
+        components: &AppComponents,
         sender: ::gtk::glib::Sender<AppMsg>,
     ) -> Self {
         let mut test_field = 0;
@@ -202,6 +198,20 @@ impl Widgets<AppModel, ()> for AppWidgets {
             });
         }
         // ANCHOR_END: connect
+
+        // ANCHOR: connect_components
+        main_window.set_child(Some(&_gtk_box_7));
+        _gtk_box_7.append(components.button1.root_widget());
+        _gtk_box_7.append(&inc_button);
+        _gtk_box_7.append(&_gtk_button_new_1);
+        _gtk_box_7.append(&_new_label_2);
+        _gtk_box_7.append(&_gtk_grid_6);
+        _gtk_grid_6.attach(&_gtk_label_3, 1, 1, 1, 1);
+        _gtk_grid_6.attach(&_gtk_label_4, 1, 2, 1, 1);
+        _gtk_grid_6.attach(&_gtk_label_5, 2, 1, 1, 1);
+        _gtk_grid_6.attach(components.button2.root_widget(), 2, 2, 1, 1);
+        // ANCHOR_END: connect_components
+
         // ANCHOR: post_init
         relm4::set_global_css(b".first { color: green; } .second { border: 1px solid orange; }");
         test_field = 42;
@@ -223,22 +233,6 @@ impl Widgets<AppModel, ()> for AppWidgets {
     }
     // ANCHOR_END: return
 
-    // ANCHOR: connect_components
-    fn connect_components(&self, model: &AppModel, components: &<AppModel as ::relm4::Model>::Components) {
-        self.main_window.set_child(Some(&self._gtk_box_7));
-        self._gtk_box_7.append(components.button1.root_widget());
-        self._gtk_box_7.append(&self.inc_button);
-        self._gtk_box_7.append(&self._gtk_button_new_1);
-        self._gtk_box_7.append(&self._new_label_2);
-        self._gtk_box_7.append(&self._gtk_grid_6);
-        self._gtk_grid_6.attach(&self._gtk_label_3, 1, 1, 1, 1);
-        self._gtk_grid_6.attach(&self._gtk_label_4, 1, 2, 1, 1);
-        self._gtk_grid_6.attach(&self._gtk_label_5, 2, 1, 1, 1);
-        self._gtk_grid_6
-            .attach(components.button2.root_widget(), 2, 2, 1, 1);
-    }
-    // ANCHOR_END: connect_components
-
     // ANCHOR: root_widget
     /// Return the root widget.
     fn root_widget(&self) -> Self::Root {
@@ -251,10 +245,10 @@ impl Widgets<AppModel, ()> for AppWidgets {
     fn view(
         &mut self,
         model: &AppModel,
-        sender: ::gtk::glib::Sender<<AppModel as ::relm4::Model>::Msg>,
+        _sender: ::gtk::glib::Sender<<AppModel as ::relm4::Model>::Msg>,
     ) {
         self.test_field += 1;
-        println!("Manual view! test_field: {}", self.test_field);
+        println!("Post view! test_field: {}", self.test_field);
         // ANCHOR_END: manual_view
 
         // ANCHOR: macro_view

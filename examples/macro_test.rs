@@ -91,16 +91,13 @@ pub struct AppComponents {
 // ANCHOR_END: button_comp
 
 impl Components<AppModel> for AppComponents {
-    fn init_components(
-        model: &AppModel,
-        parent_widgets: &AppWidgets,
-        sender: Sender<AppMsg>,
-    ) -> Self {
+    fn init_components(model: &AppModel, sender: Sender<AppMsg>) -> Self {
         AppComponents {
-            button1: RelmComponent::new(model, parent_widgets, sender.clone()),
-            button2: RelmComponent::new(model, parent_widgets, sender),
+            button1: RelmComponent::new(model, sender.clone()),
+            button2: RelmComponent::new(model, sender),
         }
     }
+    fn connect_parent(&mut self, _parent_widgets: &AppWidgets) {}
 }
 
 // ANCHOR: new_label
@@ -128,7 +125,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
     // ANCHOR_END: optional_assign
                     set_spacing: 5,
 
-                    append: component!(components.button1.root_widget()),
+                    append: components.button1.root_widget(),
                     append: inc_button = &gtk::Button {
                         set_label: "Increment",
                         connect_clicked(sender) => move |_| {
@@ -170,7 +167,7 @@ impl Widgets<AppModel, ()> for AppWidgets {
                             set_label: "grid test 3",
                         },
     // ANCHOR: component
-                        attach(2, 2, 1, 1): component!(components.button2.root_widget())
+                        attach(2, 2, 1, 1): components.button2.root_widget()
     // ANCHOR_END: component
                     }
                 },
@@ -197,9 +194,9 @@ impl Widgets<AppModel, ()> for AppWidgets {
     // ANCHOR_END: post_init
 
     // ANCHOR: manual_view
-    fn manual_view() {
+    fn post_view() {
         self.test_field += 1;
-        println!("Manual view! test_field: {}", self.test_field);
+        println!("Post view! test_field: {}", self.test_field);
     }
     // ANCHOR_END: manual_view
 }

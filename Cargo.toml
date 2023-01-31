@@ -13,10 +13,10 @@ categories = ["gui"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dev-dependencies]
-gtk = { version = "0.3", package = "gtk4" }
+gtk = { version = "0.4", package = "gtk4" }
 rand = "0.8"
-relm4 = { version = "0.2", features = ["tokio-rt"] }
-relm4-components = "0.2"
-relm4-macros = "0.2"
+relm4 = { version = "0.4", features = ["tokio-rt"] }
+relm4-components = "0.4"
+relm4-macros = "0.4"
 tokio = { version = "1.9", features = ["rt", "macros", "time", "rt-multi-thread", "sync"] }
 tracker = "0.1"

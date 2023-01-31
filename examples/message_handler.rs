@@ -114,15 +114,13 @@ struct AppComponents {
 }
 
 impl Components<AppModel> for AppComponents {
-    fn init_components(
-        parent_model: &AppModel,
-        _parent_widget: &AppWidgets,
-        parent_sender: Sender<AppMsg>,
-    ) -> Self {
+    fn init_components(parent_model: &AppModel, parent_sender: Sender<AppMsg>) -> Self {
         AppComponents {
             async_handler: RelmMsgHandler::new(parent_model, parent_sender),
         }
     }
+
+    fn connect_parent(&mut self, _parent_widgets: &AppWidgets) {}
 }
 // ANCHOR_END: components
 
