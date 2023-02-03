@@ -36,10 +36,10 @@ I also recommend reading the [gtk4-rs book](https://gtk-rs.org/gtk4-rs/git/book/
 Add the packages you need to your `Cargo.toml`:
 
 ```toml
-gtk = { version = "0.3", package = "gtk4" }
-relm4 = "0.2"
-relm4-macros = "0.2"
-relm4-components = "0.2"
+gtk = { version = "0.4", package = "gtk4" }
+relm4 = "0.4"
+relm4-macros = "0.4"
+relm4-components = "0.4"
 ```
 
 ## Issues and feedback
