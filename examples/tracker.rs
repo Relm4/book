@@ -45,10 +45,7 @@ enum AppInput {
 
 #[relm4::component]
 impl SimpleComponent for AppModel {
-    type Widgets = AppWidgets;
-
     type Init = ();
-
     type Input = AppInput;
     type Output = ();
 
@@ -117,7 +114,7 @@ impl SimpleComponent for AppModel {
         // ANCHOR_END: model_init
 
         // ANCHOR: post_init
-        relm4::set_global_css(b".identical { background: #00ad5c; }");
+        relm4::set_global_css(".identical { background: #00ad5c; }");
 
         // Insert the macro code generation here
         let widgets = view_output!();

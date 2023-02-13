@@ -36,6 +36,7 @@ impl Worker for AsyncHandler {
             AsyncHandlerMsg::DelayedIncrement => sender.output(AppMsg::Increment),
             AsyncHandlerMsg::DelayedDecrement => sender.output(AppMsg::Decrement),
         }
+        .unwrap()
     }
 }
 // ANCHOR_END:worker_impl
@@ -52,7 +53,6 @@ impl SimpleComponent for AppModel {
     type Init = ();
     type Input = AppMsg;
     type Output = ();
-    type Widgets = AppWidgets;
 
     view! {
         gtk::Window {
@@ -68,12 +68,12 @@ impl SimpleComponent for AppModel {
                 gtk::Button {
                     set_label: "Increment",
                     connect_clicked[sender = model.worker.sender().clone()] => move |_| {
-                        sender.send(AsyncHandlerMsg::DelayedIncrement);
+                        sender.send(AsyncHandlerMsg::DelayedIncrement).unwrap();
                     },
                 },
                 gtk::Button::with_label("Decrement") {
                     connect_clicked[sender = model.worker.sender().clone()] => move |_| {
-                        sender.send(AsyncHandlerMsg::DelayedDecrement);
+                        sender.send(AsyncHandlerMsg::DelayedDecrement).unwrap();
                     },
                 },
                 gtk::Label {

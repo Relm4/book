@@ -1,6 +1,6 @@
 // ANCHOR: all
 use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
-use relm4::factory::{DynamicIndex, FactoryComponent, FactoryComponentSender, FactoryVecDeque};
+use relm4::factory::{DynamicIndex, FactoryComponent, FactorySender, FactoryVecDeque};
 use relm4::{gtk, ComponentParts, ComponentSender, RelmApp, RelmWidgetExt, SimpleComponent};
 
 // ANCHOR: factory_model
@@ -103,17 +103,13 @@ impl FactoryComponent for Counter {
     // ANCHOR_END: output_to_parent
 
     // ANCHOR: factory_init_model
-    fn init_model(
-        value: Self::Init,
-        _index: &DynamicIndex,
-        _sender: FactoryComponentSender<Self>,
-    ) -> Self {
+    fn init_model(value: Self::Init, _index: &DynamicIndex, _sender: FactorySender<Self>) -> Self {
         Self { value }
     }
     // ANCHOR_END: factory_init_model
 
     // ANCHOR: factory_update
-    fn update(&mut self, msg: Self::Input, _sender: FactoryComponentSender<Self>) {
+    fn update(&mut self, msg: Self::Input, _sender: FactorySender<Self>) {
         match msg {
             CounterMsg::Increment => {
                 self.value = self.value.wrapping_add(1);
@@ -147,7 +143,6 @@ impl SimpleComponent for App {
     type Init = u8;
     type Input = AppMsg;
     type Output = ();
-    type Widgets = AppWidgets;
     // ANCHOR_END: main_types
 
     // ANCHOR: main_view

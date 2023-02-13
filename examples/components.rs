@@ -19,13 +19,9 @@ enum HeaderOutput {
 
 #[relm4::component]
 impl SimpleComponent for HeaderModel {
-    type Input = ();
-
-    type Output = HeaderOutput;
-
     type Init = ();
-
-    type Widgets = HeaderWidgets;
+    type Input = ();
+    type Output = HeaderOutput;
 
     // ANCHOR: header_widgets
     view! {
@@ -40,7 +36,7 @@ impl SimpleComponent for HeaderModel {
                     set_active: true,
                     connect_toggled[sender] => move |btn| {
                         if btn.is_active() {
-                            sender.output(HeaderOutput::View)
+                            sender.output(HeaderOutput::View).unwrap()
                         }
                     },
                 },
@@ -49,7 +45,7 @@ impl SimpleComponent for HeaderModel {
                     set_group: Some(&group),
                     connect_toggled[sender] => move |btn| {
                         if btn.is_active() {
-                            sender.output(HeaderOutput::Edit)
+                            sender.output(HeaderOutput::Edit).unwrap()
                         }
                     },
                 },
@@ -58,7 +54,7 @@ impl SimpleComponent for HeaderModel {
                     set_group: Some(&group),
                     connect_toggled[sender] => move |btn| {
                         if btn.is_active() {
-                            sender.output(HeaderOutput::Export)
+                            sender.output(HeaderOutput::Export).unwrap()
                         }
                     },
                 },
@@ -102,13 +98,9 @@ enum DialogOutput {
 
 #[relm4::component]
 impl SimpleComponent for DialogModel {
-    type Input = DialogInput;
-
-    type Output = DialogOutput;
-
     type Init = bool;
-
-    type Widgets = DialogWidgets;
+    type Input = DialogInput;
+    type Output = DialogOutput;
 
     // ANCHOR: dialog_widgets
     view! {
@@ -147,7 +139,7 @@ impl SimpleComponent for DialogModel {
             DialogInput::Show => self.hidden = false,
             DialogInput::Accept => {
                 self.hidden = true;
-                sender.output(DialogOutput::Close)
+                sender.output(DialogOutput::Close).unwrap()
             }
             DialogInput::Cancel => self.hidden = true,
         }
@@ -180,13 +172,9 @@ struct AppModel {
 // ANCHOR: app
 #[relm4::component]
 impl SimpleComponent for AppModel {
-    type Input = AppMsg;
-
-    type Output = ();
-
     type Init = AppMode;
-
-    type Widgets = AppWidgets;
+    type Input = AppMsg;
+    type Output = ();
 
     // ANCHOR: app_widgets
     view! {
@@ -242,7 +230,7 @@ impl SimpleComponent for AppModel {
                 self.mode = mode;
             }
             AppMsg::CloseRequest => {
-                self.dialog.sender().send(DialogInput::Show);
+                self.dialog.sender().send(DialogInput::Show).unwrap();
             }
             AppMsg::Close => {
                 // TODO: Figure out how to close app.
