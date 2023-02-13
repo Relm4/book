@@ -36,9 +36,7 @@ I also recommend reading the [gtk4-rs book](https://gtk-rs.org/gtk4-rs/git/book/
 Add the packages you need to your `Cargo.toml`:
 
 ```toml
-gtk4 = "0.4.7"
 relm4 = "0.5.0"
-relm4-macros = "0.5.0"
 relm4-components = "0.5.0"
 ```
 
