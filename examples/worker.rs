@@ -30,8 +30,10 @@ impl Worker for AsyncHandler {
     }
 
     fn update(&mut self, msg: AsyncHandlerMsg, sender: ComponentSender<Self>) {
+        // Simulating heavy CPU-bound task
         std::thread::sleep(Duration::from_secs(1));
 
+        // Send the result of the calculation back
         match msg {
             AsyncHandlerMsg::DelayedIncrement => sender.output(AppMsg::Increment),
             AsyncHandlerMsg::DelayedDecrement => sender.output(AppMsg::Decrement),
