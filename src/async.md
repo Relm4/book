@@ -10,7 +10,7 @@ Because Rust doesn't support async traits yet, we need macros to add support for
 To tell the `component` macro that we're using an async trait, we pass the `async` parameter to it.
 The `component` macro will then utilize the `async_trait` crate behind the scenes to make everything work.
 Also, we need to use `AsyncComponent` instead of `Component` as trait.
-Apart from that, the first section is indentical.
+Apart from that, the first section is identical.
 
 > Similarly, the `factory` macro needs the `async` parameter for async factories and the trait changes from `FactoryComponent` to `AsyncFactoryComponent`.
 
