@@ -19,7 +19,7 @@
 - [Threads and async](./threads_and_async.md)
   - [Workers](./worker.md)
   - [Commands](./commands.md)
-  - [Async](./async.md)
+  - [Async components and factories](./async.md)
   - [Overview](./overview.md)
 - [Child components](./child_components.md)
 - [Widget templates](./widget_templates.md)
