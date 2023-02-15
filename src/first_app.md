@@ -56,7 +56,7 @@ Although, if you want to, you can.
 
 The last step we need is to tell the computer how to initialize and update the widgets.
 
-All that is left to do is to implement the `SimpleComponent` trait for your `Model`, which tells the computer exactly how to visualize its memory.
+All that is left to do is to implement the `SimpleComponent` trait for your model, which tells the computer exactly how to visualize its memory.
 
 Let's do this step by step. First, we'll have a look at the beginning of the trait `impl`.
 
@@ -106,7 +106,7 @@ The `update` function of the `SimpleComponent` trait tells the computer how to p
 
 > `wrapping_add(1)` and `wrapping_sub(1)` are like `+1`  and `-1`, but don't panic on overflows.
 
-We see that the `update` function receives a `message` and updates the model according to your instructions.
+We see that the `update` function receives a message and updates the model according to your instructions.
 
 Still our UI will not update when the counter is changed. To do this, we need to implement the `update_view` function that modifies the UI according to the changes in the model.
 

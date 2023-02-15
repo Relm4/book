@@ -8,8 +8,6 @@ In Relm4, a message can be any data type, but most often, an `enum` is used.
 {{#include ../../../examples/simple_manual.rs:msg }}
 ```
 
-<!-- TODO: Move this into a new chapter -->
-
-Computers are capable of both sending and receiving messages, and so, components in Relm4 can send and receive messages.
+Computers are capable of both sending and receiving messages and similarly, components in Relm4 can send and receive messages.
 
 This is accomplished by having two types of messages: `Input` and `Output`.

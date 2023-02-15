@@ -16,7 +16,7 @@ Components are mainly useful for separating parts of the UI into smaller, more m
 
 ## Message handling
 
-Simple components store their child components inside the `Model` as a `Controller<ChildModel>` and handle output messages in the `init` function by calling the `forward` method.
+Simple components store their child components inside the model as a `Controller<ChildModel>` and handle output messages in the `init` function by calling the `forward` method.
 
 ```rust,no_run,noplayground
 struct Model {

@@ -1,6 +1,6 @@
 # Output messages
 
-**Output** messages are sent by components to other components and handled differently depending on the type of components that receives them. We can think of them as our outbox 🚚.
+Output messages are sent by components to other components and handled differently depending on the type of components that receives them. We can think of them as our outbox 🚚.
 
 Let's take our previous `MailboxComponent` example and add the following.
 
@@ -10,16 +10,15 @@ enum Outbox {
 }
 ```
 
-We can modify our previous example and send one of the emails to somebody else.
+We can modify our previous example for forward the emails to somebody else.
 
 ```rust,no_run,noplayground
-match message {
-    Outbox::SendEmail(email) => EmailProvider::SendEmail(email)
+fn update(&mut self, message: Self::Input, sender: ComponentSender<Self>) {
+    match message {
+        Inbox::GetEmail(email) => sender.output(Outbox::SendEmail(email)),
+    }
 }
 ```
 
-> This is handled in the parent component.
-
-When we send the email, out outbox will deliver that email to the email provider, in this case, our `EmailProvider` component will take care of delivering our email.
-
-`EmailProvider` is the parent component of `MailboxComponent`.
+Usually, output messages are handled by the parent component, which is the component that creates and stores our `MailboxComponent`.
+You can think of it like a tree with one component at the root and many child components that branch out.
