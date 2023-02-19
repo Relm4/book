@@ -69,4 +69,4 @@ jobs:
         with:
           check_filenames: true
           path: src
-          ignore_words_list: "crate"
+          ignore_words_list: "crate,statics"
