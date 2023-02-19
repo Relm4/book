@@ -1,0 +1,72 @@
+name: book 0.4
+
+on:
+  pull_request:
+    branches:
+      - 0_4
+  push:
+    branches:
+      - 0_4
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: build listings
+    container:
+      image: ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: "main"
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          components: clippy
+
+      - run: cargo clippy --examples -- -D warnings -A dead_code -A unused_variables
+        name: "Clippy"
+        working-directory: ./
+
+  build-deploy:
+    runs-on: ubuntu-latest
+    name: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: "main"
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Setup mdBook
+        uses: peaceiris/actions-mdbook@v1
+
+      - run: mdbook build -d book
+        working-directory: ./
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        # Only deploy when ref is main
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/0_4')
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: Relm4/website
+          publish_dir: ./book
+          keep_files: false
+          destination_dir: ./book/0.4
+
+  codespell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: "main"
+      - uses: codespell-project/actions-codespell@master
+        with:
+          check_filenames: true
+          path: src
+          ignore_words_list: "crate"
