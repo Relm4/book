@@ -11,7 +11,9 @@
 Relm4 is an idiomatic GUI library inspired by [Elm](https://elm-lang.org/) and based on [gtk4-rs](https://crates.io/crates/gtk4). 
 It is a new version of [relm](https://github.com/antoyo/relm) that's built from scratch and is compatible with [GTK4](https://www.gtk.org/) and [libadwaita](https://gitlab.gnome.org/GNOME/libadwaita).
 
-### Visit the [book of the stable version](/book/stable)!
+<!--
+### Visit the [book of the upcoming version](/book/next)!
+-->
 
 ## Why Relm4
 
