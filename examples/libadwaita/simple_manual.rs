@@ -2,7 +2,7 @@
 use gtk::glib::clone;
 use gtk::prelude::{BoxExt, ButtonExt};
 use relm4::adw::prelude::AdwWindowExt;
-use relm4::{adw, gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, WidgetPlus};
+use relm4::{adw, gtk, ComponentParts, ComponentSender, RelmApp, RelmWidgetExt, SimpleComponent};
 
 // ANCHOR: model
 struct AppModel {
@@ -41,8 +41,8 @@ impl SimpleComponent for AppModel {
     fn init(
         counter: Self::Init,
         window: &Self::Root,
-        sender: &relm4::ComponentSender<Self>,
-    ) -> relm4::ComponentParts<Self> {
+        sender: ComponentSender<Self>,
+    ) -> ComponentParts<Self> {
         let model = AppModel { counter };
 
         let vbox = gtk::Box::builder()
@@ -85,7 +85,7 @@ impl SimpleComponent for AppModel {
         ComponentParts { model, widgets }
     }
 
-    fn update(&mut self, message: Self::Input, _sender: &relm4::ComponentSender<Self>) {
+    fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>) {
         match message {
             AppInput::Increment => {
                 self.counter = self.counter.wrapping_add(1);
@@ -97,7 +97,7 @@ impl SimpleComponent for AppModel {
     }
 
     /// Update the view to represent the updated model.
-    fn update_view(&self, widgets: &mut Self::Widgets, _sender: &ComponentSender<Self>) {
+    fn update_view(&self, widgets: &mut Self::Widgets, _sender: ComponentSender<Self>) {
         widgets
             .label
             .set_label(&format!("Counter: {}", self.counter));
@@ -107,8 +107,8 @@ impl SimpleComponent for AppModel {
 
 // ANCHOR: main
 fn main() {
-    let app: RelmApp<AppModel> = RelmApp::new("relm4.adw_test.simple_manual");
-    app.run(0);
+    let app = RelmApp::new("relm4.adw_test.simple_manual");
+    app.run::<AppModel>(0);
 }
 // ANCHOR_END: main
 /* ANCHOR_END: all */
