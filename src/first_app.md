@@ -84,7 +84,7 @@ Next up, we want to initialize our UI and the model.
 
 > Don't worry about the amount of manual code you need for handling widgets. In the next chapter, we'll see how this can be done easier.
 
-All of these widgets will be created in the `init` function. We get our `Root` window and the `InitParams` variables to create our widgets with.
+All of these widgets will be created in the `init` function. We get our `Root` window and the `Init` variables to create our widgets with.
 
 ```rust,no_run,noplayground
 {{#include ../examples/simple_manual.rs:init }}
