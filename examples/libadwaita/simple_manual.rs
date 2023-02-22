@@ -29,7 +29,7 @@ impl SimpleComponent for AppModel {
     type Input = AppInput;
     type Output = ();
 
-    type InitParams = u8;
+    type Init = u8;
 
     type Root = adw::Window;
     type Widgets = AppWidgets;
@@ -41,7 +41,7 @@ impl SimpleComponent for AppModel {
     }
 
     fn init(
-        counter: Self::InitParams,
+        counter: Self::Init,
         window: &Self::Root,
         sender: &relm4::ComponentSender<Self>,
     ) -> relm4::ComponentParts<Self> {

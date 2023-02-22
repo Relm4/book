@@ -23,7 +23,7 @@ struct Model {
     child: Controller<ChildModel>,
 }
 
-fn init(counter: Self::InitParams, root: &Self::Root, sender: &ComponentSender<Self>) -> ComponentParts<Self> {
+fn init(counter: Self::Init, root: &Self::Root, sender: &ComponentSender<Self>) -> ComponentParts<Self> {
     let mut model = Model { 
         child: CounterModel::builder().launch(()).forward(&sender.input, |message| match message {
             CounterOutput::SendFront(index) => AppMsg::SendFront(index),
@@ -146,7 +146,7 @@ We can retrieve a sender for the child component by calling the `sender()` metho
 
 ### Controllers
 
-When initializing the app component, we construct the child components by passing the appropriate `InitParams` and forwarding any desired inputs and outputs. This is done through a builder provided by `Component` implementations. We pass the initial parameters via the `launch` method, and then retrieve the final `Controller` by calling the `forward` method. In addition to starting the component, the `forward` method allows us to take the outputs of the component, transform them with a mapping function, and then pass the result as an input message to another sender (in this case, the input sender of the app component). If you don't need to forward any outputs, you can start the component with the `detach` method instead.
+When initializing the app component, we construct the child components by passing the appropriate `Init` and forwarding any desired inputs and outputs. This is done through a builder provided by `Component` implementations. We pass the initial parameters via the `launch` method, and then retrieve the final `Controller` by calling the `forward` method. In addition to starting the component, the `forward` method allows us to take the outputs of the component, transform them with a mapping function, and then pass the result as an input message to another sender (in this case, the input sender of the app component). If you don't need to forward any outputs, you can start the component with the `detach` method instead.
 
 ```rust,no_run,noplayground
 {{#include ../examples/components.rs:app_init }}
