@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: build listings
     container:
       image: ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
@@ -25,12 +25,12 @@ jobs:
           override: true
           components: clippy
 
-      - run: cargo clippy --examples -- -D warnings -A dead_code -A unused_variables
+      - run: cargo clippy --examples --workspace -- -D warnings
         name: "Clippy"
         working-directory: ./
 
   build-deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: build
     steps:
       - uses: actions/checkout@v3
@@ -60,7 +60,7 @@ jobs:
           destination_dir: ./book/next
 
   codespell:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:

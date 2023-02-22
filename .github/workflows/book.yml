@@ -25,7 +25,7 @@ jobs:
           override: true
           components: clippy
 
-      - run: cargo clippy --examples -- -D warnings -A dead_code -A unused_variables
+      - run: cargo clippy --examples --workspace -- -D warnings
         name: "Clippy"
         working-directory: ./
 
