@@ -26,7 +26,7 @@ impl AsyncComponent for App {
     type Input = Msg;
     type Output = ();
     type CommandOutput = ();
-// ANCHOR_END: async_component_start
+    // ANCHOR_END: async_component_start
 
     view! {
         gtk::Window {
@@ -54,7 +54,7 @@ impl AsyncComponent for App {
         }
     }
 
-// ANCHOR: init_loading_widgets
+    // ANCHOR: init_loading_widgets
     fn init_loading_widgets(root: &mut Self::Root) -> Option<LoadingWidgets> {
         view! {
             #[local_ref]
@@ -73,9 +73,9 @@ impl AsyncComponent for App {
         }
         Some(LoadingWidgets::new(root, spinner))
     }
-// ANCHOR_END: init_loading_widgets
+    // ANCHOR_END: init_loading_widgets
 
-// ANCHOR: init
+    // ANCHOR: init
     async fn init(
         counter: Self::Init,
         root: Self::Root,
@@ -90,9 +90,9 @@ impl AsyncComponent for App {
 
         AsyncComponentParts { model, widgets }
     }
-// ANCHOR_END: init
+    // ANCHOR_END: init
 
-// ANCHOR: update
+    // ANCHOR: update
     async fn update(
         &mut self,
         msg: Self::Input,
@@ -109,7 +109,7 @@ impl AsyncComponent for App {
             }
         }
     }
-// ANCHOR_END: update
+    // ANCHOR_END: update
 }
 
 fn main() {

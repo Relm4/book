@@ -1,8 +1,8 @@
 /* ANCHOR: all */
-use relm4::{gtk, adw, ComponentParts, ComponentSender, RelmApp, SimpleComponent, WidgetPlus};
-use relm4::adw::prelude::AdwWindowExt;
-use gtk::prelude::{BoxExt, ButtonExt};
 use gtk::glib::clone;
+use gtk::prelude::{BoxExt, ButtonExt};
+use relm4::adw::prelude::AdwWindowExt;
+use relm4::{adw, gtk, ComponentParts, ComponentSender, RelmApp, SimpleComponent, WidgetPlus};
 
 // ANCHOR: model
 struct AppModel {
@@ -35,9 +35,7 @@ impl SimpleComponent for AppModel {
     type Widgets = AppWidgets;
 
     fn init_root() -> Self::Root {
-        adw::Window::builder()
-            .title("Simple app")
-            .build()
+        adw::Window::builder().title("Simple app").build()
     }
 
     fn init(
@@ -97,7 +95,7 @@ impl SimpleComponent for AppModel {
             }
         }
     }
-    
+
     /// Update the view to represent the updated model.
     fn update_view(&self, widgets: &mut Self::Widgets, _sender: &ComponentSender<Self>) {
         widgets
