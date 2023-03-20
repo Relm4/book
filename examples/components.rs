@@ -1,5 +1,7 @@
 // ANCHOR: all
-use gtk::prelude::{ButtonExt, DialogExt, GtkWindowExt, ToggleButtonExt, WidgetExt};
+use gtk::prelude::{
+    ApplicationExt, ButtonExt, DialogExt, GtkWindowExt, ToggleButtonExt, WidgetExt,
+};
 use relm4::*;
 
 // ANCHOR: header_model
@@ -201,23 +203,30 @@ impl SimpleComponent for AppModel {
         root: &Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
-        let model = AppModel {
-            mode: params,
-            header: HeaderModel::builder().launch(()).forward(
-                sender.input_sender(),
-                |msg| match msg {
+        // ANCHOR: forward
+        let header: Controller<HeaderModel> =
+            HeaderModel::builder()
+                .launch(())
+                .forward(sender.input_sender(), |msg| match msg {
                     HeaderOutput::View => AppMsg::SetMode(AppMode::View),
                     HeaderOutput::Edit => AppMsg::SetMode(AppMode::Edit),
                     HeaderOutput::Export => AppMsg::SetMode(AppMode::Export),
-                },
-            ),
-            dialog: DialogModel::builder()
-                .launch(true)
-                .forward(sender.input_sender(), |msg| match msg {
-                    DialogOutput::Close => AppMsg::Close,
-                }),
+                });
+        // ANCHOR_END: forward
+
+        let dialog = DialogModel::builder()
+            .transient_for(root)
+            .launch(true)
+            .forward(sender.input_sender(), |msg| match msg {
+                DialogOutput::Close => AppMsg::Close,
+            });
+
+        let model = AppModel {
+            mode: params,
+            header,
+            dialog,
         };
-        model.dialog.widget().set_transient_for(Some(root));
+
         let widgets = view_output!();
         ComponentParts { model, widgets }
     }
@@ -233,7 +242,7 @@ impl SimpleComponent for AppModel {
                 self.dialog.sender().send(DialogInput::Show).unwrap();
             }
             AppMsg::Close => {
-                // TODO: Figure out how to close app.
+                relm4::main_application().quit();
             }
         }
     }

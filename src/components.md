@@ -1,10 +1,14 @@
 # Components
 
-I've already mentioned components several times in the previous chapters. Now we'll finally have a look at them.
+Technically, we already used components in the previous chapters.
+So far, we've only used one component per application, but in this chapter, we're going to use multiple components to structure our app.
 
-In short, components are independent parts of your application that can communicate with each other. They are used in a parent-child model: The main app can have components and each component can have child components that again can have child components. This means that each component has a parent, whereas the main app is at the top of this tree structure and therefore does not have a parent.
+Components are independent parts of your application that can communicate with each other.
+They are used in a parent-child model: The main app component can have several components and each component can have child components and so on.
+This means that each component has a parent, except for the main app component which is at the top of this tree structure.
 
-To showcase this, we will create a small application which opens a dialog when it gets closed. The header bar and the dialog will be implemented as standalone components. The communication to the main application will be done via outputs.
+To showcase this, we will create a small application which opens a dialog when the user tries to close it.
+The header bar and the dialog will be implemented as standalone components.
 
 ![App screenshot dark](img/screenshots/components-dark-1.png)
 
@@ -12,33 +16,24 @@ To showcase this, we will create a small application which opens a dialog when i
 
 ## When to use components
 
-Components are mainly useful for separating parts of the UI into smaller, more manageable parts. They are not necessary but for larger applications, they can be very helpful.
+Components are very useful for separating parts of the UI into smaller, more manageable parts.
+They are not necessary but for larger applications, they can be very helpful.
 
 ## Message handling
 
-Simple components store their child components inside the model as a `Controller<ChildModel>` and handle output messages in the `init` function by calling the `forward` method.
+Components store their child components inside the model as a `Controller<ChildModel>` and handle output messages in the `init` function by calling the `forward` method.
 
 ```rust,no_run,noplayground
-struct Model {
-    child: Controller<ChildModel>,
-}
-
-fn init(counter: Self::Init, root: &Self::Root, sender: &ComponentSender<Self>) -> ComponentParts<Self> {
-    let mut model = Model { 
-        child: CounterModel::builder().launch(()).forward(&sender.input, |message| match message {
-            CounterOutput::SendFront(index) => AppMsg::SendFront(index),
-            CounterOutput::MoveUp(index) => AppMsg::MoveUp(index),
-            CounterOutput::MoveDown(index) => AppMsg::MoveDown(index),
-        })  
-    };
-    let widgets = view_output!();
-    ComponentParts { model, widgets }
-}
+{{#include ../examples/components.rs:forward }}
 ```
 
-The `forward` method will redirect the output messages from the child component and transform them into the parent's input messages. This is handled in the `update` function.
+The `forward` method will redirect the output messages from the child component and transform them into the parent's input messages.
 
-> Components are independent from one another, a component might communicate with many other components, therefore, the child component doesn't know who that parent will be, so, the output from the `child` has to be handled by the `parent`. 
+> Components are independent from each another so a component can be used easily with several different parent components.
+> Therefore, the child component doesn't know which type its parent component will have.
+> Thus, the `forward` method allows the parent component to transform the output messages of child components to a message type it can handle properly.
+>
+> In this example, `HeaderOutput` messages are translated into `AppMsg`.
 
 # Example application
 

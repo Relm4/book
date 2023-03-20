@@ -72,7 +72,7 @@ The first thing you need to do is to define some generic types necessary to make
 
 The types defined in the trait tell our component how it should communicate with other components and what type of widgets should be produced.
 
-The `Root` type is the outermost widget of the app. Components can choose this type freely, but the main application must use a `Window`.
+The `Root` type is the outermost widget of the app. Components can choose this type freely, but the main component must use a `Window`.
 
 Since the window widget is our root widget, we are going to create it in the `init_root` function.
 
