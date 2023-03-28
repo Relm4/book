@@ -58,13 +58,12 @@ All platforms supported by GTK4 are available for Relm4 as well:
 
 If you prefer learning directly from examples, we got you covered!
 
-Many code examples in this book and many other examples can also be found in the [git-repository](https://github.com/Relm4/Relm4/tree/v0.5.0-beta.1/examples). Whenever an example is discussed in the book, the introduction will mention the name of the example and provide a link to it.
+Many code examples in this book and many other examples can also be found in the [git-repository](https://github.com/Relm4/Relm4/tree/main/examples). Whenever an example is discussed in the book, the introduction will mention the name of the example and provide a link to it.
 
 To setup the examples run
 
 ```bash
 git clone https://github.com/Relm4/Relm4.git
-cd Relm4/examples
 ```
 
 And to run an example, simply type
