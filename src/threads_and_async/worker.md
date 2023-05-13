@@ -10,19 +10,19 @@ A worker is implemented similarly to a component by using the `Worker` trait.
 Since workers don't have widgets, you don't need to provide a `Widgets` type.
 
 ```rust,ignore
-{{#include ../examples/worker.rs:worker_impl}}
+{{#include ../../examples/worker.rs:worker_impl}}
 ```
 
 Workers are constructed similarly to components, too.
 Use the provided builder to retrieve a `WorkerController`.
 
 ```rust,ignore
-{{#include ../examples/worker.rs:worker_construction}}
+{{#include ../../examples/worker.rs:worker_construction}}
 ```
 
 Through the `WorkerController`, you can send and receive messages from the worker.
 The worker's `update` function will run on a separate thread, so your other components won't be blocked.
 
 ```rust,ignore
-{{#include ../examples/worker.rs:app_model}}
+{{#include ../../examples/worker.rs:app_model}}
 ```

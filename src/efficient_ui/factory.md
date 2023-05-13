@@ -29,7 +29,7 @@ Later, we will use a `FactoryVecDeque` to store our counters.
 
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:factory_model }}
+{{#include ../../examples/factory.rs:factory_model }}
 ```
 
 ### The input message type
@@ -37,7 +37,7 @@ Later, we will use a `FactoryVecDeque` to store our counters.
 Each counter should be able to increment and decrement.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:factory_input }}
+{{#include ../../examples/factory.rs:factory_input }}
 ```
 
 ### The output message type
@@ -55,7 +55,7 @@ The actions we want to perform "from outside" are
 Accordingly, our message type looks like this:
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:factory_output }}
+{{#include ../../examples/factory.rs:factory_output }}
 ```
 
 You might wonder why `DynamicIndex` is used here.
@@ -69,7 +69,7 @@ Factories use the `FactoryComponent` trait which is very similar to regular comp
 For example, `FactoryComponent` needs the `#[relm4::factory]` attribute macro and a few more associated types in the trait implementation.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:factory_impl_start }}
+{{#include ../../examples/factory.rs:factory_impl_start }}
 ```
 
 Let's look at the associated types one by one:
@@ -88,7 +88,7 @@ The widget creation works as usual with our trusty `view` macro.
 The only difference is that we use `self` to refer to the model due to differences in the `FactoryComponent` trait.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:factory_view }}
+{{#include ../../examples/factory.rs:factory_view }}
 ```
 
 ### Initializing the model
@@ -98,7 +98,7 @@ This means, that we are a bit less flexible, but don't need `view_output!()` her
 Also, we just need to implement the `init_model` function because `init_widgets` is already implemented by the macro.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:factory_init_model }}
+{{#include ../../examples/factory.rs:factory_init_model }}
 ```
 
 ### Forwarding messages
@@ -108,7 +108,7 @@ If `Some` is returned, a message is forwarded.
 If `None` is returned, nothing happens.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:output_to_parent }}
+{{#include ../../examples/factory.rs:output_to_parent }}
 ```
 
 ## The main component
@@ -122,7 +122,7 @@ For the main component we implement the familiar `SimpleComponent` trait.
 First we define the model and the input message type and then start the trait implementation.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:main_types }}
+{{#include ../../examples/factory.rs:main_types }}
 ```
 
 ### Initializing the factory
@@ -137,7 +137,7 @@ The last trick we have up our sleeves is to define a local variable `counter_box
 We'll use it in the `view` macro in the next section.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:main_init }}
+{{#include ../../examples/factory.rs:main_init }}
 ```
 
 ### Initializing the widgets
@@ -147,7 +147,7 @@ Most things should look familiar, but this time we use a `#[local_ref]` attribut
 This trick allows us to initialize the model with its `FactoryVecDeque` before the widgets, which is more convenient in most cases.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:main_view }}
+{{#include ../../examples/factory.rs:main_view }}
 ```
 
 ### The main update function
@@ -165,7 +165,7 @@ Once we're done, we just drop the guard (or rather leave the current scope) and 
 The neat thing: You can never forget to render changes, and the update algorithm can optimize widget updates for efficiency.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:main_update }}
+{{#include ../../examples/factory.rs:main_update }}
 ```
 
 ### The main function
@@ -175,7 +175,7 @@ Awesome, we almost made it!
 We only need to define the main function to run our application.
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:main }}
+{{#include ../../examples/factory.rs:main }}
 ```
 
 ## The complete code
@@ -183,5 +183,5 @@ We only need to define the main function to run our application.
 Let's review our code in one piece one more time to see how all these parts work together:
 
 ```rust,no_run,noplayground
-{{#include ../examples/factory.rs:all }}
+{{#include ../../examples/factory.rs:all }}
 ```
