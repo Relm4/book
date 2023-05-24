@@ -4,7 +4,7 @@ Asynchronous components and factories are almost identical compared to regular c
 The only major difference is that they have asynchronous `init`, `update` and `update_cmd` methods.
 This allows you to `await` almost everywhere from within the component.
 
-> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/examples/simple_async.rs). Run `cargo run --example simple_async` from the [example directory](https://github.com/Relm4/Relm4/tree/macro-0.5/examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/../../examples/simple_async.rs). Run `cargo run --example simple_async` from the [example directory](https://github.com/Relm4/Relm4/tree/macro-0.5../../examples) if you want to see the code in action.
 
 Because Rust doesn't support async traits yet, we need macros to add support for this feature.
 To tell the `component` macro that we're using an async trait, we pass the `async` parameter to it.
@@ -15,14 +15,14 @@ Apart from that, the first section is identical.
 > Similarly, the `factory` macro needs the `async` parameter for async factories and the trait changes from `FactoryComponent` to `AsyncFactoryComponent`.
 
 ```rust,no_run,noplayground
-{{#include ../examples/async.rs:async_component_start }}
+{{#include ../../examples/async.rs:async_component_start }}
 ```
 
 Most functions of async component and factory traits are asynchronous, which allows us to `await` on futures within those functions.
 Apart from that, only a couple of types need to be adjusted for the async versions of the traits, for example `AsyncComponentSender` and `AsyncComponentParts`.
 
 ```rust,no_run,noplayground
-{{#include ../examples/async.rs:init }}
+{{#include ../../examples/async.rs:init }}
 ```
 
 Awaiting in the init function allows us to perform a late initialization.
@@ -33,7 +33,7 @@ Therefore, Relm4 allows you to specify widgets that will be displayed while your
 > If your init function doesn't await or completes quickly, you don't need to implement `init_loading_widgets`.
 
 ```rust,no_run,noplayground
-{{#include ../examples/async.rs:init_loading_widgets }}
+{{#include ../../examples/async.rs:init_loading_widgets }}
 ```
 
 In this case, we do some basic initialization of our root widget upfront and also add a `Spinner` for a nice loading animation.
@@ -46,11 +46,11 @@ Because we use async however, this only affects each async component individuall
 If you want to process multiple messages at the same time, you should consider using commands.
 
 ```rust,no_run,noplayground
-{{#include ../examples/async.rs:update }}
+{{#include ../../examples/async.rs:update }}
 ```
 
 ## The complete code
 
 ```rust,no_run,noplayground
-{{#include ../examples/async.rs:all }}
+{{#include ../../examples/async.rs:all }}
 ```

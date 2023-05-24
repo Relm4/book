@@ -7,5 +7,5 @@ Relm4 uses the term model as a data type that represents the application state, 
 For example, to store a counter value, we can store a `u8` in our model:
 
 ```rust,no_run,noplayground
-{{#include ../../../examples/simple_manual.rs:model }}
+{{#include ../../examples/simple_manual.rs:model }}
 ```

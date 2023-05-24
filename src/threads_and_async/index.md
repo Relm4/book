@@ -30,13 +30,13 @@ For an app that generates cryptographic keys, you might define a `generate_rsa_k
 This function takes some time to compute because generating the key is a difficult calculation so we can treat it as if it was implemented like this:
 
 ```rust,no_run,noplayground
-{{#include ../examples/threads.rs:rsa_key }}
+{{#include ../../examples/threads.rs:rsa_key }}
 ```
 
 If our component receives a `GenerateKey` message, we start generating the key.
 
 ```rust,no_run,noplayground
-{{#include ../examples/threads.rs:slow_update }}
+{{#include ../../examples/threads.rs:slow_update }}
 ```
 
 Unfortunately, this will freeze our app.
@@ -58,7 +58,7 @@ However, using async/await allows us to use the CPU for other things while we're
 The resulting asynchronous function could look like this.
 
 ```rust,no_run,noplayground
-{{#include ../examples/threads.rs:fetch_rsa_key }}
+{{#include ../../examples/threads.rs:fetch_rsa_key }}
 ```
 
 Since we now have an asynchronous function, we can't simply call it like a regular function.

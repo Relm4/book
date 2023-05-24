@@ -8,11 +8,11 @@ They run until they return their result as a `CommandOutput` message that will b
 First, we define our message type so we can use it for the associated `CommandOutput` type in our component.
 
 ```rust,no_run,noplayground
-{{#include ../examples/commands.rs:command_msg }}
+{{#include ../../examples/commands.rs:command_msg }}
 ```
 
 ```rust,no_run,noplayground
-{{#include ../examples/commands.rs:command_output_type }}
+{{#include ../../examples/commands.rs:command_output_type }}
 ```
 
 > Note: This only works with the `Component` trait.
@@ -24,7 +24,7 @@ From the command, we call an asynchronous function that will handle the web requ
 Once the future completes, the command returns a `CommandMsg`.
 
 ```rust,no_run,noplayground
-{{#include ../examples/commands.rs:async_update }}
+{{#include ../../examples/commands.rs:async_update }}
 ```
 
 Now, we can process the `CommandMsg` similar to regular app updates.
@@ -33,7 +33,7 @@ Only the message type is `CommandOutput` instead of `Input`.
 From here, we can simply assign the result of the web request to our model.
 
 ```rust,no_run,noplayground
-{{#include ../examples/commands.rs:update_cmd }}
+{{#include ../../examples/commands.rs:update_cmd }}
 ```
 
 That's it!
@@ -48,13 +48,13 @@ Compared to the asynchronous methods, we need to add the `spawn_` prefix to the 
 Then, you can just pass a closure or a function pointer as task.
 
 ```rust,no_run,noplayground
-{{#include ../examples/commands.rs:sync_update }}
+{{#include ../../examples/commands.rs:sync_update }}
 ```
 
 The rest is identical to the asynchronous version.
 
 ```rust,no_run,noplayground
-{{#include ../examples/commands.rs:sync_update_cmd }}
+{{#include ../../examples/commands.rs:sync_update_cmd }}
 ```
 
 ### Configuration

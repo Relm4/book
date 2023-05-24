@@ -84,7 +84,7 @@ Let's build a simple app that shows two random icons and allows the user to set 
 Before we can select random icons, we need to quickly implement a function that will return us random image names available in the default GTK icon theme.
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:icons }}
+{{#include ../../examples/tracker.rs:icons }}
 ```
 
 ## The model
@@ -92,13 +92,13 @@ Before we can select random icons, we need to quickly implement a function that 
 For our model we only need to store the two icon names and whether both of them are identical.
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:model }}
+{{#include ../../examples/tracker.rs:model }}
 ```
 
 The message type is also pretty simple: we just want to update one of the icons.
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:msg }}
+{{#include ../../examples/tracker.rs:msg }}
 ```
 
 There are a few notable things for the `Component`'s `update` implementation.
@@ -107,7 +107,7 @@ First, we call `self.reset()` at the top of the function body. This ensures that
 Also, we use setters instead of assignments because we want to track these changes. Yet, you could still use the assignment operator if you want to apply changes without notifying the tracker.
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:update }}
+{{#include ../../examples/tracker.rs:update }}
 ```
 
 ## The view
@@ -115,7 +115,7 @@ Also, we use setters instead of assignments because we want to track these chang
 Now we reached the interesting part of the code where we can actually make use of the tracker. Let's have a look at the complete `view!` macro call:
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:view }}
+{{#include ../../examples/tracker.rs:view }}
 ```
 
 The overall UI is pretty simple: A window that contains a box. This box itself has two boxes that display the two icons and the two buttons to update them.
@@ -123,7 +123,7 @@ The overall UI is pretty simple: A window that contains a box. This box itself h
 We also added some additional code in `init` that runs before the view is constructed. In our case, we want to add [custom CSS](https://docs.gtk.org/gtk4/css-properties.html) that sets the background color for elements with class name "identical".
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:post_init }}
+{{#include ../../examples/tracker.rs:post_init }}
 ```
 
 
@@ -138,7 +138,7 @@ The `#[track]` attribute is applied to method invocations in our view code. It a
 Let's have a look at its first appearance:
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:track1 }}
+{{#include ../../examples/tracker.rs:track1 }}
 ```
 
 The [`set_class_active`](https://aaronerhardt.github.io/docs/relm4/relm4/util/widget_plus/trait.WidgetPlus.html#tymethod.set_class_active) method is used to either activate or disable a CSS class. It takes two parameters, the first is the class itself and the second is a boolean which specifies if the class should be added (`true`) or removed (`false`).
@@ -158,7 +158,7 @@ That's all. It's pretty simple, actually. We just use a condition that allows us
 The second `#[track]` attribute works similarly:
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:track2 }}
+{{#include ../../examples/tracker.rs:track2 }}
 ```
 
 > **Debugging Helper**
@@ -172,7 +172,7 @@ The second `#[track]` attribute works similarly:
 There's one last thing to point out. When initializing our model, we need to initialize the `tracker` field as well. The initial value doesn't really matter because we call `reset()` in the update function anyway, but usually `0` is used.
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:model_init}}
+{{#include ../../examples/tracker.rs:model_init}}
 ```
 
 ## The complete code
@@ -180,5 +180,5 @@ There's one last thing to point out. When initializing our model, we need to ini
 Let's look at our code again in one piece to see how all these parts work together:
 
 ```rust,no_run,noplayground
-{{#include ../examples/tracker.rs:all }}
+{{#include ../../examples/tracker.rs:all }}
 ```
