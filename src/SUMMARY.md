@@ -11,6 +11,7 @@
   - [Components](basic_concepts/components.md)
 - [Your first app](first_app.md)
 - [The component macro](component_macro.md)
+- [Tips and tricks](tricks.md)
 - [Efficient UI updates](efficient_ui/index.md)
   - [Tracker](efficient_ui/tracker.md)
   - [Factories](efficient_ui/factory.md)

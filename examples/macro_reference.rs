@@ -121,6 +121,7 @@ impl SimpleComponent for AppModel {
                     set_margin_all: counter.value.into(),
                 },
 
+                // ANCHOR: block-signal
                 gtk::ToggleButton {
                     set_label: "Counter is even",
                     #[watch]
@@ -131,6 +132,7 @@ impl SimpleComponent for AppModel {
                         sender.input(AppMsg::Increment);
                     } @toggle_handler,
                 },
+                // ANCHOR_END: block-signal
 
                 #[local]
                 local_label -> gtk::Label {

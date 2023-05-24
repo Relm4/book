@@ -231,6 +231,18 @@ When connecting signals emitted by widgets you can clone fields that you need in
 connect_name[cloned_var1, cloned_var2, ...] => move |arg1, arg2, ...| { ... }
 ```
 
+### Blocking signals temporarily
+
+Some signals are not only emitted after a user interaction, but also when you change values though your code, for example by using `#[watch]`.
+This might not be the desired behavior and can even cause your application to freeze under certain circumstances.
+
+To avoid this, you can name signal handlers by using an `@` and a name after the signal closure.
+Then, you can use the signal handler name in the `#[block_signal(handler_name)]` attribute to deactivate the signal handler while you edit a value.
+
+```rust,ignore
+{{#include ../../examples/macro_reference.rs:block-signal}}
+```
+
 ## Manual code
 
 Sometimes the macro isn't flexible enough.
