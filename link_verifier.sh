@@ -13,7 +13,7 @@ function search_file() {
             line=`echo $line | sed -e 's/[\)| |\`|"].*//g'`
 
             if [[ $line == *"https://crates.io"* ]]; then
-                echo " ? Unkown:  $line (crates.io blocks curl)"
+                echo " ? Unknown:  $line (crates.io blocks curl)"
                 continue
             fi
 
