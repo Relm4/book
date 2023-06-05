@@ -11,7 +11,7 @@ To better visualize what happens, let's look at the following image.
 The expected behavior is on the left, where processing of updates is fast and the app spends most of the time idle, waiting for new user inputs (aka events).
 Yet on the right, the update function is very slow and blocks the entire application so that no other events can be processed in the meantime and the view update is delayed.
 
-<img src="img/blocking_update_timing.png" style="width: 90%"/>
+<img src="/img/blocking_update_timing.png" style="width: 90%"/>
 
 The behavior on the right will freeze the entire application and should be avoided.
 Fortunately, Relm4 gives you plenty of options to keep your application responsive.
