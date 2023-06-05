@@ -142,7 +142,7 @@ impl SimpleComponent for AppModel {
 }
 
 fn main() {
-    let app: RelmApp = RelmApp::new("relm4.test.simple");
+    let app = RelmApp::new("relm4.test.simple");
     app.run::<AppModel>(());
 }
 // ANCHOR_END: all

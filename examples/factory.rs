@@ -93,7 +93,7 @@ impl FactoryComponent for Counter {
     // ANCHOR_END: factory_view
 
     // ANCHOR: output_to_parent
-    fn output_to_parent_input(output: Self::Output) -> Option<AppMsg> {
+    fn forward_to_parent(output: Self::Output) -> Option<AppMsg> {
         Some(match output {
             CounterOutput::SendFront(index) => AppMsg::SendFront(index),
             CounterOutput::MoveUp(index) => AppMsg::MoveUp(index),
