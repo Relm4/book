@@ -19,8 +19,8 @@ Custom collection types like `FactoryVecDeque` allow you to work with collection
 At the same time, factories allow you to automatically visualize the data with widgets.
 Additionally, factories are very efficient by reducing the amount of UI updates to a minimum.
 
-> The app we will write in this chapter is also available [here](https://github.com/AaronErhardt/relm4/blob/main/examples/factory.rs).
-> Run `cargo run --example factory` from the [example directory](https://github.com/AaronErhardt/relm4/tree/main/examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/examples/factory.rs).
+> Run `cargo run --example factory` from the [example directory](https://github.com/Relm4/Relm4/tree/main/examples) if you want to see the code in action.
 
 ### The model
 
@@ -103,7 +103,8 @@ Also, we just need to implement the `init_model` function because `init_widgets`
 
 ### Forwarding messages
 
-Factories can implement the `output_to_parent_msg` method to send messages to their parent component.
+Factories can implement the `forward_to_parent` method to send messages to their parent component.
+
 If `Some` is returned, a message is forwarded.
 If `None` is returned, nothing happens.
 
@@ -131,7 +132,7 @@ We skip the `view` macro for a moment and look at the `init` method.
 You see that we are initializing the `FactoryVecDeque` with a container widget.
 This widget will store all the widgets created by the factory.
 
-We also pass an input sender so the `output_to_parent_msg` method we defined earlier can send input messages to our main component.
+We also pass an input sender so the `forward_to_parent` method we defined earlier can send input messages to our main component.
 
 The last trick we have up our sleeves is to define a local variable `counter_box` that is a reference to the container widget of our factory.
 We'll use it in the `view` macro in the next section.

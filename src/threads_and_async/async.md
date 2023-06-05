@@ -4,7 +4,7 @@ Asynchronous components and factories are almost identical compared to regular c
 The only major difference is that they have asynchronous `init`, `update` and `update_cmd` methods.
 This allows you to `await` almost everywhere from within the component.
 
-> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/../../examples/simple_async.rs). Run `cargo run --example simple_async` from the [example directory](https://github.com/Relm4/Relm4/tree/macro-0.5../../examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/examples/simple_async.rs). Run `cargo run --example simple_async` from the [example directory](https://github.com/Relm4/Relm4/tree/main/examples) if you want to see the code in action.
 
 Because Rust doesn't support async traits yet, we need macros to add support for this feature.
 To tell the `component` macro that we're using an async trait, we pass the `async` parameter to it.

@@ -13,7 +13,7 @@ GTK Light | GTK Dark
 
 In this app, we will have a counter which can be incremented and decremented by pressing the corresponding buttons.
 
-> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/examples/simple_manual.rs). Run `cargo run --example simple_manual` from the [example directory](https://github.com/Relm4/Relm4/tree/macro-0.5/examples) if you want to see the code in action.
+> The app we will write in this chapter is also available [here](https://github.com/Relm4/Relm4/blob/main/examples/simple_manual.rs). Run `cargo run --example simple_manual` from the [example directory](https://github.com/Relm4/Relm4/tree/main/examples) if you want to see the code in action.
 
 ## Application architecture
 
@@ -149,7 +149,7 @@ The app does all those things in a loop. It waits for messages and once a messag
 
 I hope this chapter made everything clear for you :)
 
-If you found a mistake or there was something unclear, please open an issue [here](https://github.com/AaronErhardt/relm4/issues).
+If you found a mistake or there was something unclear, please open an issue [here](https://github.com/Relm4/Relm4/issues).
 
 As you have seen, initializing the UI was by far the largest part of our app, with roughly one half of the total code. In the next chapter, we will have a look at the `relm4-macros` crate, which provides a macro that helps us reduce the amount of code we need to implement the Widgets trait.
 

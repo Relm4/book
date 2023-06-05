@@ -10,7 +10,7 @@ This is how the dialog looks like in the alert example:
 
 ![App screenshot dark](img/screenshots/reusable-alert-dark-2.png)
 
-> If you want to see an alert component very similar to the one we will write in this chapter, have a look at the [“alert” example](https://github.com/Relm4/Relm4/blob/main/examples/relm4-components/alert.rs). Run `cargo run --example alert` from the [examples/relm4-components directory](https://github.com/Relm4/Relm4/tree/main/examples/relm4-components) if you want to see the code in action.
+> If you want to see an alert component very similar to the one we will write in this chapter, have a look at the [“alert” example](https://github.com/Relm4/Relm4/blob/main/relm4-components/examples/alert.rs). Run `cargo run --example alert` from the [relm4-components/examples directory](https://github.com/Relm4/Relm4/tree/main/relm4-components/examples) if you want to see the code in action.
 
 ## The alert component
 
@@ -97,7 +97,7 @@ See the [`set_transient_for` documentation](https://docs.gtk.org/gtk4/method.Win
 ```
 
 That's it! You can find more examples of reusable components in the
-relm4-components crate [here](https://relm4.org/docs/stable/relm4_components/).
+relm4-components crate [here](https://docs.rs/relm4-components/latest/relm4_components/).
 You can also contribute your own reusable components to relm4-components :)
 
 ## The complete code

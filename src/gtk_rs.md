@@ -14,7 +14,7 @@ Like many other OOP frameworks or languages, GObjects can inherit from other GOb
 
 For example, you could use subclassing to create your own button widget that acts as a counter. Or you can create a custom application window that better suits your application.
 
-> Read more about subclassing in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/gobject_subclassing.html).
+> Read more about subclassing in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/g_object_subclassing.html).
 
 ### Properties
 
@@ -22,7 +22,7 @@ Each GObject can have properties that work similar to the fields of a structure 
 
 For example, you could bind the "visible" property of a widget to the "active" property of a `gtk::ToggleButton`. This would allow you to show or hide the widget using the toggle button and the best part is, that it's done fully automatically!
 
-> Read more about properties in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/gobject_properties.html).
+> Read more about properties in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/g_object_properties.html).
 
 ### Signals
 
@@ -30,7 +30,7 @@ GObjects can not only have properties but also signals. Actually, we've been usi
 
 You can create your own signals in custom widgets. You can also use [emit](https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html#tymethod.emit) to emit signals on you widgets manually.
 
-> Read more about signals in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/gobject_signals.html).
+> Read more about signals in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/g_object_signals.html).
 
 ## Settings
 
@@ -42,12 +42,12 @@ Most applications need to store settings at some point. GTK makes that pretty si
 
 Relm4 has factories for generating widgets from collections of data. GTK has a similar mechanism that should be used for large list. Because GTK knows which widgets of a list are actually shown it can optimize the rendering and memory usage a lot better.
 
-> Read more about lists in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/lists.html).
+> Read more about lists in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/list_widgets.html).
 
-## Interface builder
+## Composite templates
 
 Relm4 leaves it up to you how to create your UI. You can do it manually like in our first app, you can do with the widget macro or you can use the interface builder from GTK.
 
-With the interface builder, you can use a XML file to specify your widgets and properties.
+With composite templates, you can use a XML file to specify your widgets and properties.
 
-> Read more about the interface builder in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/interface_builder.html).
+> Read more about the composite templates in the [gtk-rs book](https://gtk-rs.org/gtk4-rs/git/book/composite_templates.html).

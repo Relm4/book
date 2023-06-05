@@ -39,7 +39,7 @@ From here, we can simply assign the result of the web request to our model.
 That's it!
 It's really as simple as starting a task and processing a message on completion.
 
-> With the [`command()`](https://relm4.org/docs/next/relm4/prelude/struct.ComponentSender.html#method.command) method, you are even more flexible because you can send multiple messages.
+> With the [`command()`](https://docs.rs/relm4/latest/relm4/struct.ComponentSender.html#method.command) method, you are even more flexible because you can send multiple messages.
 
 ## Synchronous tasks
 
@@ -60,7 +60,7 @@ The rest is identical to the asynchronous version.
 ### Configuration
 
 Commands run on a tokio runtime.
-If you spawn a lot of commands in your application or want to fine-tune the runtime, you can set [two static variables](https://relm4.org/docs/next/relm4/index.html#statics) at the start of your main function to override the default value.
+If you spawn a lot of commands in your application or want to fine-tune the runtime, you can set [two static variables](https://docs.rs/relm4/latest/relm4/index.html#statics) at the start of your main function to override the default value.
 For example, Relm4 only uses one thread for asynchronous background tasks, which might not be enough.
 Setting `RELM_THREADS` to 4 will increase the thread count by 3 additional threads.
 

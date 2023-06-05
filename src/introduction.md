@@ -6,7 +6,7 @@
 
 [![Matrix](https://img.shields.io/matrix/relm4:matrix.org?label=matrix%20chat)](https://matrix.to/#/#relm4:matrix.org)
 [![Relm4 on crates.io](https://img.shields.io/crates/v/relm4.svg)](https://crates.io/crates/relm4)
-[![Relm4 docs](https://img.shields.io/badge/rust-documentation-blue)](https://relm4.org/docs/next/relm4/)
+[![Relm4 docs](https://img.shields.io/badge/rust-documentation-blue)](https://docs.rs/relm4/latest/relm4/)
 
 Relm4 is an idiomatic GUI library inspired by [Elm](https://elm-lang.org/) and based on [gtk4-rs](https://crates.io/crates/gtk4). 
 It is a new version of [relm](https://github.com/antoyo/relm) that's built from scratch and is compatible with [GTK4](https://www.gtk.org/) and [libadwaita](https://gitlab.gnome.org/GNOME/libadwaita).
@@ -38,13 +38,13 @@ I also recommend reading the [gtk4-rs book](https://gtk-rs.org/gtk4-rs/git/book/
 Add the packages you need to your `Cargo.toml`:
 
 ```toml
-relm4 = "0.5.0"
-relm4-components = "0.5.0"
+relm4 = "0.6.0"
+relm4-components = "0.6.0"
 ```
 
 ## Issues and feedback
 
-If you find a mistake or something unclear in Relm4 or this book, let us know! Simply open up an [issue](https://github.com/AaronErhardt/relm4/issues) or start a [discussion](https://github.com/Relm4/Relm4/discussions) over at [GitHub](https://github.com/Relm4/Relm4) or chat with us on [Matrix](https://matrix.to/#/#relm4:matrix.org).
+If you find a mistake or something unclear in Relm4 or this book, let us know! Simply open up an [issue](https://github.com/Relm4/Relm4/issues) or start a [discussion](https://github.com/Relm4/Relm4/discussions) over at [GitHub](https://github.com/Relm4/Relm4) or chat with us on [Matrix](https://matrix.to/#/#relm4:matrix.org).
 
 ## Platform support
 

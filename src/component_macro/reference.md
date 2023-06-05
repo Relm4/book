@@ -85,7 +85,7 @@ If the widget needs to be wrapped in another type (commonly `Option`), use the `
 set_property_name = gtk::Box { ... }
 ```
 
-Sometimes you need to pass additional arguments along with the widget, for example when calling [`gtk::Grid::attach`](https://aaronerhardt.github.io/docs/relm4/gtk4/prelude/trait.GridExt.html#tymethod.attach). You can do this by providing the additional arguments in square brackets after the method:
+Sometimes you need to pass additional arguments along with the widget, for example when calling [`gtk::Grid::attach`](https://gtk-rs.org/gtk4-rs/git/docs/gtk4/prelude/trait.GridExt.html#method.attach). You can do this by providing the additional arguments in square brackets after the method:
 
 ```rust,ignore
 gtk::Grid {
