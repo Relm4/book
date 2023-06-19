@@ -19,7 +19,7 @@ Fortunately, Relm4 gives you plenty of options to keep your application responsi
 ## Understanding the problem
 
 In general, we can divide the problem into two categories:
-+ **CPU-bound** operations take a lot of time because actual work needs do be done by the CPU.
++ **CPU-bound** operations take a lot of time because actual work needs to be done by the CPU.
 + **I/O-bound** operations take a lot of time because we have to wait for something to happen, for example, a response from a server.
   This means that we have CPU resources to do other things in the meantime, but to use them, we need a mechanism like async/await.
 
