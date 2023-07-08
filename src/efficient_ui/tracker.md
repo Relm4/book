@@ -6,11 +6,11 @@ Relm4 does not promote any implementation of a tracker. You're free to use any i
 
 Using this technique, we will implement a small program which displays two randomly picked icons controlled by two buttons:
 
-![App screenshot](img/screenshots/tracker-dark-1.png)
+![App screenshot](../img/screenshots/tracker-dark-1.png)
 
 When pressing a button, the icon above it will change. The background of the application will become green when the two icons are identical:
 
-![App screenshot with with equal icons](img/screenshots/tracker-dark-2.png)
+![App screenshot with with equal icons](../img/screenshots/tracker-dark-2.png)
 
 
 ## The tracker crate

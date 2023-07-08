@@ -3,7 +3,7 @@
 Factories define how to generate widgets from data collections. 
 GTK also has factories, yet Relm4 uses its own factory implementation which is much easier to use in regular Rust code.
 
-![App screenshot dark](img/screenshots/factory-dark.png)
+![App screenshot dark](../img/screenshots/factory-dark.png)
 
 This app will have a dynamic number of counters.
 Also, the counters can be moved up and down by the user.
