@@ -65,4 +65,4 @@ For example, Relm4 only uses one thread for asynchronous background tasks, which
 Setting `RELM_THREADS` to 4 will increase the thread count by 3 additional threads.
 
 > Note: Setting the static variables must be done early.
-> As soon as the runtime is initialized (which happens when it's accessed for the first time), the values cannot be changes anymore.
+> As soon as the runtime is initialized (which happens when it's accessed for the first time), the values cannot be changed anymore.
