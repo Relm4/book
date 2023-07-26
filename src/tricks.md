@@ -26,7 +26,7 @@ The Elm architecture itself is pretty simple, but as your application grows, sma
 
 Relm4 components use a simple update loop: Receive a message, update the model and then update the view.
 Usually, this works as intended, but if updating the view somehow creates a new, identical message, your code will be stuck in an infinite loop and your app will freeze.
-To prevent this, the view macro has the `block_signal` attribute which is explained [here](/component_macro/reference.html#blocking-signals-temporarily).
+To prevent this, the view macro has the `block_signal` attribute which is explained [here](./component_macro/reference.html#blocking-signals-temporarily).
 
 ### Sending errors
 
