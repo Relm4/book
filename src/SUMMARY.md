@@ -26,6 +26,7 @@
 - [Widget templates](widget_templates.md)
 - [gtk-rs overview](gtk_rs.md)
 - [Resource Bundles](resource_bundles.md)
+- [Continuous Integration guide](continuous_integration.md)
 - [Component macro reference](component_macro/reference.md)
   - [Macro expansion](component_macro/expansion.md)
 - [Migration guides](migrations/index.md)
