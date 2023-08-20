@@ -12,7 +12,7 @@ Let's take a grid as an example. For a grid, there are many possibilities to pla
 
 However, we want to use a factory for generating our widgets, which means we only have the index to calculate the desired two-dimensional position. In the simplest case, we create a layout that places a certain amount of widgets per row or per column.
 
-![Grid layout example](img/grid_layout.svg)
+![Grid layout example](../img/grid_layout.svg)
 
 To place three elements per row from left to right in a `gtk::Grid` we could use the following position function.
 
@@ -34,7 +34,7 @@ To place three elements per row from left to right in a `gtk::Grid` we could use
 
 And indeed, it works as expected.
 
-![Row placement grid screenshot](img/row_grid_screenshot.png)
+![Row placement grid screenshot](../img/row_grid_screenshot.png)
 
 ## A chess grid
 
@@ -42,7 +42,7 @@ Let's have a look at a more complex layout. It's unlikely that this would be use
 
 To create a chess grid layout, we need to place our widgets only on fields of one color and leave the other fields empty.
 
-![Grid layout example](img/chess_layout.svg)
+![Grid layout example](../img/chess_layout.svg)
 
 Actually, the code isn't too complicated.
 
@@ -66,4 +66,4 @@ Actually, the code isn't too complicated.
 
 And as you can see, it works!
 
-![Chess grid layout screenshot](img/chess_grid_screenshot.png)
+![Chess grid layout screenshot](../img/chess_grid_screenshot.png)
