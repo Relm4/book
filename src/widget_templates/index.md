@@ -16,11 +16,11 @@ The macro will create the type and implement the trait for you.
 For example, the following code block will create a template for a `gtk::Box` with a certain margin and custom CSS.
 
 ```rust,no_run,noplayground
-{{#include ../examples/widget_template.rs:box_template }}
+{{#include ../../examples/widget_template.rs:box_template }}
 ```
 Similarly, we can create a template for a `gtk::Spinner` that already spins when it's created.
 ```rust,no_run,noplayground
-{{#include ../examples/widget_template.rs:spinner_template }}
+{{#include ../../examples/widget_template.rs:spinner_template }}
 ```
 > To create public templates, you can use `#[relm4::widget_template(pub)]`, similar to the `#[relm4::component(pub)]` macro.
 ### Template children
@@ -33,7 +33,7 @@ We use the templates we defined earlier by using the `#[template]` attribute.
 Also, we assign the name `child_label` to our last widget, which is all we need to make it a template child.
 In general, naming a widget in a template is all that's needed to make it a template child.
 ```rust,no_run,noplayground
-{{#include ../examples/widget_template.rs:nested_template }}
+{{#include ../../examples/widget_template.rs:nested_template }}
 ```
 ## Using templates
 To use templates in a component, we use the `#[template]` and `#[template_child]` attributes.
@@ -43,7 +43,7 @@ As you can see, we now have access to the `whild_label` widget, which actually i
 We can even use assign or overwrite properties of the template and its children, similar to regular widgets.
 Here, we use the `#[watch]` attribute to update the label with the latest counter value.
 ```rust,no_run,noplayground
-{{#include ../examples/widget_template.rs:component_start }}
+{{#include ../../examples/widget_template.rs:component_start }}
 ```
 ### Some notes on orders
 If you run this code, you will notice that the label appears above the two buttons, which is contrary to our widget definition.
@@ -54,5 +54,5 @@ However, you can work around this by using methods like `prepend`, `append` or `
 > This would increase the complexity of the internal implementation by a lot (or might not be possible at all) and is therefore not planned at the moment.
 ## The complete code
 ```rust,no_run,noplayground
-{{#include ../examples/widget_template.rs:all }}
+{{#include ../../examples/widget_template.rs:all }}
 ```

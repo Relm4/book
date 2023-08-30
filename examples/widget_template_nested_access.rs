@@ -1,8 +1,6 @@
 // ANCHOR: all
 use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
-use relm4::{
-    gtk, ComponentParts, ComponentSender, RelmApp, RelmWidgetExt, SimpleComponent, WidgetTemplate,
-};
+use relm4::{gtk, ComponentParts, ComponentSender, RelmWidgetExt, SimpleComponent, WidgetTemplate};
 
 // ANCHOR: home_page_template
 #[relm4::widget_template]
@@ -164,8 +162,5 @@ impl SimpleComponent for AppModel {
     }
 }
 
-fn main() {
-    let app = RelmApp::new("relm4.example.widget_template");
-    app.run::<AppModel>(());
-}
+fn main() {}
 // ANCHOR_END: all
