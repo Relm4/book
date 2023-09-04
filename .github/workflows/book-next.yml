@@ -15,7 +15,7 @@ jobs:
     container:
       image: ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: "next"
       - uses: dtolnay/rust-toolchain@master
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     name: build
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: "next"
 
@@ -54,7 +54,7 @@ jobs:
   codespell:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: "next"
       - uses: codespell-project/actions-codespell@master
