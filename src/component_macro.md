@@ -81,7 +81,7 @@ The last special syntax of the `component` macro we'll cover here is the `#[watc
 {{#include ../examples/simple.rs:watch }}
 ```
 
-> The full reference for the syntax of the widget macro can be found [here](https://aaronerhardt.github.io/relm4-book/book/widget_macro_reference.html).
+> The full reference for the syntax of the widget macro can be found [here](component_macro/reference.html).
 
 ## Constructing the Widgets
 
