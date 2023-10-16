@@ -40,6 +40,12 @@ jobs:
       - run: mdbook build -d book
         working-directory: ./
 
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1.8.0
+        with:
+          args: book
+          fail: true
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         # Only deploy when ref is main
