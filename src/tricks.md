@@ -105,7 +105,7 @@ In particular, it is very useful for finding the best values before integrating 
 
 To use the inspector, you only need to press `Ctrl+Shift+D` while you have a GTK application opened (this not just works for Relm4, but all GTK based apps).
 You should see an overview over all your widgets, which you can expand row by row.
-Yet, to select widgets, it is more convenient to the the button in the top left which allows you to select a widget by clicking on your app.
+Yet, to select widgets, it is more convenient to use the button in the top left which allows you to select a widget by clicking on your app.
 Once you have selected a widget, you can modify its properties.
 
 You can also use the CSS tab to apply custom CSS to your application.
