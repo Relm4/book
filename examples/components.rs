@@ -191,7 +191,7 @@ impl SimpleComponent for AppModel {
             },
             connect_close_request[sender] => move |_| {
                 sender.input(AppMsg::CloseRequest);
-                gtk::Inhibit(true)
+                gtk::glib::Propagation::Stop
             }
         }
     }

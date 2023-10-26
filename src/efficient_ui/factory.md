@@ -79,7 +79,6 @@ Let's look at the associated types one by one:
 + **Output**: The output message type.
 + **CommandOutput**: The command output message type, we don't need it here.
 + **Widgets**: The name of the struct that stores out widgets, it will be created by the macro.
-+ **ParentInput**: The input message type of the parent component.
 + **ParentWidget**: The container widget used to store the widgets of the factory, for example `gtk::Box`.
 
 ### Creating the widget
@@ -101,17 +100,6 @@ Also, we just need to implement the `init_model` function because `init_widgets`
 {{#include ../../examples/factory.rs:factory_init_model }}
 ```
 
-### Forwarding messages
-
-Factories can implement the `forward_to_parent` method to send messages to their parent component.
-
-If `Some` is returned, a message is forwarded.
-If `None` is returned, nothing happens.
-
-```rust,no_run,noplayground
-{{#include ../../examples/factory.rs:output_to_parent }}
-```
-
 ## The main component
 
 Now, we have implemented the `FactoryComponent` type for the elements in our factory.
@@ -129,10 +117,11 @@ First we define the model and the input message type and then start the trait im
 ### Initializing the factory
 
 We skip the `view` macro for a moment and look at the `init` method.
-You see that we are initializing the `FactoryVecDeque` with a container widget.
+You see that we are initializing the `FactoryVecDeque` using a builder pattern.
+First, we call `FactoryVecDeque::builder()` to create the builder and use `launch()` to set the root widget of the factory.
 This widget will store all the widgets created by the factory.
 
-We also pass an input sender so the `forward_to_parent` method we defined earlier can send input messages to our main component.
+Then, we use the `forward()` method to pass all output messages of our factory (with type `CounterOutput`)  to the input of our component (with type `AppMsg`).
 
 The last trick we have up our sleeves is to define a local variable `counter_box` that is a reference to the container widget of our factory.
 We'll use it in the `view` macro in the next section.
