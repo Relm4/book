@@ -35,13 +35,13 @@ impl FactoryComponent for Counter {
     type Input = CounterMsg;
     type Output = CounterOutput;
     type CommandOutput = ();
-    type Widgets = CounterWidgets;
     type ParentWidget = gtk::Box;
     // ANCHOR_END: factory_impl_start
 
     // ANCHOR: factory_view
     view! {
-        root = gtk::Box {
+        #[root]
+        gtk::Box {
             set_orientation: gtk::Orientation::Horizontal,
             set_spacing: 10,
 
