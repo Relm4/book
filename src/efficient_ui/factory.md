@@ -78,7 +78,6 @@ Let's look at the associated types one by one:
 + **Input**: The input message type.
 + **Output**: The output message type.
 + **CommandOutput**: The command output message type, we don't need it here.
-+ **Widgets**: The name of the struct that stores out widgets, it will be created by the macro.
 + **ParentWidget**: The container widget used to store the widgets of the factory, for example `gtk::Box`.
 
 ### Creating the widget
