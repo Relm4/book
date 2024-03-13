@@ -169,7 +169,7 @@ impl SimpleComponent for App {
     // Initialize the UI.
     fn init(
         counter: Self::Init,
-        root: &Self::Root,
+        root: Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         // ANCHOR: output_to_parent

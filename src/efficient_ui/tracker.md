@@ -118,14 +118,15 @@ Now we reached the interesting part of the code where we can actually make use o
 {{#include ../../examples/tracker.rs:view }}
 ```
 
-The overall UI is pretty simple: A window that contains a box. This box itself has two boxes that display the two icons and the two buttons to update them.
+## The main function
 
-We also added some additional code in `init` that runs before the view is constructed. In our case, we want to add [custom CSS](https://docs.gtk.org/gtk4/css-properties.html) that sets the background color for elements with class name "identical".
+In this example, we need some additional code in `fn main()` to add [custom CSS](https://docs.gtk.org/gtk4/css-properties.html) that sets the background color for elements with class name "identical".
+Later, we just need to assign the "identical" class name to a widget to make it match the CSS selector.
+
 
 ```rust,no_run,noplayground
-{{#include ../../examples/tracker.rs:post_init }}
+{{#include ../../examples/tracker.rs:main }}
 ```
-
 
 ### The `#[track]` attribute
 
@@ -161,7 +162,7 @@ The second `#[track]` attribute works similarly:
 {{#include ../../examples/tracker.rs:track2 }}
 ```
 
-> **Debugging Helper**
+> **Using a tracker as debugging helper**
 >
 > Since the `#[track]` attribute parses expressions, you can use the following syntax to debug your trackers:
 >

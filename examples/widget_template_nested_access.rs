@@ -135,7 +135,7 @@ impl SimpleComponent for AppModel {
 
     fn init(
         _init_param: Self::Init,
-        root: &Self::Root,
+        root: Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         let model = Self {
