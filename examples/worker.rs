@@ -88,7 +88,7 @@ impl SimpleComponent for AppModel {
     }
 
     // ANCHOR: worker_construction
-    fn init(_: (), root: &Self::Root, sender: ComponentSender<Self>) -> ComponentParts<Self> {
+    fn init(_: (), root: Self::Root, sender: ComponentSender<Self>) -> ComponentParts<Self> {
         let model = AppModel {
             counter: 0,
             worker: AsyncHandler::builder()

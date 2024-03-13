@@ -55,7 +55,7 @@ impl SimpleComponent for AppModel {
     /// Initialize the UI and model.
     fn init(
         counter: Self::Init,
-        window: &Self::Root,
+        window: Self::Root,
         sender: ComponentSender<Self>,
     ) -> relm4::ComponentParts<Self> {
         let model = AppModel { counter };

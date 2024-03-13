@@ -34,3 +34,4 @@
   - [0.2 to 0.4](migrations/0_2_to_0_4.md)
   - [0.4 to 0.5](migrations/0_4_to_0_5.md)
   - [0.5 to 0.6](migrations/0_5_to_0_6.md)
+  - [0.6 to 0.7](migrations/0_6_to_0_7.md)

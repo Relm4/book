@@ -37,7 +37,7 @@ impl SimpleComponent for AppModel {
     }
 
     // Initialize the UI.
-    fn init(_: Self::Init, _: &Self::Root, _: ComponentSender<Self>) -> ComponentParts<Self> {
+    fn init(_: Self::Init, _: Self::Root, _: ComponentSender<Self>) -> ComponentParts<Self> {
         todo!()
     }
 

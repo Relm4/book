@@ -171,7 +171,7 @@ impl SimpleComponent for AppModel {
     // Initialize the UI.
     fn init(
         init: Self::Init,
-        renamed_root: &Self::Root,
+        renamed_root: Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         let counter = AppModel {

@@ -67,7 +67,7 @@ impl SimpleComponent for HeaderModel {
 
     fn init(
         _params: Self::Init,
-        root: &Self::Root,
+        root: Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         let model = HeaderModel;
@@ -127,7 +127,7 @@ impl SimpleComponent for DialogModel {
 
     fn init(
         params: Self::Init,
-        root: &Self::Root,
+        root: Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         let model = DialogModel { hidden: params };
@@ -191,7 +191,7 @@ impl SimpleComponent for AppModel {
             },
             connect_close_request[sender] => move |_| {
                 sender.input(AppMsg::CloseRequest);
-                gtk::Inhibit(true)
+                gtk::glib::Propagation::Stop
             }
         }
     }
@@ -200,7 +200,7 @@ impl SimpleComponent for AppModel {
     // ANCHOR: app_init
     fn init(
         params: Self::Init,
-        root: &Self::Root,
+        root: Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         // ANCHOR: forward
@@ -215,7 +215,7 @@ impl SimpleComponent for AppModel {
         // ANCHOR_END: forward
 
         let dialog = DialogModel::builder()
-            .transient_for(root)
+            .transient_for(&root)
             .launch(true)
             .forward(sender.input_sender(), |msg| match msg {
                 DialogOutput::Close => AppMsg::Close,

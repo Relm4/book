@@ -50,7 +50,7 @@ impl Component for CommandModel {
     }
 
     // Initialize the UI.
-    fn init(_: Self::Init, _: &Self::Root, _: ComponentSender<Self>) -> ComponentParts<Self> {
+    fn init(_: Self::Init, _: Self::Root, _: ComponentSender<Self>) -> ComponentParts<Self> {
         todo!()
     }
 
@@ -99,7 +99,7 @@ impl Component for SyncCommandModel {
     }
 
     // Initialize the UI.
-    fn init(_: Self::Init, _: &Self::Root, _: ComponentSender<Self>) -> ComponentParts<Self> {
+    fn init(_: Self::Init, _: Self::Root, _: ComponentSender<Self>) -> ComponentParts<Self> {
         todo!()
     }
 

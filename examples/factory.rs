@@ -35,14 +35,13 @@ impl FactoryComponent for Counter {
     type Input = CounterMsg;
     type Output = CounterOutput;
     type CommandOutput = ();
-    type Widgets = CounterWidgets;
-    type ParentInput = AppMsg;
     type ParentWidget = gtk::Box;
     // ANCHOR_END: factory_impl_start
 
     // ANCHOR: factory_view
     view! {
-        root = gtk::Box {
+        #[root]
+        gtk::Box {
             set_orientation: gtk::Orientation::Horizontal,
             set_spacing: 10,
 
@@ -69,7 +68,7 @@ impl FactoryComponent for Counter {
             gtk::Button {
                 set_label: "Up",
                 connect_clicked[sender, index] => move |_| {
-                    sender.output(CounterOutput::MoveUp(index.clone()))
+                    sender.output(CounterOutput::MoveUp(index.clone())).unwrap();
                 }
             },
 
@@ -77,7 +76,7 @@ impl FactoryComponent for Counter {
             gtk::Button {
                 set_label: "Down",
                 connect_clicked[sender, index] => move |_| {
-                    sender.output(CounterOutput::MoveDown(index.clone()))
+                    sender.output(CounterOutput::MoveDown(index.clone())).unwrap();
                 }
             },
 
@@ -85,22 +84,12 @@ impl FactoryComponent for Counter {
             gtk::Button {
                 set_label: "To Start",
                 connect_clicked[sender, index] => move |_| {
-                    sender.output(CounterOutput::SendFront(index.clone()))
+                    sender.output(CounterOutput::SendFront(index.clone())).unwrap();
                 }
             }
         }
     }
     // ANCHOR_END: factory_view
-
-    // ANCHOR: output_to_parent
-    fn forward_to_parent(output: Self::Output) -> Option<AppMsg> {
-        Some(match output {
-            CounterOutput::SendFront(index) => AppMsg::SendFront(index),
-            CounterOutput::MoveUp(index) => AppMsg::MoveUp(index),
-            CounterOutput::MoveDown(index) => AppMsg::MoveDown(index),
-        })
-    }
-    // ANCHOR_END: output_to_parent
 
     // ANCHOR: factory_init_model
     fn init_model(value: Self::Init, _index: &DynamicIndex, _sender: FactorySender<Self>) -> Self {
@@ -180,10 +169,19 @@ impl SimpleComponent for App {
     // Initialize the UI.
     fn init(
         counter: Self::Init,
-        root: &Self::Root,
+        root: Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
-        let counters = FactoryVecDeque::new(gtk::Box::default(), sender.input_sender());
+        // ANCHOR: output_to_parent
+        let counters = FactoryVecDeque::builder()
+            .launch(gtk::Box::default())
+            .forward(sender.input_sender(), |output| match output {
+                CounterOutput::SendFront(index) => AppMsg::SendFront(index),
+                CounterOutput::MoveUp(index) => AppMsg::MoveUp(index),
+                CounterOutput::MoveDown(index) => AppMsg::MoveDown(index),
+            });
+        // ANCHOR_END: output_to_parent
+
         let model = App {
             created_widgets: counter,
             counters,

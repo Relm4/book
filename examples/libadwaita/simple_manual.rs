@@ -40,7 +40,7 @@ impl SimpleComponent for AppModel {
 
     fn init(
         counter: Self::Init,
-        window: &Self::Root,
+        window: Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         let model = AppModel { counter };

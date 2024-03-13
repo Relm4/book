@@ -101,7 +101,7 @@ impl SimpleComponent for AppModel {
     // Initialize the UI.
     fn init(
         _params: Self::Init,
-        root: &Self::Root,
+        root: Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         // ANCHOR: model_init
@@ -113,12 +113,8 @@ impl SimpleComponent for AppModel {
         };
         // ANCHOR_END: model_init
 
-        // ANCHOR: post_init
-        relm4::set_global_css(".identical { background: #00ad5c; }");
-
         // Insert the macro code generation here
         let widgets = view_output!();
-        // ANCHOR_END: post_init
 
         ComponentParts { model, widgets }
     }
@@ -141,8 +137,11 @@ impl SimpleComponent for AppModel {
     // ANCHOR_END: update
 }
 
+// ANCHOR: main
 fn main() {
     let app = RelmApp::new("relm4.test.simple");
+    app.set_global_css(".identical { background: #00ad5c; }");
     app.run::<AppModel>(());
 }
+// ANCHOR_END: main
 // ANCHOR_END: all

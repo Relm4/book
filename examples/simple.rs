@@ -35,18 +35,14 @@ impl SimpleComponent for AppModel {
 
                 gtk::Button {
                     set_label: "Increment",
-                    connect_clicked[sender] => move |_| {
-                        sender.input(AppMsg::Increment);
-                    }
+                    connect_clicked => AppMsg::Increment
                 },
 
                 // ANCHOR: widget_assign_fn
                 gtk::Button::with_label("Decrement") {
                 // ANCHOR_END: widget_assign_fn
                 // ANCHOR: connect
-                    connect_clicked[sender] => move |_| {
-                        sender.input(AppMsg::Decrement);
-                    }
+                    connect_clicked => AppMsg::Decrement
                 // ANCHOR_END: connect
                 },
 
@@ -64,7 +60,7 @@ impl SimpleComponent for AppModel {
     // Initialize the UI.
     fn init(
         counter: Self::Init,
-        root: &Self::Root,
+        root: Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         let model = AppModel { counter };
