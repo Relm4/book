@@ -38,8 +38,8 @@ I also recommend reading the [gtk4-rs book](https://gtk-rs.org/gtk4-rs/git/book/
 Add the packages you need to your `Cargo.toml`:
 
 ```toml
-relm4 = "0.7.0"
-relm4-components = "0.7.0"
+relm4 = "0.8.0"
+relm4-components = "0.8.0"
 ```
 
 ## Issues and feedback
