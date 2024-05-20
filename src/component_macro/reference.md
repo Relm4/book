@@ -119,6 +119,7 @@ set_child: important_label = gtk::Label { ... }
 ### Conditional widgets
 
 The `view` macro allows you to include `if` and `match` statements for conditionally showing widgets.
+
 Internally, the macro will use a `gtk::Stack`, so you can also use different [transition types](https://gtk-rs.org/gtk4-rs/git/docs/gtk4/enum.StackTransitionType.html).
 
 ```rust,ignore
@@ -130,7 +131,9 @@ if model.value % 2 == 0 {
         set_label: "The value is odd",
     }
 }
+```
 
+```rust,ignore
 // Use a transition type to set an animation when the visible widget changes
 #[transition = "SlideRight"]
 match model.value {
@@ -146,6 +149,50 @@ match model.value {
     }
 }
 ```
+
+If your conditional widget uses a `match` statement over an enum, you can destructure the enum in the `match` arms to access its variables with the help of the `#[track]` or `#[watch]` macros:
+
+```rust,ignore
+enum Foo {
+    Bar(f32),
+    Baz(String),
+}
+
+struct FooView {
+    foo: Foo
+}
+
+impl Component for FooView {
+    type Init = Foo;
+
+    // snip
+
+    view! {
+        #[root]
+        gtk::Box {
+            append = match &model.foo {
+                Foo::Bar(num_value) => {
+                    gtk::SpinButton {
+                        // adding the `watch` macro lets you reference the destructured variables
+                        #[watch]
+                        set_value: num_value
+                    }
+                }
+                Foo::Baz(str_value) => {
+                    gtk::Label {
+                        #[watch]
+                        set_text: &str_value
+                    }
+                }
+            }
+        }
+    }
+
+    // snip
+}
+```
+
+Please note: if you attempt to destructure in the normal way - without the `track` or `watch` macros - you will get a compilation error, and Rust will 'fail to see' the destructured variables at the point where your code uses them. This is due to limitations in Relm4's component initialization strategy. Please ensure that you use one of those macros to avoid this.
 
 ### Returned widgets
 
