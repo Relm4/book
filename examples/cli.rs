@@ -56,7 +56,7 @@ fn main() {
     /* ANCHOR: main */
     let program_invocation = std::env::args().next().unwrap();
     let mut gtk_args = vec![program_invocation];
-    gtk_args.append(&mut args.gtk_options.clone());
+    gtk_args.extend(args.gtk_options.clone());
 
     let app = RelmApp::new("relm4.test.helloworld_cli");
     app.with_args(gtk_args).run::<AppModel>(());
