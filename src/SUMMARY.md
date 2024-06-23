@@ -25,6 +25,7 @@
 - [Child components](child_components.md)
 - [Widget templates](widget_templates/index.md)
   - [Accessing Nested Template Elements](widget_templates/accessing_nested_template_elements.md)
+- [Command Line Interfaces](cli.md)
 - [gtk-rs overview](gtk_rs.md)
 - [Resource Bundles](resource_bundles.md)
 - [Continuous Integration guide](continuous_integration.md)
