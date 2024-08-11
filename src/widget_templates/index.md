@@ -39,7 +39,7 @@ In general, naming a widget in a template is all that's needed to make it a temp
 To use templates in a component, we use the `#[template]` and `#[template_child]` attributes.
 In this case, we use the `CustomBox` type we just defined with the `#[template]` attribute we already used.
 To access its `child_label` template child, we only need to use the `#[template_child]` attribute and the name of the child.
-As you can see, we now have access to the `whild_label` widget, which actually is wrapped into 4 `gtk::Box` widgets.
+As you can see, we now have access to the `child_label` widget, which actually is wrapped into 4 `gtk::Box` widgets.
 We can even use assign or overwrite properties of the template and its children, similar to regular widgets.
 Here, we use the `#[watch]` attribute to update the label with the latest counter value.
 ```rust,no_run,noplayground
