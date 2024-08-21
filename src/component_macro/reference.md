@@ -211,6 +211,14 @@ gtk::Stack {
 }
 ```
 
+The returned widget can be named with the following syntax:
+
+```rust,ignore
+method = &Widget { ... } -> NAME: RETURNED_TYPE { ... }
+```
+
+and can be subsequently accessed via the Widgets struct.
+
 ## Properties
 
 Properties are initialized and mutated by calling methods within the widget types.
@@ -276,6 +284,18 @@ When connecting signals emitted by widgets you can clone fields that you need in
 
 ```rust,ignore
 connect_name[cloned_var1, cloned_var2, ...] => move |arg1, arg2, ...| { ... }
+```
+
+There is a shorthand for sending a message per event handlers like `ComponentSender` or `AsyncComponentSender`.
+
+```rust,ignore
+connect_clicked => AppMsg::Increase,
+```
+
+A member of a struct or the result of a method can also be used inside the closure by assigning it to a variable.
+
+```rust,ignore
+connect_name[sender = components.sender.clone()] => move |...| { ... }
 ```
 
 ### Blocking signals temporarily
