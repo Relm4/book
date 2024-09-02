@@ -72,12 +72,12 @@ Also, we often need a reference (`&`) because most methods in gtk-rs take refere
 
 ```rust,ignore
 gtk::HeaderBar {
-    pack_start: &gtk::Label {
+    pack_start = &gtk::Label {
         // ...
     }
 },
 gtk::Grid {
-    attach[0, 0, 1, 1]: &gtk::Label {
+    attach[0, 0, 1, 1] = &gtk::Label {
         // ...
     }
 }
