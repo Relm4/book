@@ -77,13 +77,21 @@ impl SimpleComponent for AppModel {
         vbox.append(&dec_button);
         vbox.append(&label);
 
-        inc_button.connect_clicked(clone!(@strong sender => move |_| {
-            sender.input(AppInput::Increment);
-        }));
+        inc_button.connect_clicked(clone!(
+            #[strong]
+            sender,
+            move |_| {
+                sender.input(Msg::Increment);
+            }
+        ));
 
-        dec_button.connect_clicked(clone!(@strong sender => move |_| {
-            sender.input(AppInput::Decrement);
-        }));
+        dec_button.connect_clicked(clone!(
+            #[strong]
+            sender,
+            move |_| {
+                sender.input(Msg::Decrement);
+            }
+        ));
 
         let widgets = AppWidgets { label };
 
