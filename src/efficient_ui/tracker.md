@@ -33,7 +33,7 @@ To check for changes you can call `{struct_var_name}.changed(StructName::{field_
 
 To reset all previous changes, you can call `{struct_var_name}.reset()`.
 
-## Example
+## A tracker example
 
 First we have to add the tracker library to `Cargo.toml`:
 ```toml
