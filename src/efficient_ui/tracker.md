@@ -37,7 +37,7 @@ To reset all previous changes, you can call `{struct_var_name}.reset()`.
 
 First we have to add the tracker library to `Cargo.toml`:
 ```toml
-tracker = "0.1"
+tracker = "0.2.2"
 ```
 
 Now let's have a look at a small example.
