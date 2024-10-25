@@ -11,7 +11,7 @@ struct AppModel {
 
 #[derive(Debug)]
 // ANCHOR: msg
-enum AppInput {
+enum AppMsg {
     Increment,
     Decrement,
 }
@@ -30,7 +30,7 @@ impl SimpleComponent for AppModel {
 
     // ANCHOR: constants
     /// The type of the messages that this component can receive.
-    type Input = AppInput;
+    type Input = AppMsg;
     /// The type of the messages that this component can send.
     type Output = ();
     /// The type of data with which this component will be initialized.
@@ -102,10 +102,10 @@ impl SimpleComponent for AppModel {
     // ANCHOR: update_function
     fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>) {
         match message {
-            AppInput::Increment => {
+            AppMsg::Increment => {
                 self.counter = self.counter.wrapping_add(1);
             }
-            AppInput::Decrement => {
+            AppMsg::Decrement => {
                 self.counter = self.counter.wrapping_sub(1);
             }
         }
