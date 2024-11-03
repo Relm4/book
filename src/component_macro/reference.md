@@ -219,6 +219,34 @@ method = &Widget { ... } -> NAME: RETURNED_TYPE { ... }
 
 and can be subsequently accessed via the Widgets struct.
 
+When returning a widget of a `FactoryComponent` for a `Stack`, the returned widget should be a `StackPage` assigned to the local ref `returned_widget`:
+
+```rust, ignore
+    view! {
+        #[root]
+        root = gtk::Box {
+            set_orientation: gtk::Orientation::Horizontal,
+            set_halign: gtk::Align::Center,
+            set_spacing: 10,
+            set_margin_all: 12,
+
+            #[name(label)]
+            gtk::Label {
+                set_use_markup: true,
+                #[watch]
+                set_label: &format!("<b>Counter value: {}</b>", self.value),
+                set_width_chars: 3,
+            },
+
+        },
+        #[local_ref]
+        returned_widget -> gtk::StackPage {
+            set_name: &self.name,
+            set_title: &self.name,
+        }
+    }
+```
+
 ## Properties
 
 Properties are initialized and mutated by calling methods within the widget types.
