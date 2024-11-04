@@ -219,7 +219,8 @@ method = &Widget { ... } -> NAME: RETURNED_TYPE { ... }
 
 and can be subsequently accessed via the Widgets struct.
 
-When returning a widget of a `FactoryComponent` for a `Stack`, the returned widget should be a `StackPage` assigned to the local ref `returned_widget`:
+In factories the returned widget is a parameter of the [`FactoryComponent::init_widgets()`](https://docs.rs/relm4/latest/relm4/factory/trait.FactoryComponent.html#tymethod.init_widgets) method.
+You can use the `#[local_ref]` attribute to access it in the view macro, for example when the factory widget is a  `Stack` which returns a `StackPage`:
 
 ```rust, ignore
     view! {
