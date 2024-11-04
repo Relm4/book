@@ -219,6 +219,35 @@ method = &Widget { ... } -> NAME: RETURNED_TYPE { ... }
 
 and can be subsequently accessed via the Widgets struct.
 
+In factories the returned widget is a parameter of the [`FactoryComponent::init_widgets()`](https://docs.rs/relm4/latest/relm4/factory/trait.FactoryComponent.html#tymethod.init_widgets) method.
+You can use the `#[local_ref]` attribute to access it in the view macro, for example when the factory widget is a  `Stack` which returns a `StackPage`:
+
+```rust, ignore
+    view! {
+        #[root]
+        root = gtk::Box {
+            set_orientation: gtk::Orientation::Horizontal,
+            set_halign: gtk::Align::Center,
+            set_spacing: 10,
+            set_margin_all: 12,
+
+            #[name(label)]
+            gtk::Label {
+                set_use_markup: true,
+                #[watch]
+                set_label: &format!("<b>Counter value: {}</b>", self.value),
+                set_width_chars: 3,
+            },
+
+        },
+        #[local_ref]
+        returned_widget -> gtk::StackPage {
+            set_name: &self.name,
+            set_title: &self.name,
+        }
+    }
+```
+
 ## Properties
 
 Properties are initialized and mutated by calling methods within the widget types.
