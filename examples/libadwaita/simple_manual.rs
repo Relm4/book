@@ -12,7 +12,7 @@ struct AppModel {
 
 // ANCHOR: msg
 #[derive(Debug)]
-enum AppInput {
+enum AppMsg {
     Increment,
     Decrement,
 }
@@ -26,7 +26,7 @@ struct AppWidgets {
 
 // ANCHOR: simple_component
 impl SimpleComponent for AppModel {
-    type Input = AppInput;
+    type Input = AppMsg;
     type Output = ();
 
     type Init = u8;
@@ -72,13 +72,21 @@ impl SimpleComponent for AppModel {
         vbox.append(&header);
         vbox.append(&content);
 
-        inc_button.connect_clicked(clone!(@strong sender => move |_| {
-            sender.input(AppInput::Increment);
-        }));
+        inc_button.connect_clicked(clone!(
+            #[strong]
+            sender,
+            move |_| {
+                sender.input(AppMsg::Increment);
+            }
+        ));
 
-        dec_button.connect_clicked(clone!(@strong sender => move |_| {
-            sender.input(AppInput::Decrement);
-        }));
+        dec_button.connect_clicked(clone!(
+            #[strong]
+            sender,
+            move |_| {
+                sender.input(AppMsg::Decrement);
+            }
+        ));
 
         let widgets = AppWidgets { label };
 
@@ -87,10 +95,10 @@ impl SimpleComponent for AppModel {
 
     fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>) {
         match message {
-            AppInput::Increment => {
+            AppMsg::Increment => {
                 self.counter = self.counter.wrapping_add(1);
             }
-            AppInput::Decrement => {
+            AppMsg::Decrement => {
                 self.counter = self.counter.wrapping_sub(1);
             }
         }
