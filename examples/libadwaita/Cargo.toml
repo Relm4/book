@@ -8,7 +8,7 @@ edition = "2021"
 
 [dev-dependencies]
 rand = "0.8.5"
-relm4 = { version = "0.8.0", features = ["libadwaita"] }
+relm4 = { version = "0.9.1", features = ["libadwaita"] }
 
 [[example]]
 name = "simple_manual"

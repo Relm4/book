@@ -17,6 +17,6 @@ members = [
 rand = "0.8.5"
 relm4 = "0.9.1"
 relm4-components = "0.9.1"
-tokio = { version = "1.40.0", features = ["rt", "macros", "time", "rt-multi-thread", "sync"] }
+tokio = { version = "1.41.0", features = ["rt", "macros", "time", "rt-multi-thread", "sync"] }
 tracker = "0.2.2"
-clap = { version = "4.5.7", features = ["derive"] }
+clap = { version = "4.5.20", features = ["derive"] }

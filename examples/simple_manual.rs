@@ -81,7 +81,7 @@ impl SimpleComponent for AppModel {
             #[strong]
             sender,
             move |_| {
-                sender.input(Msg::Increment);
+                sender.input(AppMsg::Increment);
             }
         ));
 
@@ -89,7 +89,7 @@ impl SimpleComponent for AppModel {
             #[strong]
             sender,
             move |_| {
-                sender.input(Msg::Decrement);
+                sender.input(AppMsg::Decrement);
             }
         ));
 

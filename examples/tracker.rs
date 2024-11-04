@@ -140,7 +140,7 @@ impl SimpleComponent for AppModel {
 // ANCHOR: main
 fn main() {
     let app = RelmApp::new("relm4.test.simple");
-    app.set_global_css(".identical { background: #00ad5c; }");
+    relm4::set_global_css(".identical { background: #00ad5c; }");
     app.run::<AppModel>(());
 }
 // ANCHOR_END: main
