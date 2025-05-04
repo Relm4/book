@@ -81,7 +81,7 @@ Let's build a simple app that shows two random icons and allows the user to set 
 
 ## The icons
 
-Before we can select random icons, we need to quickly implement a function that will return us random image names available in the default GTK icon theme.
+Before selecting random icons, we need implement two functions, one for return random image name from the default GTK icon theme, and another that makes sure that when the images are updated, their names are not repeated.
 
 ```rust,no_run,noplayground
 {{#include ../../examples/tracker.rs:icons }}
@@ -105,6 +105,8 @@ There are a few notable things for the `Component`'s `update` implementation.
 First, we call `self.reset()` at the top of the function body. This ensures that the tracker will be reset so we don't track old changes.
 
 Also, we use setters instead of assignments because we want to track these changes. Yet, you could still use the assignment operator if you want to apply changes without notifying the tracker.
+
+The `gen_unique_icon()` function ensures the new icon won't match the current one, preventing visually identical updates.
 
 ```rust,no_run,noplayground
 {{#include ../../examples/tracker.rs:update }}

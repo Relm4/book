@@ -22,6 +22,15 @@ fn random_icon_name() -> &'static str {
         .choose(&mut rand::thread_rng())
         .expect("Could not choose a random icon")
 }
+
+// Returns a random icon different from the excluded one (avoids repeats).
+fn gen_unique_icon(exclude: &'static str) -> &'static str {
+    let mut rnd = random_icon_name();
+    while rnd == exclude {
+        rnd = random_icon_name()
+    }
+    rnd
+}
 // ANCHOR_END: icons
 
 // The track proc macro allows to easily track changes to different
@@ -126,10 +135,10 @@ impl SimpleComponent for AppModel {
 
         match message {
             AppInput::UpdateFirst => {
-                self.set_first_icon(random_icon_name());
+                self.set_first_icon(gen_unique_icon(self.first_icon));
             }
             AppInput::UpdateSecond => {
-                self.set_second_icon(random_icon_name());
+                self.set_second_icon(gen_unique_icon(self.second_icon));
             }
         }
         self.set_identical(self.first_icon == self.second_icon);
