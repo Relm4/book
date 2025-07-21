@@ -8,7 +8,7 @@ We recommend to have at least a short look at this chapter, but there's no cruci
 ## Advanced view macro features
 
 Some features of the view macro are explained very late in the book and are easy to overlook.
-Here's a short summery of those features, which you might find useful.
+Here's a short summary of those features, which you might find useful.
 If you found something interesting, you can look for more details in the [macro reference chapter](./component_macro/reference.html).
 
 + Initialization using a builder pattern
