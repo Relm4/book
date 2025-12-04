@@ -10,7 +10,7 @@ enum Outbox {
 }
 ```
 
-We can modify our previous example for forward the emails to somebody else.
+We can modify our previous example to forward the emails to somebody else.
 
 ```rust,no_run,noplayground
 fn update(&mut self, message: Self::Input, sender: ComponentSender<Self>) {
