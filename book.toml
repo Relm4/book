@@ -1,7 +1,6 @@
 [book]
 authors = ["Aaron Erhardt"]
 language = "en"
-multilingual = false
 src = "src"
 title = "GUI development with Relm4"
 
