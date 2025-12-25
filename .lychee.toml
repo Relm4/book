@@ -1,0 +1,4 @@
+exclude_path = [
+    # Do not check links in mdbook generated font license files
+    "book/fonts/*LICENSE*.txt",
+]
