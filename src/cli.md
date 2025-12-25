@@ -8,7 +8,7 @@ To fix this you can use the [`with_args`](https://docs.rs/relm4/latest/relm4/str
 The easiest way is to just provide an empty `Vec` but this has the disadvantage that the standard GTK arguments don't work anymore.
 
 We will now make it work in combination with the popular [`clap`](https://docs.rs/clap/latest/clap/) crate.
-To be precise we will use the `derive` feature which you can learn about in the [`clap` documentation](https://docs.rs/clap/latest/clap/_derive/_tutorial/chapter_0/index.html) but it works with the builder pattern too of course.
+To be precise we will use the `derive` feature which you can learn about in the [`clap` documentation](https://docs.rs/clap/latest/clap/_derive/_tutorial/index.html) but it works with the builder pattern too of course.
 
 To pass a `Vec` of GTK arguments we need to separate the arguments we want to consume ourselves from those we want to pass to GTK.
 In `clap` you can achieve this using a combination of [`allow_hyphen_values`](https://docs.rs/clap/latest/clap/struct.Arg.html#method.allow_hyphen_values) and [`trailing_var_arg`](https://docs.rs/clap/latest/clap/struct.Arg.html#method.trailing_var_arg).
