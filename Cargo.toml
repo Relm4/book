@@ -4,6 +4,7 @@ authors = ["Aaron Erhardt <aaron.erhardt@t-online.de>"]
 edition = "2024"
 publish = false
 version = "0.0.0"
+rust-version = "1.92"
 
 readme = "README.md"
 license = "MIT"
