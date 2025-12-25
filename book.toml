@@ -5,7 +5,7 @@ src = "src"
 title = "GUI development with Relm4"
 
 [rust]
-edition = "2021"
+edition = "2024"
 
 [output.html]
 git-repository-url = "https://github.com/Relm4/book"

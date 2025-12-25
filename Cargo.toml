@@ -1,7 +1,7 @@
 [package]
 name = "book-examples"
 authors = ["Aaron Erhardt <aaron.erhardt@t-online.de>"]
-edition = "2021"
+edition = "2024"
 publish = false
 version = "0.0.0"
 
