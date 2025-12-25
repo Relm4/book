@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use relm4::{Component, ComponentParts, ComponentSender};
 use std::time::Duration;
 

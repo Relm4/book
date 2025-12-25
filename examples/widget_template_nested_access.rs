@@ -1,6 +1,6 @@
 // ANCHOR: all
 use gtk::prelude::{BoxExt, ButtonExt, GtkWindowExt, OrientableExt};
-use relm4::{gtk, ComponentParts, ComponentSender, RelmWidgetExt, SimpleComponent, WidgetTemplate};
+use relm4::{gtk, ComponentParts, ComponentSender, RelmApp, RelmWidgetExt, SimpleComponent, WidgetTemplate};
 
 // ANCHOR: home_page_template
 #[relm4::widget_template]
@@ -162,5 +162,8 @@ impl SimpleComponent for AppModel {
     }
 }
 
-fn main() {}
+fn main() {
+    let relm = RelmApp::new("relm4.test.widget_template_nested_access");
+    relm.run::<AppModel>(());
+}
 // ANCHOR_END: all
