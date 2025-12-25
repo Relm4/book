@@ -10,4 +10,4 @@ edition = "2021"
 [output.html]
 git-repository-url = "https://github.com/Relm4/book"
 edit-url-template = "https://github.com/Relm4/book/edit/main/{path}"
-git-repository-icon = "fa-github"
+git-repository-icon = "fab-github"
