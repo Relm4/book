@@ -43,8 +43,12 @@ jobs:
       - name: Link Checker
         uses: lycheeverse/lychee-action@v2.7.0
         with:
-          args: book
+          args: >
+            --root-dir ${{ github.workspace }}
+            --exclude-path "book/fonts/.*LICENSE.*\\.txt$"
+            book
           fail: true
+          lycheeVersion: 'v0.22.0'
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
