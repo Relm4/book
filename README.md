@@ -1,6 +1,6 @@
 # A book about GUI development with Relm4
 
-[![Check Links](https://github.com/Relm4/book/actions/workflows/links.yml/badge.svg)](https://github.com/Relm4/book/actions/workflows/links.yml)
+[![Check Links/CI/Deploy](https://github.com/Relm4/book/actions/workflows/book.yml/badge.svg)](https://github.com/Relm4/book/actions/workflows/book.yml)
 
 + stable: https://relm4.org/book/stable
 + development ("next" branch): https://relm4.org/book/next
