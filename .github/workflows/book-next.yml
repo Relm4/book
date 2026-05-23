@@ -41,7 +41,7 @@ jobs:
         working-directory: ./
 
       - name: Link Checker
-        uses: lycheeverse/lychee-action@v2.7.0
+        uses: lycheeverse/lychee-action@v2.8.0
         with:
           args: >
             --root-dir ${{ github.workspace }}
