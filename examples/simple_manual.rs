@@ -9,8 +9,8 @@ struct AppModel {
 }
 // ANCHOR_END: model
 
-#[derive(Debug)]
 // ANCHOR: msg
+#[derive(Debug)]
 enum AppMsg {
     Increment,
     Decrement,
